@@ -1,0 +1,55 @@
+.skeleton-play__album,
+.skeleton-play__author {
+  width: 59px;
+  height: 15px;
+}
+
+.skeleton-play__image {
+  width: 51px;
+  height: 51px;
+  margin-right: 12px;
+  grid-area: image;
+}
+
+.skeleton-play__author,
+.skeleton-play__album,
+.skeleton-play__image {
+  background-color: #313131;
+  animation: blink 1s infinite alternate;
+}
+
+/* попытки создать див со скелетом
+
+ .skeleton-play {
+    --color: rgb(313131, 313131, 313131);
+    background-repeat: no-repeat;
+    height: 51px;
+    width: 51px;
+    
+    background-image: 
+      linear-gradient(var(--color) 51px, transparent 0),
+      linear-gradient(var(--color) 59px, transparent 0),
+      linear-gradient(var(--color) 59px, transparent 0);
+  
+    background-size: 
+      51px 51px,
+      59px 15px,
+      59px 15px;
+  
+    background-position: 
+      2px 2px, 
+      2px 2px,
+      2px 2px;
+    
+    animation: blink 1s infinite alternate;
+  }*/
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.2;
+  }
+}
