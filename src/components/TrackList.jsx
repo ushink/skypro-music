@@ -1,7 +1,7 @@
 import "./TrackList.css";
 import PlaylistContent from "./TracklistContent.jsx";
 
-export default function MainTracklist() {
+export default function MainTracklist({isLoaded}) {
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
@@ -35,7 +35,7 @@ export default function MainTracklist() {
             </svg>
           </div>
         </div>
-        <PlaylistContent />
+        <PlaylistContent isLoaded={isLoaded}/> 
       </div>
     </div>
   );
