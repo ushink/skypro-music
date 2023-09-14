@@ -1,8 +1,9 @@
 import "./AudioPlayer.css";
 import PlayerControlBtn from "./PlayerControls.jsx";
 import TrackPlayNow from "./TrackPlay.jsx";
+import SkeletonTrackPlayNow from "./skeleton/SkeletonAudioPlayer.jsx";
 
-export default function BarPlayer() {
+export default function BarPlayer({isLoaded}) {
   return (
     <div className="bar">
       <div className="bar__content">
@@ -11,7 +12,8 @@ export default function BarPlayer() {
           <div className="bar__player player">
             <PlayerControlBtn />
             <div className="player__track-play track-play">
-              <TrackPlayNow />
+            {isLoaded?(<TrackPlayNow/>):( <SkeletonTrackPlayNow/>)}
+  
               <div className="track-play__like-dis">
                 <div className="track-play__like _btn-icon">
                   <svg className="track-play__like-svg" alt="like">
