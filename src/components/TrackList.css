@@ -35,6 +35,7 @@
     -ms-flex-align: center;
     align-items: center;
     margin-bottom: 51px;
+    column-gap: 10px
   }
   
   .centerblock__content {
