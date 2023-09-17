@@ -31,34 +31,68 @@ export default function Filter() {
     <div className="centerblock__filter filter">
       <div className="filter__title">Искать по:</div>
 
-      <div className="filter__box">
-        <div
-          className="filter__button button-author _btn-text"
-          onClick={toggleRevealAuthor}
-        >
-          исполнителю
+      {revealAuthor ? (
+        <div className="filter__box">
+          <div
+            className="filter__button button-author _btn-text_focus"
+            onClick={toggleRevealAuthor}
+          >
+            исполнителю
+          </div>
+          <ShowAuthors />
         </div>
-        {revealAuthor && <ShowAuthors />}
-      </div>
+      ) : (
+        <div className="filter__box">
+          <div
+            className="filter__button button-author _btn-text"
+            onClick={toggleRevealAuthor}
+          >
+            исполнителю
+          </div>
+        </div>
+      )}
 
-      <div className="filter__box">
-        <div
-          className="filter__button button-year _btn-text"
-          onClick={toggleRevealYear}
-        >
-          году выпуска
+      {revealYear ? (
+        <div className="filter__box">
+          <div
+            className="filter__button button-year _btn-text_focus"
+            onClick={toggleRevealYear}
+          >
+            году выпуска
+          </div>
+          <ShowYears />
         </div>
-        {revealYear && <ShowYears />}
-      </div>
-      <div className="filter__box">
-        <div
-          className="filter__button button-genre _btn-text"
-          onClick={toggleRevealGenre}
-        >
-          жанру
+      ) : (
+        <div className="filter__box">
+          <div
+            className="filter__button button-year _btn-text"
+            onClick={toggleRevealYear}
+          >
+            году выпуска
+          </div>
         </div>
-        {revealGenre && <ShowGenres />}
-      </div>
+      )}
+
+      {revealGenre ? (
+        <div className="filter__box">
+          <div
+            className="filter__button button-genre _btn-text_focus"
+            onClick={toggleRevealGenre}
+          >
+            жанру
+          </div>
+          <ShowGenres />
+        </div>
+      ) : (
+        <div className="filter__box">
+          <div
+            className="filter__button button-genre _btn-text"
+            onClick={toggleRevealGenre}
+          >
+            жанру
+          </div>
+        </div>
+      )}
     </div>
   );
 }
