@@ -1,8 +1,8 @@
 import "./TrackList.css";
-import PlaylistContent from "./TracklistContent.jsx";
-import Filter from "./TrackFilter.jsx";
+import PlaylistContent from "../TracklistContent.jsx";
+import Filter from "../TrackFilter/TrackFilter.jsx";
 
-export default function MainTracklist({isLoaded}) {
+export default function MainTracklist({ isLoaded }) {
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
@@ -17,7 +17,7 @@ export default function MainTracklist({isLoaded}) {
         />
       </div>
       <h2 className="centerblock__h2">Треки</h2>
-      <Filter/>
+      <Filter />
       <div className="centerblock__content">
         <div className="content__title playlist-title">
           <div className="playlist-title__col col01">Трек</div>
@@ -29,7 +29,7 @@ export default function MainTracklist({isLoaded}) {
             </svg>
           </div>
         </div>
-        <PlaylistContent isLoaded={isLoaded}/> 
+        <PlaylistContent isLoaded={isLoaded} />
       </div>
     </div>
   );

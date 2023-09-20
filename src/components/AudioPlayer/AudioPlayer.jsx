@@ -1,7 +1,7 @@
 import "./AudioPlayer.css";
-import PlayerControlBtn from "./PlayerControls.jsx";
-import TrackPlayNow from "./TrackPlay.jsx";
-import SkeletonTrackPlayNow from "./skeleton/SkeletonAudioPlayer.jsx";
+import PlayerControlBtn from "../PlayerControls.jsx";
+import TrackPlayNow from "../TrackPlay.jsx";
+import SkeletonTrackPlayNow from "../skeleton/SkeletonAudioPlayer.jsx";
 
 export default function BarPlayer({isLoaded}) {
   return (

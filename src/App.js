@@ -1,9 +1,9 @@
 import "./App.css";
-import { useState, useEffect } from 'react'
-import MainNav from "./components/NavMenu.jsx";
-import MainTracklist from "./components/TrackList.jsx";
-import MainSidebar from "./components/Sidebar.jsx";
-import BarPlayer from "./components/AudioPlayer.jsx";
+import { useState, useEffect } from "react";
+import MainNav from "./components/NavMenu/NavMenu.jsx";
+import MainTracklist from "./components/TrackList/TrackList.jsx";
+import MainSidebar from "./components/Sidebar/Sidebar.jsx";
+import BarPlayer from "./components/AudioPlayer/AudioPlayer.jsx";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,7 +14,7 @@ function App() {
         setIsLoaded(true);
       }, 5000);
 
-      return () => clearTimeout(timeout); 
+      return () => clearTimeout(timeout);
     }
   }, [isLoaded]);
 
@@ -23,13 +23,13 @@ function App() {
       <div className="container">
         <main className="main">
           <MainNav />
-          <MainTracklist isLoaded={isLoaded}/>
-          <MainSidebar isLoaded={isLoaded}/>
+          <MainTracklist isLoaded={isLoaded} />
+          <MainSidebar isLoaded={isLoaded} />
         </main>
-        <BarPlayer isLoaded={isLoaded}/>
+        <BarPlayer isLoaded={isLoaded} />
         <footer className="footer"></footer>
       </div>
-  </div>
+    </div>
   );
 }
 

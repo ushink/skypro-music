@@ -1,5 +1,5 @@
 import "./NavMenu.css";
-import ShowMenu from "./NavShowMenu.jsx";
+import ShowMenu from "../NavShowMenu.jsx";
 import { useState } from "react";
 
 export default function MainNav() {

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./TrackFilter.css";
-import ShowAuthors from "./TracksLibrary/Authors.jsx";
-import ShowYears from "./TracksLibrary/Years.jsx";
-import ShowGenres from "./TracksLibrary/Genres.jsx";
+import ShowAuthors from "../TracksLibrary/Authors.jsx";
+import ShowYears from "../TracksLibrary/Years.jsx";
+import ShowGenres from "../TracksLibrary/Genres.jsx";
 
 export default function Filter() {
   const [revealAuthor, setRevealAuthor] = useState(false);

@@ -1,6 +1,6 @@
 import "./Sidebar.css";
-import SidebarList from "./SidebarListContent.jsx";
-import SkeletonSidebarList from "./skeleton/SkeletonSidebar.jsx";
+import SidebarList from "../SidebarListContent.jsx";
+import SkeletonSidebarList from "../skeleton/SkeletonSidebar.jsx";
 
 export default function MainSidebar({ isLoaded }) {
   return (
