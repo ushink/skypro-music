@@ -1,6 +1,6 @@
-import "./NavMenu.css";
-import ShowMenu from "../NavShowMenu.jsx";
+import ShowMenu from "../NavShowMenu/NavShowMenu.jsx";
 import { useState } from "react";
+import * as S from "./NavMenu.styles.js"
 
 export default function MainNav() {
   const [visible, setVisible] = useState(false);
@@ -8,16 +8,18 @@ export default function MainNav() {
   const toggleVisibility = () => setVisible(!visible);
 
   return (
-    <nav className="main__nav nav">
-      <div className="nav__logo logo">
-        <img className="logo__image" src="img/logo.png" alt="logo" />
-      </div>
-      <div className="nav__burger burger" onClick={toggleVisibility}>
-        <span className="burger__line"></span>
-        <span className="burger__line"></span>
-        <span className="burger__line"></span>
-      </div>
+    <S.MainNav>
+      <S.NavLogo>
+        <S.LogoImg src="img/logo.png" alt="logo" />
+      </S.NavLogo>
+      <S.NavBurger
+        onClick={toggleVisibility}
+      >
+        <S.BurgerLine></S.BurgerLine>
+        <S.BurgerLine></S.BurgerLine>
+        <S.BurgerLine></S.BurgerLine>
+      </S.NavBurger>
       {visible && <ShowMenu />}
-    </nav>
+    </S.MainNav>
   );
 }
