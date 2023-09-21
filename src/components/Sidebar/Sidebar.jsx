@@ -1,21 +1,21 @@
-import "./Sidebar.css";
-import SidebarList from "../SidebarListContent.jsx";
+import SidebarList from "../SidebarListContent/SidebarListContent.jsx";
 import SkeletonSidebarList from "../skeleton/SkeletonSidebar.jsx";
+import * as S from "./Sidebar.styles.js";
 
 export default function MainSidebar({ isLoaded }) {
   return (
-    <div className="main__sidebar sidebar">
-      <div className="sidebar__personal">
-        <p className="sidebar__personal-name">Sergey.Ivanov</p>
-        <div className="sidebar__icon">
+    <S.MainSidebar>
+      <S.SidebarPersonal>
+        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
           </svg>
-        </div>
-      </div>
-      <div className="sidebar__block">
+        </S.SidebarIcon>
+      </S.SidebarPersonal>
+      <S.SidebarBlock>
         {isLoaded ? <SidebarList /> : <SkeletonSidebarList />}
-      </div>
-    </div>
+      </S.SidebarBlock>
+    </S.MainSidebar>
   );
 }

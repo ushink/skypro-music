@@ -1,7 +1,9 @@
+import * as S from "./SidebarListContent.styles.js";
+
 export default function SidebarList() {
   return (
-    <div className="sidebar__list">
-      <div className="sidebar__item">
+    <S.SidebarList>
+      <S.SidebarItem>
         <a className="sidebar__link" href="#">
           <img
             className="sidebar__img"
@@ -9,17 +11,13 @@ export default function SidebarList() {
             alt="day's playlist"
           />
         </a>
-      </div>
-      <div className="sidebar__item">
-        <a className="sidebar__link" href="#">
-          <img
-            className="sidebar__img"
-            src="img/playlist02.png"
-            alt="day's playlist"
-          />
-        </a>
-      </div>
-      <div className="sidebar__item">
+      </S.SidebarItem>
+      <S.SidebarItem>
+        <S.SidebarLink href="#">
+          <S.SidebarImg src="img/playlist02.png" alt="day's playlist" />
+        </S.SidebarLink>
+      </S.SidebarItem>
+      <S.SidebarItem>
         <a className="sidebar__link" href="#">
           <img
             className="sidebar__img"
@@ -27,7 +25,7 @@ export default function SidebarList() {
             alt="day's playlist"
           />
         </a>
-      </div>
-    </div>
+      </S.SidebarItem>
+    </S.SidebarList>
   );
 }
