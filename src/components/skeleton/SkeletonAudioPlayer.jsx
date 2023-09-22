@@ -1,11 +1,12 @@
-import "./SkeletonAudioPlayer.css";
+import * as Style from "./Skeletons.styles.js";
+import * as S from "../TrackPlay/TrackPlay.styled.js";
 
 export default function SkeletonTrackPlayNow() {
-    return (
-      <div className="track-play__contain">
-        <div className="skeleton-play__image"></div>
-        <div className="skeleton-play__author"></div>
-        <div className="skeleton-play__album"></div>
-      </div>
-    );
-  }
+  return (
+    <S.TrackPlayContain>
+      <Style.SkeletPlayImage></Style.SkeletPlayImage>
+      <Style.SkeletPlayAuthor></Style.SkeletPlayAuthor>
+      <Style.SkeletPlayAlbum></Style.SkeletPlayAlbum>
+    </S.TrackPlayContain>
+  );
+}

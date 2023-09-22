@@ -1,11 +1,12 @@
-import "./SkeletonSidebar.css";
+import * as Style from "./Skeletons.styles.js";
+import * as S from "../SidebarListContent/SidebarListContent.styles.js"
 
 export default function SkeletonSidebarList() {
   return (
-    <div className="sidebar__list">
-      <div className="skelet-sidebar__item"></div>
-      <div className="skelet-sidebar__item"></div>
-      <div className="skelet-sidebar__item"></div>
-    </div>
+    <S.SidebarList>
+      <Style.SkeletSidebarItem></Style.SkeletSidebarItem>
+      <Style.SkeletSidebarItem></Style.SkeletSidebarItem>
+      <Style.SkeletSidebarItem></Style.SkeletSidebarItem>
+    </S.SidebarList>
   );
 }
