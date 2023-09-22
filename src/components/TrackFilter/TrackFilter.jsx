@@ -1,8 +1,7 @@
 import { useState } from "react";
-import "./TrackFilter.css";
-import ShowAuthors from "../TracksLibrary/Authors.jsx";
-import ShowYears from "../TracksLibrary/Years.jsx";
-import ShowGenres from "../TracksLibrary/Genres.jsx";
+import ShowAuthors from "../FilterMenu/Authors.jsx";
+import ShowYears from "../FilterMenu/Years.jsx";
+import ShowGenres from "../FilterMenu/Genres.jsx";
 import * as S from "./TrackFilter.styles.js"
 
 export default function Filter() {

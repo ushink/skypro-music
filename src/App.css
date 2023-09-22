@@ -83,6 +83,12 @@ body {
   cursor: pointer;
 }
 
+._btn-text_focus {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
+
 ._btn-icon:active .track-play__like-svg,
 ._btn-icon:active .track-play__dislike-svg {
   fill: #696969;

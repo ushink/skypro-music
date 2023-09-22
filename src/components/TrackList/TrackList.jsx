@@ -1,4 +1,3 @@
-import "./TrackList.css";
 import PlaylistContent from "../TrackListContent/TracklistContent.jsx";
 import Filter from "../TrackFilter/TrackFilter.jsx";
 import * as S from "./TrackList.styles.js";
