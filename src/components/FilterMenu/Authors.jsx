@@ -1,3 +1,5 @@
+import * as S from "./FilterMenu.styles.js";
+
 const Authors = [
   "Nero",
   "Tom Boxer",
@@ -9,16 +11,14 @@ const Authors = [
 ];
 const list = Authors.map((Author) => (
   <li>
-    <a href="#" className="filter__list-item">
-      {Author}
-    </a>
+    <S.FilterListItem href="#">{Author}</S.FilterListItem>
   </li>
 ));
 
 export default function ShowAuthors() {
   return (
-    <div className="filter__menu">
-      <ul className="filter__list">{list}</ul>
-    </div>
+    <S.FilterMenu>
+      <S.FilterList>{list}</S.FilterList>
+    </S.FilterMenu>
   );
 }

@@ -1,3 +1,5 @@
+import * as S from "./FilterMenu.styles.js";
+
 const Years = [
   "1997",
   "1986",
@@ -14,16 +16,14 @@ const Years = [
 ];
 const list = Years.map((Year) => (
   <li>
-    <a href="#" className="filter__list-item">
-      {Year}
-    </a>
+    <S.FilterListItem href="#">{Year}</S.FilterListItem>
   </li>
 ));
 
 export default function ShowYears() {
   return (
-    <div className="filter__menu">
-      <ul className="filter__list">{list}</ul>
-    </div>
+    <S.FilterMenu>
+      <S.FilterList>{list}</S.FilterList>
+    </S.FilterMenu>
   );
 }
