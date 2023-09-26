@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const AppGlobal = createGlobalStyle`
-* {
+ * {
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
