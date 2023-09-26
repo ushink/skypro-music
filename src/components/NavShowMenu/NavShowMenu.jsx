@@ -1,23 +1,24 @@
-import * as S from "./NavShowMenu.styles.js"
+import * as S from "./NavShowMenu.styles.js";
+import { Link } from "react-router-dom";
 
 export default function ShowMenu() {
   return (
     <S.NavMenu>
       <S.MenuList>
         <S.MenuItem>
-          <S.MenuLink href="#">
-            Главное
-          </S.MenuLink>
+          <Link to="/">
+            <S.MenuLink href="#">Главное</S.MenuLink>
+          </Link>
         </S.MenuItem>
         <S.MenuItem>
-          <S.MenuLink href="#">
-            Мой плейлист
-          </S.MenuLink>
+          <Link to="/playlist">
+            <S.MenuLink href="#">Мой плейлист</S.MenuLink>
+          </Link>
         </S.MenuItem>
         <S.MenuItem>
-          <S.MenuLink href="../signin.html">
-            Войти
-          </S.MenuLink>
+          <Link>
+            <S.MenuLink href="../signin.html">Войти</S.MenuLink>
+          </Link>
         </S.MenuItem>
       </S.MenuList>
     </S.NavMenu>
