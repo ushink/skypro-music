@@ -11,7 +11,7 @@ export default function ShowMenu() {
           </Link>
         </S.MenuItem>
         <S.MenuItem>
-          <Link to="/playlist">
+          <Link to="/favorites">
             <S.MenuLink href="#">Мой плейлист</S.MenuLink>
           </Link>
         </S.MenuItem>
