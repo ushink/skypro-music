@@ -4,12 +4,14 @@ import { NotFound } from "./pages/404";
 import { Main } from "./pages/main";
 import { Category } from "./pages/categories";
 import { Login } from "./pages/login";
+import { Register } from "./pages/register";
 import { ProtectedRoute } from "./components/protected-route";
 
-export const AppRoutes = (user) => {
+export const AppRoutes = ({user}) => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
         <Route path="/" element={<Main />} />
