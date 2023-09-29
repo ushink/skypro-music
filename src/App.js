@@ -3,12 +3,12 @@ import { AppRoutes } from "./routes";
 import { useState } from "react";
 
 function App() {
-  const [user] = useState(false);
+  // const [user] = useState(null);
 
   return (
     <>
       <AppGlobal />
-      <AppRoutes user={user} />
+      <AppRoutes user={localStorage.getItem('user')} />
     </>
   );
 }
