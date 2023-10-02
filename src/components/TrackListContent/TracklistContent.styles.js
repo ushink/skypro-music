@@ -51,6 +51,10 @@ export const PlaylistItem = styled.li`
   width: 100%;
   display: block;
   margin-bottom: 12px;
+
+  &:hover {
+    background-color: #313131;
+  }
 `;
 
 export const PlaylistTrack = styled.div`
