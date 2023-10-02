@@ -1,19 +1,8 @@
 import * as S from "./TracklistContent.styles.js";
-import { useEffect, useState } from "react";
-import { getTodos } from "../../api.js";
 
-export default function PlaylistContent({ isLoaded }) {
-  const [tracks, setTracks] = useState([""]);
-
-  useEffect(() => {
-    getTodos().then((todos) => {
-      //console.log(todos);
-      setTracks(todos);
-    });
-  }, []);
-
+export default function PlaylistContent({ handleTodoClick, tracks, isLoaded }) {
   const TrackItems = tracks.map((track) => (
-    <S.PlaylistItem key={track.id}>
+    <S.PlaylistItem onClick={() => handleTodoClick(track)} key={track.id}>
       <S.PlaylistTrack>
         <S.TrackTitle>
           {isLoaded ? (
