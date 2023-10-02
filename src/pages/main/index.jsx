@@ -8,6 +8,9 @@ import { getTodos } from "../../api.js";
 
 export const Main = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [tracks, setTracks] = useState([]);
+  const [currentTodo, setCurrentTodo] = useState(null);
+  const [addTodoError, setAddTodoError] = useState(null);
 
   useEffect(() => {
     if (!isLoaded) {
@@ -19,15 +22,19 @@ export const Main = () => {
     }
   }, [isLoaded]);
 
-  const [tracks, setTracks] = useState([]);
-
   useEffect(() => {
-    getTodos().then((todos) => {
-      setTracks(todos);
-    });
+    async function fetchTracks() {
+      try {
+        await getTodos().then((todos) => {
+          setTracks(todos);
+        });
+        setAddTodoError(false);
+      } catch (error) {
+        setAddTodoError(error.message);
+      }
+    }
+    fetchTracks();
   }, []);
-
-  const [currentTodo, setCurrentTodo] = useState(null);
 
   const handleTodoClick = (track) => {
     setCurrentTodo(track);
@@ -43,6 +50,7 @@ export const Main = () => {
               isLoaded={isLoaded}
               tracks={tracks}
               handleTodoClick={handleTodoClick}
+              addTodoError={addTodoError}
             />
             <MainSidebar isLoaded={isLoaded} />
           </S.Main>

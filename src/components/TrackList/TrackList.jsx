@@ -2,7 +2,12 @@ import PlaylistContent from "../TrackListContent/TracklistContent.jsx";
 import Filter from "../TrackFilter/TrackFilter.jsx";
 import * as S from "./TrackList.styles.js";
 
-export default function MainTracklist({ tracks, isLoaded, handleTodoClick }) {
+export default function MainTracklist({
+  tracks,
+  isLoaded,
+  handleTodoClick,
+  addTodoError,
+}) {
   return (
     <S.MainCenterblock>
       <S.CenterblockSearch>
@@ -32,11 +37,15 @@ export default function MainTracklist({ tracks, isLoaded, handleTodoClick }) {
             </S.Col04>
           </S.PlaylistTitleCol>
         </S.ContentTitle>
-        <PlaylistContent
-          isLoaded={isLoaded}
-          tracks={tracks}
-          handleTodoClick={handleTodoClick}
-        />
+        {addTodoError ? (
+          `Не удалось загрузить плейлист, попробуйте позже. ${addTodoError}`
+        ) : (
+          <PlaylistContent
+            isLoaded={isLoaded}
+            tracks={tracks}
+            handleTodoClick={handleTodoClick}
+          />
+        )}
       </S.CenterblockContent>
     </S.MainCenterblock>
   );
