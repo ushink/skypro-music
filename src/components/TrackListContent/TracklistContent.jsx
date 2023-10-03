@@ -39,7 +39,16 @@ export default function PlaylistContent({
             <S.TrackTimeSvg alt="time">
               <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
             </S.TrackTimeSvg>
-            <S.TrackTimeText>{track.duration_in_seconds}</S.TrackTimeText>
+            <S.TrackTimeText>
+              {Math.floor(track.duration_in_seconds / 60) +
+                ":" +
+                (track.duration_in_seconds % 60 < 10
+                  ? (track.duration_in_seconds % 60) + "0"
+                  : track.duration_in_seconds % 60) ||
+                (track.duration_in_seconds % 60 === 0
+                  ? "00"
+                  : track.duration_in_seconds % 60)}
+            </S.TrackTimeText>
           </S.TrackTime>
         </S.PlaylistTrack>
       )}
