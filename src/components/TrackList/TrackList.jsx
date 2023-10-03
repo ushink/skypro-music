@@ -2,7 +2,12 @@ import PlaylistContent from "../TrackListContent/TracklistContent.jsx";
 import Filter from "../TrackFilter/TrackFilter.jsx";
 import * as S from "./TrackList.styles.js";
 
-export default function MainTracklist({ isLoaded }) {
+export default function MainTracklist({
+  tracks,
+  isLoaded,
+  handleTrackClick,
+  addTrackError,
+}) {
   return (
     <S.MainCenterblock>
       <S.CenterblockSearch>
@@ -32,7 +37,15 @@ export default function MainTracklist({ isLoaded }) {
             </S.Col04>
           </S.PlaylistTitleCol>
         </S.ContentTitle>
-        <PlaylistContent isLoaded={isLoaded} />
+        {addTrackError ? (
+          `Не удалось загрузить плейлист, попробуйте позже. ${addTrackError}`
+        ) : (
+          <PlaylistContent
+            isLoaded={isLoaded}
+            tracks={tracks}
+            handleTrackClick={handleTrackClick}
+          />
+        )}
       </S.CenterblockContent>
     </S.MainCenterblock>
   );

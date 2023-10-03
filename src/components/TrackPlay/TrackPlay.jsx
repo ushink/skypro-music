@@ -1,6 +1,6 @@
-import * as S from "./TrackPlay.styled.js"
+import * as S from "./TrackPlay.styled.js";
 
-export default function TrackPlayNow() {
+export default function TrackPlayNow({ currentTrack }) {
   return (
     <S.TrackPlayContain>
       <S.TrackPlayImage>
@@ -9,10 +9,14 @@ export default function TrackPlayNow() {
         </S.TrackPlaySvg>
       </S.TrackPlayImage>
       <S.TrackPlayAuthor>
-        <S.TrackPlayAuthorLink href="http://">Ты та...</S.TrackPlayAuthorLink>
+        <S.TrackPlayAuthorLink href="http://">
+          {currentTrack.author}
+        </S.TrackPlayAuthorLink>
       </S.TrackPlayAuthor>
       <S.TrackPlayAlbum>
-        <S.TrackPlayAlbumLink href="http://">Баста</S.TrackPlayAlbumLink>
+        <S.TrackPlayAlbumLink href="http://">
+          {currentTrack.album}
+        </S.TrackPlayAlbumLink>
       </S.TrackPlayAlbum>
     </S.TrackPlayContain>
   );

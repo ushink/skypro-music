@@ -1,43 +1,59 @@
-import SkeletonTrackItems from "../skeleton/SkeletonPlayList.jsx";
-import TrackItem1 from "../TracksLibrary/item1.jsx";
-import TrackItem2 from "../TracksLibrary/item2.jsx";
-import TrackItem3 from "../TracksLibrary/item3.jsx";
-import TrackItem4 from "../TracksLibrary/item4.jsx";
-import TrackItem5 from "../TracksLibrary/item5.jsx";
-import TrackItem6 from "../TracksLibrary/item6.jsx";
-import TrackItem7 from "../TracksLibrary/item7.jsx";
-import TrackItem8 from "../TracksLibrary/item8.jsx";
-import TrackItem9 from "../TracksLibrary/item9.jsx";
-import TrackItem10 from "../TracksLibrary/item10.jsx";
-import TrackItem11 from "../TracksLibrary/item11.jsx";
-import TrackItem12 from "../TracksLibrary/item12.jsx";
-import TrackItem13 from "../TracksLibrary/item13.jsx";
-import TrackItem14 from "../TracksLibrary/item14.jsx";
-import TrackItem15 from "../TracksLibrary/item15.jsx";
-import TrackItem16 from "../TracksLibrary/item16.jsx";
-import TrackItem17 from "../TracksLibrary/item17.jsx";
+import SkeletonTrackItems from "../skeleton/SkeletonPlaylist.jsx";
 import * as S from "./TracklistContent.styles.js";
 
-export default function PlaylistContent({ isLoaded }) {
-  return (
-    <S.ContentPlaylist>
-      {isLoaded ? <TrackItem1 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem2 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem3 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem4 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem5 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem6 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem7 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem8 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem9 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem10 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem11 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem12 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem13 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem14 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem15 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem16 /> : <SkeletonTrackItems />}
-      {isLoaded ? <TrackItem17 /> : <SkeletonTrackItems />}
-    </S.ContentPlaylist>
-  );
+export default function PlaylistContent({
+  handleTrackClick,
+  tracks,
+  isLoaded,
+}) {
+  const TrackItems = tracks.map((track) => (
+    <S.PlaylistItem onClick={() => handleTrackClick(track)} key={track.id}>
+      {isLoaded ? (
+        <SkeletonTrackItems />
+      ) : (
+        <S.PlaylistTrack>
+          <S.TrackTitle>
+            <S.TrackTitleImage>
+              <S.TrackTitleSvg alt="music">
+                <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+              </S.TrackTitleSvg>
+            </S.TrackTitleImage>
+            <S.TrackTitleText>
+              <S.TrackTitleLink href="http://">
+                {track.name}{" "}
+                {track.remix ? (
+                  <S.TrackTitleSpan>{track.remix}</S.TrackTitleSpan>
+                ) : (
+                  ""
+                )}
+              </S.TrackTitleLink>
+            </S.TrackTitleText>
+          </S.TrackTitle>
+          <S.TrackAuthor>
+            <S.TrackAuthorLink href="http://">{track.author}</S.TrackAuthorLink>
+          </S.TrackAuthor>
+          <S.TrackAlbum>
+            <S.TrackAlbumLink href="http://">{track.album}</S.TrackAlbumLink>
+          </S.TrackAlbum>
+          <S.TrackTime>
+            <S.TrackTimeSvg alt="time">
+              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+            </S.TrackTimeSvg>
+            <S.TrackTimeText>
+              {Math.floor(track.duration_in_seconds / 60) +
+                ":" +
+                (track.duration_in_seconds % 60 < 10
+                  ? (track.duration_in_seconds % 60) + "0"
+                  : track.duration_in_seconds % 60) ||
+                (track.duration_in_seconds % 60 === 0
+                  ? "00"
+                  : track.duration_in_seconds % 60)}
+            </S.TrackTimeText>
+          </S.TrackTime>
+        </S.PlaylistTrack>
+      )}
+    </S.PlaylistItem>
+  ));
+
+  return <S.ContentPlaylist>{TrackItems}</S.ContentPlaylist>;
 }
