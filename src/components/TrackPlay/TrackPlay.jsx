@@ -1,6 +1,6 @@
 import * as S from "./TrackPlay.styled.js";
 
-export default function TrackPlayNow({ currentTodo }) {
+export default function TrackPlayNow({ currentTrack }) {
   return (
     <S.TrackPlayContain>
       <S.TrackPlayImage>
@@ -10,12 +10,12 @@ export default function TrackPlayNow({ currentTodo }) {
       </S.TrackPlayImage>
       <S.TrackPlayAuthor>
         <S.TrackPlayAuthorLink href="http://">
-          {currentTodo.author}
+          {currentTrack.author}
         </S.TrackPlayAuthorLink>
       </S.TrackPlayAuthor>
       <S.TrackPlayAlbum>
         <S.TrackPlayAlbumLink href="http://">
-          {currentTodo.album}
+          {currentTrack.album}
         </S.TrackPlayAlbumLink>
       </S.TrackPlayAlbum>
     </S.TrackPlayContain>

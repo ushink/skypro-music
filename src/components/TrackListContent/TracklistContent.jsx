@@ -1,9 +1,13 @@
 import SkeletonTrackItems from "../skeleton/SkeletonPlaylist.jsx";
 import * as S from "./TracklistContent.styles.js";
 
-export default function PlaylistContent({ handleTodoClick, tracks, isLoaded }) {
+export default function PlaylistContent({
+  handleTrackClick,
+  tracks,
+  isLoaded,
+}) {
   const TrackItems = tracks.map((track) => (
-    <S.PlaylistItem onClick={() => handleTodoClick(track)} key={track.id}>
+    <S.PlaylistItem onClick={() => handleTrackClick(track)} key={track.id}>
       {isLoaded ? (
         <SkeletonTrackItems />
       ) : (

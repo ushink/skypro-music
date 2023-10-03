@@ -4,23 +4,23 @@ import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
 import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
 import * as S from "./styles.js";
-import { getTodos } from "../../api.js";
+import { getTracks } from "../../api.js";
 
 export const Main = () => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [tracks, setTracks] = useState(["", "", "", "", ""]);
-  const [currentTodo, setCurrentTodo] = useState(null);
-  const [addTodoError, setAddTodoError] = useState(null);
+  const [currentTrack, setCurrentTrack] = useState(null);
+  const [addTrackError, setAddTrackError] = useState(null);
 
   useEffect(() => {
     async function fetchTracks() {
       try {
-        await getTodos().then((todos) => {
-          setTracks(todos);
+        await getTracks().then((Tracks) => {
+          setTracks(Tracks);
         });
-        setAddTodoError(false);
+        setAddTrackError(false);
       } catch (error) {
-        setAddTodoError(error.message);
+        setAddTrackError(error.message);
       } finally {
         setIsLoaded(false);
       }
@@ -28,8 +28,8 @@ export const Main = () => {
     fetchTracks();
   }, []);
 
-  const handleTodoClick = (track) => {
-    setCurrentTodo(track);
+  const handleTrackClick = (track) => {
+    setCurrentTrack(track);
   };
 
   return (
@@ -41,13 +41,13 @@ export const Main = () => {
             <MainTracklist
               isLoaded={isLoaded}
               tracks={tracks}
-              handleTodoClick={handleTodoClick}
-              addTodoError={addTodoError}
+              handleTrackClick={handleTrackClick}
+              addTrackError={addTrackError}
             />
             <MainSidebar isLoaded={isLoaded} />
           </S.Main>
-          {currentTodo ? (
-            <BarPlayer isLoaded={isLoaded} currentTodo={currentTodo} />
+          {currentTrack ? (
+            <BarPlayer isLoaded={isLoaded} currentTrack={currentTrack} />
           ) : null}
           <S.Footer></S.Footer>
         </S.Container>

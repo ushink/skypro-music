@@ -5,8 +5,8 @@ import * as S from "./TrackList.styles.js";
 export default function MainTracklist({
   tracks,
   isLoaded,
-  handleTodoClick,
-  addTodoError,
+  handleTrackClick,
+  addTrackError,
 }) {
   return (
     <S.MainCenterblock>
@@ -37,13 +37,13 @@ export default function MainTracklist({
             </S.Col04>
           </S.PlaylistTitleCol>
         </S.ContentTitle>
-        {addTodoError ? (
-          `Не удалось загрузить плейлист, попробуйте позже. ${addTodoError}`
+        {addTrackError ? (
+          `Не удалось загрузить плейлист, попробуйте позже. ${addTrackError}`
         ) : (
           <PlaylistContent
             isLoaded={isLoaded}
             tracks={tracks}
-            handleTodoClick={handleTodoClick}
+            handleTrackClick={handleTrackClick}
           />
         )}
       </S.CenterblockContent>

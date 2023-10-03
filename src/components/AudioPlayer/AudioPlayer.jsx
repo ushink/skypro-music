@@ -3,7 +3,7 @@ import TrackPlayNow from "../TrackPlay/TrackPlay.jsx";
 import SkeletonTrackPlayNow from "../skeleton/SkeletonAudioPlayer.jsx";
 import * as S from "./AudioPlayer.styles.js";
 
-export default function BarPlayer({ currentTodo, isLoaded }) {
+export default function BarPlayer({ currentTrack, isLoaded }) {
   return (
     <S.Bar>
       <S.BarContent>
@@ -15,7 +15,7 @@ export default function BarPlayer({ currentTodo, isLoaded }) {
               {isLoaded ? (
                 <SkeletonTrackPlayNow />
               ) : (
-                <TrackPlayNow currentTodo={currentTodo} />
+                <TrackPlayNow currentTrack={currentTrack} />
               )}
 
               <S.TrackPlayLikeDis>
