@@ -20,7 +20,7 @@ export const FilterTitle = styled.div`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  margin-right: 15px;
+  margin-right: 10px;
 `;
 
 export const FilterBox = styled.div`
@@ -38,8 +38,9 @@ export const FilterButton = styled.div`
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+  
+  // &:not(:last-child) {
+  //   margin-right: 10px;
+  // }
 
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
 `;
