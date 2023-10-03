@@ -7,20 +7,10 @@ import * as S from "./styles.js";
 import { getTodos } from "../../api.js";
 
 export const Main = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [tracks, setTracks] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [tracks, setTracks] = useState(["", "", "", "", ""]);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [addTodoError, setAddTodoError] = useState(null);
-
-  useEffect(() => {
-    if (!isLoaded) {
-      const timeout = setTimeout(() => {
-        setIsLoaded(true);
-      }, 5000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [isLoaded]);
 
   useEffect(() => {
     async function fetchTracks() {
@@ -31,6 +21,8 @@ export const Main = () => {
         setAddTodoError(false);
       } catch (error) {
         setAddTodoError(error.message);
+      } finally {
+        setIsLoaded(false);
       }
     }
     fetchTracks();

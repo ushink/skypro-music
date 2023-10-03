@@ -14,7 +14,7 @@ export default function MainSidebar({ isLoaded }) {
         </S.SidebarIcon>
       </S.SidebarPersonal>
       <S.SidebarBlock>
-        {isLoaded ? <SidebarList /> : <SkeletonSidebarList />}
+        {isLoaded ? <SkeletonSidebarList /> : <SidebarList />}
       </S.SidebarBlock>
     </S.MainSidebar>
   );

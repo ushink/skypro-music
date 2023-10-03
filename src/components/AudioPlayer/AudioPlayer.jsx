@@ -13,9 +13,9 @@ export default function BarPlayer({ currentTodo, isLoaded }) {
             <PlayerControlBtn />
             <S.PlayerTrackPlay>
               {isLoaded ? (
-                <TrackPlayNow currentTodo={currentTodo} />
-              ) : (
                 <SkeletonTrackPlayNow />
+              ) : (
+                <TrackPlayNow currentTodo={currentTodo} />
               )}
 
               <S.TrackPlayLikeDis>

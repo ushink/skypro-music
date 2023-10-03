@@ -1,21 +1,19 @@
+import SkeletonTrackItems from "../skeleton/SkeletonPlaylist.jsx";
 import * as S from "./TracklistContent.styles.js";
 
 export default function PlaylistContent({ handleTodoClick, tracks, isLoaded }) {
   const TrackItems = tracks.map((track) => (
     <S.PlaylistItem onClick={() => handleTodoClick(track)} key={track.id}>
-      <S.PlaylistTrack>
-        <S.TrackTitle>
-          {isLoaded ? (
+      {isLoaded ? (
+        <SkeletonTrackItems />
+      ) : (
+        <S.PlaylistTrack>
+          <S.TrackTitle>
             <S.TrackTitleImage>
               <S.TrackTitleSvg alt="music">
                 <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
               </S.TrackTitleSvg>
             </S.TrackTitleImage>
-          ) : (
-            <S.SkeletTrackTitleImag> </S.SkeletTrackTitleImag>
-          )}
-
-          {isLoaded ? (
             <S.TrackTitleText>
               <S.TrackTitleLink href="http://">
                 {track.name}{" "}
@@ -26,33 +24,21 @@ export default function PlaylistContent({ handleTodoClick, tracks, isLoaded }) {
                 )}
               </S.TrackTitleLink>
             </S.TrackTitleText>
-          ) : (
-            <S.SkeletTrackTitleText> </S.SkeletTrackTitleText>
-          )}
-        </S.TrackTitle>
-
-        {isLoaded ? (
+          </S.TrackTitle>
           <S.TrackAuthor>
             <S.TrackAuthorLink href="http://">{track.author}</S.TrackAuthorLink>
           </S.TrackAuthor>
-        ) : (
-          <S.SkeletTrackAuthor> </S.SkeletTrackAuthor>
-        )}
-
-        {isLoaded ? (
           <S.TrackAlbum>
             <S.TrackAlbumLink href="http://">{track.album}</S.TrackAlbumLink>
           </S.TrackAlbum>
-        ) : (
-          <S.SkeletTrackAlbum> </S.SkeletTrackAlbum>
-        )}
-        <S.TrackTime>
-          <S.TrackTimeSvg alt="time">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-          </S.TrackTimeSvg>
-          <S.TrackTimeText>{track.duration_in_seconds}</S.TrackTimeText>
-        </S.TrackTime>
-      </S.PlaylistTrack>
+          <S.TrackTime>
+            <S.TrackTimeSvg alt="time">
+              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+            </S.TrackTimeSvg>
+            <S.TrackTimeText>{track.duration_in_seconds}</S.TrackTimeText>
+          </S.TrackTime>
+        </S.PlaylistTrack>
+      )}
     </S.PlaylistItem>
   ));
 

@@ -1,40 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
-const Blink = keyframes`
-    from {
-    opacity: 1;
-  }
-
-    to {
-    opacity: 0.2;
-  }
-`;
-
-const SkeletTrack = styled.div`
-  background-color: #313131;
-  animation: ${Blink} 1s infinite alternate;
-`;
-
-export const SkeletTrackAuthor = styled(SkeletTrack)`
-  width: 271px;
-  height: 19px;
-`;
-
-export const SkeletTrackAlbum = styled(SkeletTrack)`
-  width: 305px;
-  height: 19px;
-`;
-
-export const SkeletTrackTitleImag = styled(SkeletTrack)`
-  width: 51px;
-  height: 51px;
-  margin-right: 17px;
-`;
-
-export const SkeletTrackTitleText = styled(SkeletTrack)`
-  width: 356px;
-  height: 19px;
-`;
+import styled from "styled-components";
 
 export const ContentPlaylist = styled.ul`
   display: -webkit-box;
