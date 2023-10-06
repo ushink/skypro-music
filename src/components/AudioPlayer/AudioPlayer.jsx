@@ -8,6 +8,7 @@ import { ProgressBar } from "./ProgressBar.jsx";
 export default function BarPlayer({ currentTrack, isLoaded }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState("00:00");
+  const [duration, setDuration] = useState(null);
 
   const audioRef = useRef(null);
 
@@ -23,9 +24,20 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
 
   const togglePlay = isPlaying ? handleStop : handleStart;
 
+  const interval = () => {
+    setInterval(() => {
+      setCurrentTime(Math.floor(audioRef.current.currentTime));
+    }, 1000);
+  };
+
   useEffect(() => {
     if (currentTrack) {
       audioRef.current.src = currentTrack.track_file;
+
+      audioRef.current.addEventListener("timeupdate", () => {
+        setDuration(audioRef.current.duration);
+        interval();
+      });
     }
   }, [currentTrack]);
 
@@ -36,51 +48,57 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
           <source src={currentTrack.track_file} type="audio/mp3" />
         </audio>
       ) : null}
-      <S.BarContent>
-        <ProgressBar setCurrentTime={setCurrentTime} />
-        <p>{currentTime}</p>
-        <S.BarPlayerBlock>
-          <S.BarPlayer>
-            <PlayerControlBtn togglePlay={togglePlay} isPlaying={isPlaying} />
-            <S.PlayerTrackPlay>
-              {isLoaded ? (
-                <SkeletonTrackPlayNow />
-              ) : (
-                <TrackPlayNow currentTrack={currentTrack} />
-              )}
+      {currentTrack ? (
+        <S.BarContent>
+          <ProgressBar
+            setCurrentTime={setCurrentTime}
+            duration={duration}
+            currentTime={currentTime}
+          />
+          <p>{currentTime}</p>
+          <S.BarPlayerBlock>
+            <S.BarPlayer>
+              <PlayerControlBtn togglePlay={togglePlay} isPlaying={isPlaying} />
+              <S.PlayerTrackPlay>
+                {isLoaded ? (
+                  <SkeletonTrackPlayNow />
+                ) : (
+                  <TrackPlayNow currentTrack={currentTrack} />
+                )}
 
-              <S.TrackPlayLikeDis>
-                <S.TrackPlayLike className="_btn-icon">
-                  <S.TrackPlayLikeSvg alt="like">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-                  </S.TrackPlayLikeSvg>
-                </S.TrackPlayLike>
-                <S.TrackPlayDislike className="_btn-icon">
-                  <S.TrackPlayDislikeSvg alt="dislike">
-                    <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                  </S.TrackPlayDislikeSvg>
-                </S.TrackPlayDislike>
-              </S.TrackPlayLikeDis>
-            </S.PlayerTrackPlay>
-          </S.BarPlayer>
-          <S.BarVolumeBlock>
-            <S.VolumeContent>
-              <S.VolumeImage>
-                <S.VolumeSvg alt="volume">
-                  <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
-                </S.VolumeSvg>
-              </S.VolumeImage>
-              <S.VolumeProgress className="_btn">
-                <S.VolumeProgressLine
-                  className="_btn"
-                  type="range"
-                  name="range"
-                />
-              </S.VolumeProgress>
-            </S.VolumeContent>
-          </S.BarVolumeBlock>
-        </S.BarPlayerBlock>
-      </S.BarContent>
+                <S.TrackPlayLikeDis>
+                  <S.TrackPlayLike className="_btn-icon">
+                    <S.TrackPlayLikeSvg alt="like">
+                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    </S.TrackPlayLikeSvg>
+                  </S.TrackPlayLike>
+                  <S.TrackPlayDislike className="_btn-icon">
+                    <S.TrackPlayDislikeSvg alt="dislike">
+                      <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+                    </S.TrackPlayDislikeSvg>
+                  </S.TrackPlayDislike>
+                </S.TrackPlayLikeDis>
+              </S.PlayerTrackPlay>
+            </S.BarPlayer>
+            <S.BarVolumeBlock>
+              <S.VolumeContent>
+                <S.VolumeImage>
+                  <S.VolumeSvg alt="volume">
+                    <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+                  </S.VolumeSvg>
+                </S.VolumeImage>
+                <S.VolumeProgress className="_btn">
+                  <S.VolumeProgressLine
+                    className="_btn"
+                    type="range"
+                    name="range"
+                  />
+                </S.VolumeProgress>
+              </S.VolumeContent>
+            </S.BarVolumeBlock>
+          </S.BarPlayerBlock>
+        </S.BarContent>
+      ) : null}
     </S.Bar>
   );
 }

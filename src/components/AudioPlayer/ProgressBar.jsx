@@ -4,7 +4,7 @@ import styled from "styled-components";
 const BarPlayerProgress = styled.input`
   --progress-height: 5px;
   --progress-color: #b672ff;
-  //   --progress-color: ${(props) => props.$color ?? "#B672FF"}; / меняет цвет на красный
+  // --progress-color: ${(props) => props.$color ?? "#B672FF"}; 
 
   --progress-bg-color: #2e2e2e;
 
@@ -57,9 +57,14 @@ const BarPlayerProgress = styled.input`
   }
 `;
 
-export function ProgressBar() {
-  const [currentTime, setCurrentTime] = useState(70);
-  const duration = 230;
+export function ProgressBar({ duration, currentTime, setCurrentTime}) {
+// const timeUpdate = (event) => {
+//   const minutes = Math.floor(event.target.currentTime / 60);
+//   const seconds = Math.floor(event.target.currentTime - minutes * 60);
+//   const currentTime = str_pad_left(minutes,'0',2) + ':' + str_pad_left(seconds,'0',2);
+//   setCurrentTime(currentTime);
+// }
+
 
   return (
     <BarPlayerProgress
