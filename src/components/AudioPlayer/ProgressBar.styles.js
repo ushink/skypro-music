@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const BarPlayerProgressTime = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  padding-bottom: 5px;
+`;
+
 export const BarPlayerProgress = styled.input`
   --progress-height: 5px;
   --progress-color: #b672ff;

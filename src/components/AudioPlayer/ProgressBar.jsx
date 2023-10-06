@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { BarPlayerProgress } from "./ProgressBar.styles";
+import * as S from "./ProgressBar.styles";
 
 export function ProgressBar({ currentTrack, audioRef }) {
   const [currentTime, setCurrentTime] = useState(null);
   const [duration, setDuration] = useState(null);
-  // const timeUpdate = (event) => {
-  //   const minutes = Math.floor(event.target.currentTime / 60);
-  //   const seconds = Math.floor(event.target.currentTime - minutes * 60);
-  //   const currentTime = str_pad_left(minutes,'0',2) + ':' + str_pad_left(seconds,'0',2);
-  //   setCurrentTime(currentTime);
-  // }
+
+  function getTrackTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? `0${sec}` : sec}`;
+  }
+
   const interval = () => {
     setInterval(() => {
       setCurrentTime(Math.floor(audioRef.current.currentTime));
@@ -34,8 +35,10 @@ export function ProgressBar({ currentTrack, audioRef }) {
 
   return (
     <>
-      <p>{currentTime}</p>
-      <BarPlayerProgress
+      <S.BarPlayerProgressTime>
+        {getTrackTime(currentTime)} / {getTrackTime(duration)}
+      </S.BarPlayerProgressTime>
+      <S.BarPlayerProgress
         type="range"
         min={0}
         max={duration}
