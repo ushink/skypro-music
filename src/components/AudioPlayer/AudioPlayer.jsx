@@ -8,6 +8,7 @@ import { ProgressBar } from "./ProgressBar.jsx";
 export default function BarPlayer({ currentTrack, isLoaded }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isRepeat, setIsRepeat] = useState(false);
+  const [isVolume, setIsVolume] = useState(0.2);
 
   const audioRef = useRef(null);
 
@@ -25,6 +26,11 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
 
   const toggleRepeat = () => {
     setIsRepeat(!isRepeat);
+  };
+
+  const changeVolume = (event) => {
+    setIsVolume(event.target.value);
+    audioRef.current.volume = event.target.value;
   };
 
   return (
@@ -79,6 +85,11 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
                     className="_btn"
                     type="range"
                     name="range"
+                    min={0}
+                    max={1}
+                    value={isVolume}
+                    step={0.01}
+                    onChange={changeVolume}
                   />
                 </S.VolumeProgress>
               </S.VolumeContent>
