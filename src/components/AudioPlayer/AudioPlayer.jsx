@@ -2,15 +2,35 @@ import PlayerControlBtn from "../PlayerControls/PlayerControls.jsx";
 import TrackPlayNow from "../TrackPlay/TrackPlay.jsx";
 import SkeletonTrackPlayNow from "../skeleton/SkeletonAudioPlayer.jsx";
 import * as S from "./AudioPlayer.styles.js";
+import { useRef, useState } from "react";
+import { ProgressBar } from "./ProgressBar.jsx";
 
 export default function BarPlayer({ currentTrack, isLoaded }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const handleStart = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  };
+
+  const handleStop = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  const togglePlay = isPlaying ? handleStop : handleStart;
+
   return (
     <S.Bar>
+      <audio ref={audioRef}>
+        <source src={currentTrack.track_file} type="audio/mp3" />
+      </audio>
       <S.BarContent>
-        <S.BarPlayerProgress></S.BarPlayerProgress>
+        <ProgressBar></ProgressBar>
         <S.BarPlayerBlock>
           <S.BarPlayer>
-            <PlayerControlBtn />
+            <PlayerControlBtn togglePlay={togglePlay} isPlaying={isPlaying} />
             <S.PlayerTrackPlay>
               {isLoaded ? (
                 <SkeletonTrackPlayNow />

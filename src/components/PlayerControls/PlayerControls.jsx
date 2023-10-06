@@ -1,6 +1,6 @@
 import * as S from "./PlayerControls.styles.js";
 
-export default function PlayerControlBtn() {
+export default function PlayerControlBtn({ togglePlay, isPlaying }) {
   return (
     <S.PlayerControls>
       <S.PlayerBtnPrev>
@@ -8,9 +8,13 @@ export default function PlayerControlBtn() {
           <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
         </S.PlayerBtnPrevSvg>
       </S.PlayerBtnPrev>
-      <S.PlayerBtnPlay className="_btn">
-        <S.PlayerBtnPlaySvg alt="play">
-          <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+      <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
+        <S.PlayerBtnPlaySvg alt={!isPlaying  ? "play" : "pause"}>
+          {!isPlaying ? (
+            <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+          ) : (
+            <use xlinkHref="img/icon/sprite.svg#icon-pause"></use>
+          )}
         </S.PlayerBtnPlaySvg>
       </S.PlayerBtnPlay>
       <S.PlayerBtnNext>
