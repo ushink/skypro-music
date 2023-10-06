@@ -1,80 +1,49 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { BarPlayerProgress } from "./ProgressBar.styles";
 
-const BarPlayerProgress = styled.input`
-  --progress-height: 5px;
-  --progress-color: #b672ff;
-  // --progress-color: ${(props) => props.$color ?? "#B672FF"}; 
+export function ProgressBar({ currentTrack, audioRef }) {
+  const [currentTime, setCurrentTime] = useState(null);
+  const [duration, setDuration] = useState(null);
+  // const timeUpdate = (event) => {
+  //   const minutes = Math.floor(event.target.currentTime / 60);
+  //   const seconds = Math.floor(event.target.currentTime - minutes * 60);
+  //   const currentTime = str_pad_left(minutes,'0',2) + ':' + str_pad_left(seconds,'0',2);
+  //   setCurrentTime(currentTime);
+  // }
+  const interval = () => {
+    setInterval(() => {
+      setCurrentTime(Math.floor(audioRef.current.currentTime));
+    }, 1000);
+  };
 
-  --progress-bg-color: #2e2e2e;
+  useEffect(() => {
+    if (currentTrack) {
+      audioRef.current.src = currentTrack.track_file;
 
-  margin: 0;
-  width: 100%;
-  height: var(--progress-height);
-  -webkit-appearance: none;
-  cursor: pointer;
-  background: transparent;
-  position: relative;
-  overflow: hidden;
+      audioRef.current.addEventListener("timeupdate", () => {
+        setDuration(audioRef.current.duration);
+        interval();
+      });
+    }
+  }, []);
 
-  &::-webkit-slider-runnable-track {
-    position: relative;
-    height: var(--progress-height);
-    background: var(--progress-bg-color);
-  }
-  &::-webkit-slider-thumb {
-    --thumb-height: 1px;
-    --thumb-width: 1px;
-    position: relative;
-    -webkit-appearance: none;
-    width: var(--thumb-width, var(--thumb-height));
-    box-shadow: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
-      100vmax var(--progress-color);
-  }
-
-  &::-webkit-slider-runnable-track {
-    background: var(--progress-bg-color);
-  }
-
-  /* FF */
-  &::-moz-range-track {
-    width: 100%;
-    height: var(--progress-height);
-    background: var(--progress-bg-color);
-    border: none;
-    border-radius: 0px;
-  }
-  &::-moz-range-thumb {
-    border: none;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background: transparent;
-  }
-  &::-moz-range-progress {
-    background-color: var(--progress-color);
-    height: var(--progress-height);
-  }
-`;
-
-export function ProgressBar({ duration, currentTime, setCurrentTime}) {
-// const timeUpdate = (event) => {
-//   const minutes = Math.floor(event.target.currentTime / 60);
-//   const seconds = Math.floor(event.target.currentTime - minutes * 60);
-//   const currentTime = str_pad_left(minutes,'0',2) + ':' + str_pad_left(seconds,'0',2);
-//   setCurrentTime(currentTime);
-// }
-
+  const rewindTime = (event) => {
+    setCurrentTime(event.target.value);
+    audioRef.current.currentTime = event.target.value;
+  };
 
   return (
-    <BarPlayerProgress
-      type="range"
-      min={0}
-      max={duration}
-      value={currentTime}
-      step={0.01}
-      onChange={(event) => setCurrentTime(event.target.value)}
-      $color="#ff0000"
-    />
+    <>
+      <p>{currentTime}</p>
+      <BarPlayerProgress
+        type="range"
+        min={0}
+        max={duration}
+        value={currentTime}
+        step={0.01}
+        onChange={rewindTime}
+        $color="#ff0000"
+      />
+    </>
   );
 }
