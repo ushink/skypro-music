@@ -1,6 +1,11 @@
 import * as S from "./PlayerControls.styles.js";
 
-export default function PlayerControlBtn({ togglePlay, isPlaying }) {
+export default function PlayerControlBtn({
+  toggleRepeat,
+  isRepeat,
+  togglePlay,
+  isPlaying,
+}) {
   const clickPrev = () => {
     alert("Еще не реализовано");
   };
@@ -34,9 +39,13 @@ export default function PlayerControlBtn({ togglePlay, isPlaying }) {
           <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
         </S.PlayerBtnNextSvg>
       </S.PlayerBtnNext>
-      <S.PlayerBtnRepeat className="_btn-icon">
+      <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleRepeat}>
         <S.PlayerBtnRepeatSvg alt="repeat">
-          <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+          {!isRepeat ? (
+            <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+          ) : (
+            <use xlinkHref="img/icon/sprite.svg#icon-repeat_active"></use>
+          )}
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
       <S.PlayerBtnShuffle className="_btn-icon">

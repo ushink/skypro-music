@@ -7,6 +7,7 @@ import { ProgressBar } from "./ProgressBar.jsx";
 
 export default function BarPlayer({ currentTrack, isLoaded }) {
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isRepeat, setIsRepeat] = useState(false);
 
   const audioRef = useRef(null);
 
@@ -22,20 +23,29 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
 
   const togglePlay = isPlaying ? handleStop : handleStart;
 
+  const toggleRepeat = () => {
+    setIsRepeat(!isRepeat);
+  };
+
   return (
     <S.Bar>
       {currentTrack ? (
-        <audio ref={audioRef} autoPlay>
+        <audio ref={audioRef} loop={isRepeat} autoPlay>
           <source src={currentTrack.track_file} type="audio/mp3" />
         </audio>
       ) : null}
       {currentTrack ? (
         <S.BarContent>
           <ProgressBar currentTrack={currentTrack} audioRef={audioRef} />
-          
+
           <S.BarPlayerBlock>
             <S.BarPlayer>
-              <PlayerControlBtn togglePlay={togglePlay} isPlaying={isPlaying} />
+              <PlayerControlBtn
+                togglePlay={togglePlay}
+                isPlaying={isPlaying}
+                toggleRepeat={toggleRepeat}
+                isRepeat={isRepeat}
+              />
               <S.PlayerTrackPlay>
                 {isLoaded ? (
                   <SkeletonTrackPlayNow />
