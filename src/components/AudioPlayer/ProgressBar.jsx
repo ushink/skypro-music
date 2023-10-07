@@ -26,7 +26,7 @@ export function ProgressBar({ currentTrack, audioRef }) {
         interval();
       });
     }
-  }, []);
+  }, [currentTrack]);
 
   const rewindTime = (event) => {
     setCurrentTime(event.target.value);
