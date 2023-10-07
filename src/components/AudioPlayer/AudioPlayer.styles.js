@@ -138,7 +138,7 @@ export const VolumeProgress = styled.div`
 `;
 export const VolumeProgressLine = styled.input`
   --progress-height: 5px;
-  --progress-color: #b672ff;
+  --progress-color: #ffffff;
 
   --progress-bg-color: #2e2e2e;
 
