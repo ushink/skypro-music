@@ -40,8 +40,8 @@ export default function PlayerControlBtn({
         </S.PlayerBtnNextSvg>
       </S.PlayerBtnNext>
       <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleRepeat}>
-        <S.PlayerBtnRepeatSvg alt="repeat" $repeat={!isRepeat}>
-            <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+        <S.PlayerBtnRepeatSvg alt="repeat" $repeat={isRepeat}>
+          <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
       <S.PlayerBtnShuffle className="_btn-icon">

@@ -60,9 +60,7 @@ export const PlayerBtnRepeatSvg = styled.svg`
   width: 18px;
   height: 12px;
   fill: transparent;
-  // stroke: #696969;
-  stroke: ${(props) => props.$repeat ? "#fffff" : '#696969'};
-    
+  stroke: ${(props) => (props.$repeat ? "#ffffff" : "#696969")};
 `;
 
 export const PlayerBtnShuffle = styled(PlayerBtn)`
