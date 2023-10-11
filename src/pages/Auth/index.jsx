@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./styles.js";
 import { useEffect, useState } from "react";
-import { getUserSignup } from "../../api.js";
+import { getUserLogin, getUserSignup } from "../../api.js";
 
 export default function AuthPage({ isLoginMode, setUser }) {
   const [error, setError] = useState(null);
@@ -12,19 +12,37 @@ export default function AuthPage({ isLoginMode, setUser }) {
   const Navigate = useNavigate();
 
   const handleLogin = async ({ email, password }) => {
-    alert(`Выполняется вход: ${email} ${password}`);
-    setError("Неизвестная ошибка входа");
+    if (email === "" || password === "") {
+      setError("Укажите почту/пароль");
+    } else {
+      try {
+        setIsButtonActiv(true);
+        const userLogin = await getUserLogin({ email, password });
+        window.localStorage.setItem("user", JSON.stringify(userLogin));
+        window.location.href = "/";
+      } catch (error) {
+        const errorDate = JSON.parse(error.message);
+        if (errorDate.password) {
+          setError(errorDate.password.join(" "));
+        }
+        if (errorDate.detail) {
+          setError(errorDate.detail);
+        }
+        if (errorDate.email) {
+          setError(errorDate.email[0]);
+        }
+      } finally {
+        setIsButtonActiv(false);
+      }
+    }
   };
 
   const handleRegister = async () => {
-
     if (email === "" || password === "") {
       setError("Укажите почту/пароль");
-    } 
-    else if (password !== repeatPassword) {
+    } else if (password !== repeatPassword) {
       setError("Пароли не совпадают");
-    } 
-    else {
+    } else {
       try {
         const userSignup = await getUserSignup({
           email,
@@ -34,13 +52,11 @@ export default function AuthPage({ isLoginMode, setUser }) {
         setIsButtonActiv(true);
         window.localStorage.setItem("user", JSON.stringify(userSignup));
         Navigate("/login");
-        window.location.href = "/";
         setEmail("");
         setPassword("");
         setRepeatPassword("");
         setError(false);
-      } 
-      catch (error) {
+      } catch (error) {
         const errorDate = JSON.parse(error.message);
         if (errorDate.password) {
           setError(errorDate.password.join(" "));
@@ -51,14 +67,12 @@ export default function AuthPage({ isLoginMode, setUser }) {
         if (errorDate.email) {
           setError(errorDate.email[0]);
         }
-      } 
-      finally {
+      } finally {
         setIsButtonActiv(false);
       }
     }
   };
 
-  // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
   useEffect(() => {
     setError(null);
   }, [isLoginMode, email, password, repeatPassword]);
@@ -95,8 +109,11 @@ export default function AuthPage({ isLoginMode, setUser }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton onClick={() => handleLogin({ email, password })}>
-                Войти
+              <S.PrimaryButton
+                onClick={() => handleLogin({ email, password })}
+                disabled={isButtonActiv}
+              >
+                {isButtonActiv ? "Выполняется вход" : "Войти"}
               </S.PrimaryButton>
               <Link to="/register">
                 <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
@@ -136,8 +153,11 @@ export default function AuthPage({ isLoginMode, setUser }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton onClick={handleRegister}>
-                Зарегистрироваться
+              <S.PrimaryButton
+                onClick={handleRegister}
+                disabled={isButtonActiv}
+              >
+                {isButtonActiv ? "Регистрируем" : "Зарегистрироваться"}
               </S.PrimaryButton>
             </S.Buttons>
           </>

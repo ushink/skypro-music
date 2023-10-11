@@ -32,7 +32,6 @@ export async function getUserSignup({ email, password, username }) {
   if (response.status === 400) {
     const error = await response.json();
     throw new Error(JSON.stringify(error));
-
   } else if (response.status === 500) {
     throw new Error("Сервер сломался");
   }
@@ -56,8 +55,9 @@ export async function getUserLogin({ email, password }) {
     }
   );
 
-  if (response.status === 401) {
-    throw new Error("Пользователь с таким email или паролем не найден");
+  if (response.status === 400 || response.status === 401) {
+    const error = await response.json();
+    throw new Error(JSON.stringify(error));
   } else if (response.status === 500) {
     throw new Error("Сервер сломался");
   }
