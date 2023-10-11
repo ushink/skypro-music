@@ -30,15 +30,9 @@ export async function getUserSignup({ email, password, username }) {
   );
 
   if (response.status === 400) {
-    throw new Error({
-      username: ["Пользователь с таким именем уже существует."],
-      email: ["Пользователь с таким адрес электронной почты уже существует."],
-      password: [
-        "Введённый пароль слишком короткий. Он должен содержать как минимум 8 символов.",
-        "Введённый пароль слишком широко распространён.",
-        "Введённый пароль состоит только из цифр.",
-      ],
-    });
+    const error = await response.json();
+    throw new Error(JSON.stringify(error));
+
   } else if (response.status === 500) {
     throw new Error("Сервер сломался");
   }

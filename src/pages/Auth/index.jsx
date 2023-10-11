@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./styles.js";
 import { useEffect, useState } from "react";
+import { getUserSignup } from "../../api.js";
 
-export default function AuthPage({ isLoginMode }) {
+export default function AuthPage({ isLoginMode, setUser }) {
   const [error, setError] = useState(null);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [isButtonActiv, setIsButtonActiv] = useState(false);
+  const Navigate = useNavigate();
 
   const handleLogin = async ({ email, password }) => {
     alert(`Выполняется вход: ${email} ${password}`);
@@ -15,8 +17,45 @@ export default function AuthPage({ isLoginMode }) {
   };
 
   const handleRegister = async () => {
-    alert(`Выполняется регистрация: ${email} ${password}`);
-    setError("Неизвестная ошибка регистрации");
+
+    if (email === "" || password === "") {
+      setError("Укажите почту/пароль");
+    } 
+    else if (password !== repeatPassword) {
+      setError("Пароли не совпадают");
+    } 
+    else {
+      try {
+        const userSignup = await getUserSignup({
+          email,
+          password,
+          username: email,
+        });
+        setIsButtonActiv(true);
+        window.localStorage.setItem("user", JSON.stringify(userSignup));
+        Navigate("/login");
+        window.location.href = "/";
+        setEmail("");
+        setPassword("");
+        setRepeatPassword("");
+        setError(false);
+      } 
+      catch (error) {
+        const errorDate = JSON.parse(error.message);
+        if (errorDate.password) {
+          setError(errorDate.password.join(" "));
+        }
+        if (errorDate.username) {
+          setError(errorDate.username[0]);
+        }
+        if (errorDate.email) {
+          setError(errorDate.email[0]);
+        }
+      } 
+      finally {
+        setIsButtonActiv(false);
+      }
+    }
   };
 
   // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
