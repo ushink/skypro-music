@@ -18,6 +18,7 @@ export default function AuthPage({ isLoginMode, setUser }) {
       try {
         setIsButtonActiv(true);
         const userLogin = await getUserLogin({ email, password });
+        setUser(userLogin);
         window.localStorage.setItem("user", JSON.stringify(userLogin));
         window.location.href = "/";
       } catch (error) {
@@ -50,6 +51,7 @@ export default function AuthPage({ isLoginMode, setUser }) {
           username: email,
         });
         setIsButtonActiv(true);
+        setUser(userSignup);
         window.localStorage.setItem("user", JSON.stringify(userSignup));
         Navigate("/login");
         setEmail("");

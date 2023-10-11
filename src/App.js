@@ -1,12 +1,13 @@
+import { useState } from "react";
 import { AppGlobal } from "./App.styles.global.js";
 import { AppRoutes } from "./routes";
 
 function App() {
-  // const [user] = useState(null);
+  const [user, setUser] = useState(window.localStorage.getItem("user") || null);
   return (
     <>
       <AppGlobal />
-      <AppRoutes user={localStorage.getItem("user")} />
+      <AppRoutes user={user} setUser={setUser} />
     </>
   );
 }
