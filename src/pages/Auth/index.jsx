@@ -18,8 +18,8 @@ export default function AuthPage({ isLoginMode, setUser }) {
       try {
         setIsButtonActiv(true);
         const userLogin = await getUserLogin({ email, password });
-        setUser(userLogin);
-        window.localStorage.setItem("user", JSON.stringify(userLogin));
+        setUser(userLogin.email);
+        window.localStorage.setItem("user", userLogin.email);
         window.location.href = "/";
       } catch (error) {
         const errorDate = JSON.parse(error.message);
@@ -51,8 +51,8 @@ export default function AuthPage({ isLoginMode, setUser }) {
           username: email,
         });
         setIsButtonActiv(true);
-        setUser(userSignup);
-        window.localStorage.setItem("user", JSON.stringify(userSignup));
+        setUser(userSignup.email);
+        window.localStorage.setItem("user", userSignup.email);
         Navigate("/login");
         setEmail("");
         setPassword("");
