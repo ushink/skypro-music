@@ -13,7 +13,7 @@ export const AppRoutes = ({ user, setUser}) => {
       <Route path="/register" element={<AuthPage isLoginMode={false} setUser={setUser} />} />
 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main user={user} setUser={setUser} />} />
+        <Route path="/" element={<Main setUser={setUser} />} />
         <Route path="/category/:id" element={<Category />} />
         <Route path="/favorites" element={<MyPlaylist />} />
       </Route>

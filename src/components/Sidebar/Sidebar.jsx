@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import SidebarList from "../SidebarListContent/SidebarListContent.jsx";
 import SkeletonSidebarList from "../skeleton/SkeletonSidebar.jsx";
 import * as S from "./Sidebar.styles.js";
+import { UserContext } from "../../Context/UserContext.js";
 
-export default function MainSidebar({ isLoaded, user, handleLogout }) {
+export default function MainSidebar({ isLoaded, handleLogout }) {
+  const { user } = useContext(UserContext);
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
