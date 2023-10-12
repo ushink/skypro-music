@@ -6,7 +6,7 @@ import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
 import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
 
-export const Main = ({user, setUser}) => {
+export const Main = ({ user, setUser }) => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [tracks, setTracks] = useState(["", "", "", "", ""]);
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -32,19 +32,29 @@ export const Main = ({user, setUser}) => {
     setCurrentTrack(track);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
+
   return (
     <>
       <S.Wrapper>
         <S.Container>
           <S.Main>
-            <MainNav />
+            <MainNav handleLogout={handleLogout} />
             <MainTracklist
               isLoaded={isLoaded}
               tracks={tracks}
               handleTrackClick={handleTrackClick}
               addTrackError={addTrackError}
             />
-            <MainSidebar isLoaded={isLoaded} user={user} setUser={setUser} />
+            <MainSidebar
+              isLoaded={isLoaded}
+              user={user}
+              setUser={setUser}
+              handleLogout={handleLogout}
+            />
           </S.Main>
           {currentTrack ? (
             <BarPlayer isLoaded={isLoaded} currentTrack={currentTrack} />

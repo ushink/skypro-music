@@ -2,12 +2,7 @@ import SidebarList from "../SidebarListContent/SidebarListContent.jsx";
 import SkeletonSidebarList from "../skeleton/SkeletonSidebar.jsx";
 import * as S from "./Sidebar.styles.js";
 
-export default function MainSidebar({ isLoaded, user, setUser }) {
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-  };
-
+export default function MainSidebar({ isLoaded, user, handleLogout }) {
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
