@@ -1,7 +1,7 @@
 import * as S from "./NavShowMenu.styles.js";
 import { Link } from "react-router-dom";
 
-export default function ShowMenu() {
+export default function ShowMenu({ handleLogout }) {
   return (
     <S.NavMenu>
       <S.MenuList>
@@ -17,7 +17,9 @@ export default function ShowMenu() {
         </S.MenuItem>
         <S.MenuItem>
           <Link>
-            <S.MenuLink href="../signin.html">Войти</S.MenuLink>
+            <S.MenuLink href="#" onClick={handleLogout}>
+              Выйти
+            </S.MenuLink>
           </Link>
         </S.MenuItem>
       </S.MenuList>

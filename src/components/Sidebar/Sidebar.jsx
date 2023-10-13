@@ -1,13 +1,16 @@
+import { useContext } from "react";
 import SidebarList from "../SidebarListContent/SidebarListContent.jsx";
 import SkeletonSidebarList from "../skeleton/SkeletonSidebar.jsx";
 import * as S from "./Sidebar.styles.js";
+import { UserContext } from "../../Context/UserContext.js";
 
-export default function MainSidebar({ isLoaded }) {
+export default function MainSidebar({ isLoaded, handleLogout }) {
+  const { user } = useContext(UserContext);
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
-        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-        <S.SidebarIcon>
+        <S.SidebarPersonalName>{user}</S.SidebarPersonalName>
+        <S.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
           </svg>
