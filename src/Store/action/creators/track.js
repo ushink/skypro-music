@@ -8,7 +8,7 @@ import {
 
 let nextTrackId = 0;
 
-export const setCurrentTrack = (track) => ({
+export const addTrack = (track) => ({
   type: SET_CURRENT_TRACK,
   payload: {
     id: ++nextTrackId,
