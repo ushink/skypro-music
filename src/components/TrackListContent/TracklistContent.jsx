@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import SkeletonTrackItems from "../skeleton/SkeletonPlaylist.jsx";
 import * as S from "./TracklistContent.styles.js";
+import { tracksSelector } from "../../Store/selectors/track.js";
 
 export default function PlaylistContent({
   handleTrackClick,
-  tracks,
+  // tracks,
   isLoaded,
 }) {
+  const tracks = useSelector(tracksSelector);
   const TrackItems = tracks.map((track) => (
     <S.PlaylistItem onClick={() => handleTrackClick(track)} key={track.id}>
       {isLoaded ? (

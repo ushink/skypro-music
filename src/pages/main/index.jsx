@@ -3,8 +3,10 @@ import MainNav from "../../components/NavMenu/NavMenu.jsx";
 import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
 import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
+import { addTrack } from "../../Store/action/creators/track";
 import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
+import { useDispatch } from "react-redux";
 
 export const Main = ({ setUser }) => {
   const [isLoaded, setIsLoaded] = useState(true);
@@ -12,10 +14,13 @@ export const Main = ({ setUser }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [addTrackError, setAddTrackError] = useState(null);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     async function fetchTracks() {
       try {
         await getTracks().then((Tracks) => {
+          dispatch(addTrack(tracks));
           setTracks(Tracks);
         });
         setAddTrackError(false);
@@ -29,6 +34,8 @@ export const Main = ({ setUser }) => {
   }, []);
 
   const handleTrackClick = (track) => {
+    // dispatch(Pause(currentTrack));
+
     setCurrentTrack(track);
   };
 
