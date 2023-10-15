@@ -3,7 +3,7 @@ import MainNav from "../../components/NavMenu/NavMenu.jsx";
 import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
 import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
-import { setAllTracks } from "../../Store/action/creators/track";
+import { setAllTracks, setTrack } from "../../Store/action/creators/track";
 import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
 import { useDispatch } from "react-redux";
@@ -34,7 +34,7 @@ export const Main = ({ setUser }) => {
   }, []);
 
   const handleTrackClick = (track) => {
-    // dispatch(Pause(currentTrack));
+    dispatch(setTrack(track));
     setCurrentTrack(track);
   };
 
