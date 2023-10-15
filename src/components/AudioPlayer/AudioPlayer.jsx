@@ -4,22 +4,26 @@ import SkeletonTrackPlayNow from "../skeleton/SkeletonAudioPlayer.jsx";
 import * as S from "./AudioPlayer.styles.js";
 import { useRef, useState } from "react";
 import { ProgressBar } from "./ProgressBar.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { pauseTrack, playTrack } from "../../Store/action/creators/track.js";
+import { isPlayingTrack } from "../../Store/selectors/track.js";
 
 export default function BarPlayer({ currentTrack, isLoaded }) {
-  const [isPlaying, setIsPlaying] = useState(true);
   const [isRepeat, setIsRepeat] = useState(false);
   const [isVolume, setIsVolume] = useState(0.2);
 
   const audioRef = useRef(null);
+  const dispatch = useDispatch();
+  const isPlaying = useSelector(isPlayingTrack)
 
   const handleStart = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    dispatch(playTrack());
   };
 
   const handleStop = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(pauseTrack());
   };
 
   const togglePlay = isPlaying ? handleStop : handleStart;
