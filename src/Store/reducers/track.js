@@ -1,17 +1,17 @@
 import { SET_TRACKS } from "../action/types/track";
 
 const initialState = {
-  tracks: [],
+  playlist: [],
 };
 
 export default function trackReducer(state = initialState, action) {
   switch (action.type) {
     case SET_TRACKS: {
-      const { tracks } = action.payload;
+      const { playlist } = action.payload;
 
       return {
         ...state,
-        tracks,
+        playlist,
       };
     }
 

@@ -1,1 +1,1 @@
-export const allTracksSelector = (store) => store.track.tracks;
+export const allTracksSelector = (store) => store.audioplayer.playlist;

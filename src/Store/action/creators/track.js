@@ -1,6 +1,6 @@
 import { SET_TRACKS } from "../types/track";
 
-export const setAllTracks = (tracks) => ({
+export const setAllTracks = (playlist) => ({
   type: SET_TRACKS,
-  payload: { tracks },
+  payload: { playlist },
 });
