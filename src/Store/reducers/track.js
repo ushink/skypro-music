@@ -53,7 +53,9 @@ export default function trackReducer(state = initialState, action) {
     }
 
     case NEXT_TRACK: {
-      const nextIndex = state.playlist.indexOf(state.track) + 1;
+      const nextIndex = state.shuffle
+        ? state.shufflePlaylist.indexOf(state.track) + 1
+        : state.playlist.indexOf(state.track) + 1;
 
       if (nextIndex >= 0 && nextIndex < state.playlist.length) {
         return {
@@ -66,7 +68,9 @@ export default function trackReducer(state = initialState, action) {
 
     // eslint-disable-next-line no-fallthrough
     case PREV_TRACK: {
-      const prevIndex = state.playlist.indexOf(state.track) - 1;
+      const prevIndex = state.shuffle
+        ? state.shufflePlaylist.indexOf(state.track) - 1
+        : state.playlist.indexOf(state.track) - 1;
 
       if (prevIndex >= 0 && prevIndex < state.playlist.length) {
         return {
