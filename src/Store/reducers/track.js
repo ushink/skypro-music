@@ -1,6 +1,8 @@
 import {
+  NEXT_TRACK,
   PAUSE_TRACK,
   PLAY_TRACK,
+  PREV_TRACK,
   SET_CURRENT_TRACK,
   SET_TRACKS,
 } from "../action/types/track";
@@ -23,12 +25,13 @@ export default function trackReducer(state = initialState, action) {
     }
 
     case SET_CURRENT_TRACK: {
-      const { track } = action.payload;
+      const { track, index } = action.payload;
 
       return {
         ...state,
         playing: true,
         track,
+        trackIndex: index,
       };
     }
 
@@ -44,6 +47,30 @@ export default function trackReducer(state = initialState, action) {
         ...state,
         playing: false,
       };
+    }
+
+    case NEXT_TRACK: {
+      const nextIndex = state.playlist.indexOf(state.track) + 1;
+
+      if (nextIndex >= 0 && nextIndex < state.playlist.length) {
+        return {
+          ...state,
+          track: state.playlist[nextIndex],
+          trackIndex: nextIndex,
+        };
+      }
+    }
+
+    case PREV_TRACK: {
+      const nextIndex = state.playlist.indexOf(state.track) - 1;
+
+      if (nextIndex >= 0 && nextIndex < state.playlist.length) {
+        return {
+          ...state,
+          track: state.playlist[nextIndex],
+          trackIndex: nextIndex,
+        };
+      }
     }
 
     default:

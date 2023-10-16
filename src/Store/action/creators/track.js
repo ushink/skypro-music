@@ -1,6 +1,8 @@
 import {
+  NEXT_TRACK,
   PAUSE_TRACK,
   PLAY_TRACK,
+  PREV_TRACK,
   SET_CURRENT_TRACK,
   SET_TRACKS,
 } from "../types/track";
@@ -10,9 +12,9 @@ export const setAllTracks = (playlist) => ({
   payload: { playlist },
 });
 
-export const setTrack = (track) => ({
+export const setTrack = (track, index) => ({
   type: SET_CURRENT_TRACK,
-  payload: { track },
+  payload: { index, track },
 });
 
 export const pauseTrack = (playing) => ({
@@ -21,4 +23,14 @@ export const pauseTrack = (playing) => ({
 
 export const playTrack = (playing) => ({
   type: PLAY_TRACK,
+});
+
+export const nextTrack = (track, index) => ({
+  type: NEXT_TRACK,
+  payload: { index, track },
+});
+
+export const prevTrack = (track, index) => ({
+  type: PREV_TRACK,
+  payload: { index, track },
 });

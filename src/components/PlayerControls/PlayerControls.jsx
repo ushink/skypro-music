@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import * as S from "./PlayerControls.styles.js";
+import { nextTrack, prevTrack } from "../../Store/action/creators/track.js";
 
 export default function PlayerControlBtn({
   toggleRepeat,
@@ -6,12 +8,14 @@ export default function PlayerControlBtn({
   togglePlay,
   isPlaying,
 }) {
+  const dispatch = useDispatch();
+
   const clickPrev = () => {
-    alert("Еще не реализовано");
+    dispatch(prevTrack());
   };
 
   const clickNext = () => {
-    alert("Еще не реализовано");
+    dispatch(nextTrack());
   };
 
   const clickShuffle = () => {
