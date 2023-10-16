@@ -5,12 +5,15 @@ import {
   PREV_TRACK,
   SET_CURRENT_TRACK,
   SET_TRACKS,
+  TOGGLE_SUFFLED,
 } from "../action/types/track";
 
 const initialState = {
   playing: false,
   playlist: [],
   track: null,
+  shufflePlaylist: [],
+  shuffle: false,
 };
 
 export default function trackReducer(state = initialState, action) {
@@ -61,16 +64,29 @@ export default function trackReducer(state = initialState, action) {
       }
     }
 
+    // eslint-disable-next-line no-fallthrough
     case PREV_TRACK: {
-      const nextIndex = state.playlist.indexOf(state.track) - 1;
+      const prevIndex = state.playlist.indexOf(state.track) - 1;
 
-      if (nextIndex >= 0 && nextIndex < state.playlist.length) {
+      if (prevIndex >= 0 && prevIndex < state.playlist.length) {
         return {
           ...state,
-          track: state.playlist[nextIndex],
-          trackIndex: nextIndex,
+          track: state.playlist[prevIndex],
+          trackIndex: prevIndex,
         };
       }
+    }
+
+    // eslint-disable-next-line no-fallthrough
+    case TOGGLE_SUFFLED: {
+      const shufflePlaylist = state.playlist.sort(() =>
+        Math.round(Math.random() - 0.5)
+      );
+      return {
+        ...state,
+        shufflePlaylist,
+        shuffle: !state.shuffle,
+      };
     }
 
     default:

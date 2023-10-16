@@ -4,6 +4,7 @@ import {
   nextTrack,
   playTrack,
   prevTrack,
+  toggleSuffled,
 } from "../../Store/action/creators/track.js";
 
 export default function PlayerControlBtn({
@@ -25,7 +26,9 @@ export default function PlayerControlBtn({
   };
 
   const clickShuffle = () => {
-    alert("Еще не реализовано");
+    // alert("Еще не реализовано");
+    dispatch(toggleSuffled());
+    dispatch(playTrack());
   };
 
   return (
