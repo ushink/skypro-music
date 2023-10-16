@@ -1,14 +1,21 @@
 import { useSelector } from "react-redux";
 import SkeletonTrackItems from "../skeleton/SkeletonPlaylist.jsx";
 import * as S from "./TracklistContent.styles.js";
-import { allTracksSelector } from "../../Store/selectors/track.js";
+import {
+  allTracksSelector,
+  isPlayingTrack,
+} from "../../Store/selectors/track.js";
 
 export default function PlaylistContent({
   handleTrackClick,
   // tracks,
   isLoaded,
+  currentTrack,
 }) {
   const tracks = useSelector(allTracksSelector);
+  const isPlaying = useSelector(isPlayingTrack);
+  // const currentTrack = useSelector(trackPlaySelector);
+
   const TrackItems = tracks.map((track) => (
     <S.PlaylistItem onClick={() => handleTrackClick(track)} key={track.id}>
       {isLoaded ? (
@@ -17,9 +24,15 @@ export default function PlaylistContent({
         <S.PlaylistTrack>
           <S.TrackTitle>
             <S.TrackTitleImage>
-              <S.TrackTitleSvg alt="music">
-                <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-              </S.TrackTitleSvg>
+              {currentTrack && currentTrack.id === track.id && isPlaying ? (
+                <S.PulsePoint />
+              ) : currentTrack && currentTrack.id === track.id && !isPlaying ? (
+                <S.StaticPoint />
+              ) : (
+                <S.TrackTitleSvg alt="music">
+                  <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                </S.TrackTitleSvg>
+              )}
             </S.TrackTitleImage>
             <S.TrackTitleText>
               <S.TrackTitleLink href="http://">

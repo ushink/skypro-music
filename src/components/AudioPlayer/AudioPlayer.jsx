@@ -14,7 +14,7 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
 
   const audioRef = useRef(null);
   const dispatch = useDispatch();
-  const isPlaying = useSelector(isPlayingTrack)
+  const isPlaying = useSelector(isPlayingTrack);
 
   const handleStart = () => {
     audioRef.current.play();

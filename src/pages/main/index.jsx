@@ -54,6 +54,7 @@ export const Main = ({ setUser }) => {
             <MainTracklist
               isLoaded={isLoaded}
               // tracks={tracks}
+              currentTrack={currentTrack}
               handleTrackClick={handleTrackClick}
               addTrackError={addTrackError}
             />
