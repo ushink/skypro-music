@@ -26,7 +26,6 @@ export default function PlayerControlBtn({
   };
 
   const clickShuffle = () => {
-    // alert("Еще не реализовано");
     dispatch(toggleSuffled());
     dispatch(playTrack());
   };

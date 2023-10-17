@@ -1,4 +1,3 @@
-import { Shuffled } from "../../utils/shuffledPlaylist";
 import {
   NEXT_TRACK,
   PAUSE_TRACK,
@@ -85,7 +84,9 @@ export default function trackReducer(state = initialState, action) {
     // eslint-disable-next-line no-fallthrough
     case TOGGLE_SUFFLED: {
       if (!state.shuffle) {
-        const shufflePlaylist = Shuffled([...state.playlist]);
+        const shufflePlaylist = [...state.playlist].sort(
+          () => Math.random() - 0.5
+        );
         return {
           ...state,
           shufflePlaylist,
