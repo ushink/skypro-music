@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import * as S from "./ProgressBar.styles";
 
-export function ProgressBar({ currentTrack, audioRef }) {
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(null);
-
+export function ProgressBar({
+  currentTrack,
+  audioRef,
+  currentTime,
+  setCurrentTime,
+  duration,
+  setDuration,
+}) {
   function getTrackTime(seconds) {
     const min = Math.floor(seconds / 60);
     const sec = Math.floor(seconds % 60);
