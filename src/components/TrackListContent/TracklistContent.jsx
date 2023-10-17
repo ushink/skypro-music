@@ -4,8 +4,6 @@ import * as S from "./TracklistContent.styles.js";
 import {
   allTracksSelector,
   isPlayingTrack,
-  isShuffleSelector,
-  shufflePlaylistSelector,
 } from "../../Store/selectors/track.js";
 
 export default function PlaylistContent({
@@ -14,11 +12,7 @@ export default function PlaylistContent({
   isLoaded,
   currentTrack,
 }) {
-  const shuffle = useSelector(isShuffleSelector);
-  const shufflePlaylist = useSelector(shufflePlaylistSelector);
-  const playlist = useSelector(allTracksSelector);
-
-  const tracks = shuffle ? shufflePlaylist : playlist;
+  const tracks = useSelector(allTracksSelector);
   const isPlaying = useSelector(isPlayingTrack);
 
   const TrackItems = tracks.map((track) => (

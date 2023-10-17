@@ -36,7 +36,6 @@ export const prevTrack = (track, index) => ({
   payload: { index, track },
 });
 
-export const toggleSuffled = (shufflePlaylist) => ({
+export const toggleSuffled = () => ({
   type: TOGGLE_SUFFLED,
-  payload: { shufflePlaylist },
 });
