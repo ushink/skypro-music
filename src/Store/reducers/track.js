@@ -60,8 +60,16 @@ export default function trackReducer(state = initialState, action) {
       if (nextIndex >= 0 && nextIndex < state.playlist.length) {
         return {
           ...state,
-          track: state.playlist[nextIndex],
+          track: state.shuffle
+            ? state.shufflePlaylist[nextIndex]
+            : state.playlist[nextIndex],
           trackIndex: nextIndex,
+        };
+      } else {
+        return {
+          ...state,
+          track: state.playlist[0], // если последний трек то возвращает на первый
+          trackIndex: 0,
         };
       }
     }
@@ -75,8 +83,16 @@ export default function trackReducer(state = initialState, action) {
       if (prevIndex >= 0 && prevIndex < state.playlist.length) {
         return {
           ...state,
-          track: state.playlist[prevIndex],
+          track: state.shuffle
+            ? state.shufflePlaylist[prevIndex]
+            : state.playlist[prevIndex],
           trackIndex: prevIndex,
+        };
+      } else {
+        return {
+          ...state,
+          track: state.playlist[0], // если первый трек то возвращает на первый
+          trackIndex: 0,
         };
       }
     }
