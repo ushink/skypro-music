@@ -15,22 +15,27 @@ export function ProgressBar({
     return `${min}:${sec < 10 ? `0${sec}` : sec}`;
   }
 
-  const interval = () => {
-    setInterval(() => {
-      setCurrentTime(Math.floor(audioRef.current.currentTime));
-    }, 1000);
-  };
-
   useEffect(() => {
     if (currentTrack) {
-      audioRef.current.src = currentTrack.track_file;
+      const ref = audioRef.current;
 
-      audioRef.current.addEventListener("timeupdate", () => {
-        setDuration(audioRef.current.duration);
-        interval();
-      });
+      const handeleTimeUpdateEvent = () => {
+        if (ref.currentTime && ref.duration) {
+          setCurrentTime(ref.currentTime);
+          setDuration(ref.duration);
+        } else {
+          setCurrentTime(0);
+          setDuration(0);
+        }
+      };
+
+      ref.addEventListener("timeupdate", handeleTimeUpdateEvent);
+
+      return () => {
+        ref.removeEventListener("timeupdate", handeleTimeUpdateEvent);
+      };
     }
-  }, [currentTrack]);
+  }, [audioRef, setCurrentTime, setDuration]);
 
   const rewindTime = (event) => {
     setCurrentTime(event.target.value);
