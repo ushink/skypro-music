@@ -18,6 +18,7 @@ export function ProgressBar({
   useEffect(() => {
     if (currentTrack) {
       const ref = audioRef.current;
+      ref.src = currentTrack.track_file;
 
       const handeleTimeUpdateEvent = () => {
         if (ref.currentTime && ref.duration) {
@@ -35,7 +36,7 @@ export function ProgressBar({
         ref.removeEventListener("timeupdate", handeleTimeUpdateEvent);
       };
     }
-  }, [audioRef, setCurrentTime, setDuration]);
+  }, [audioRef, setCurrentTime, setDuration, currentTrack]);
 
   const rewindTime = (event) => {
     setCurrentTime(event.target.value);
