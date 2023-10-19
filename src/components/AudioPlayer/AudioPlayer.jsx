@@ -4,28 +4,46 @@ import SkeletonTrackPlayNow from "../skeleton/SkeletonAudioPlayer.jsx";
 import * as S from "./AudioPlayer.styles.js";
 import { useRef, useState } from "react";
 import { ProgressBar } from "./ProgressBar.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  nextTrack,
+  pauseTrack,
+  playTrack,
+} from "../../Store/action/creators/track.js";
+import { isPlayingTrack } from "../../Store/selectors/track.js";
 
 export default function BarPlayer({ currentTrack, isLoaded }) {
-  const [isPlaying, setIsPlaying] = useState(true);
   const [isRepeat, setIsRepeat] = useState(false);
   const [isVolume, setIsVolume] = useState(0.2);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(null);
 
   const audioRef = useRef(null);
+  const dispatch = useDispatch();
+  const isPlaying = useSelector(isPlayingTrack);
 
   const handleStart = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    dispatch(playTrack());
   };
 
   const handleStop = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(pauseTrack());
   };
 
   const togglePlay = isPlaying ? handleStop : handleStart;
 
   const toggleRepeat = () => {
     setIsRepeat(!isRepeat);
+  };
+
+  const playTrackInRow = () => {
+    const durTrack = audioRef.current.duration;
+    const curTime = audioRef.current.currentTime;
+    if (durTrack === curTime) {
+      dispatch(nextTrack());
+    }
   };
 
   const changeVolume = (event) => {
@@ -36,13 +54,25 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
   return (
     <S.Bar>
       {currentTrack ? (
-        <audio ref={audioRef} loop={isRepeat} autoPlay>
+        <audio
+          ref={audioRef}
+          loop={isRepeat}
+          onTimeUpdate={playTrackInRow}
+          autoPlay
+        >
           <source src={currentTrack.track_file} type="audio/mp3" />
         </audio>
       ) : null}
       {currentTrack ? (
         <S.BarContent>
-          <ProgressBar currentTrack={currentTrack} audioRef={audioRef} />
+          <ProgressBar
+            currentTrack={currentTrack}
+            audioRef={audioRef}
+            currentTime={currentTime}
+            setCurrentTime={setCurrentTime}
+            duration={duration}
+            setDuration={setDuration}
+          />
 
           <S.BarPlayerBlock>
             <S.BarPlayer>

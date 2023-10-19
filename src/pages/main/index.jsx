@@ -3,20 +3,27 @@ import MainNav from "../../components/NavMenu/NavMenu.jsx";
 import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
 import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
+import { setAllTracks, setTrack } from "../../Store/action/creators/track";
 import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
+import { useDispatch, useSelector } from "react-redux";
+import { trackPlaySelector } from "../../Store/selectors/track.js";
 
 export const Main = ({ setUser }) => {
   const [isLoaded, setIsLoaded] = useState(true);
-  const [tracks, setTracks] = useState(["", "", "", "", ""]);
-  const [currentTrack, setCurrentTrack] = useState(null);
+  // const [tracks, setTracks] = useState(["", "", "", "", ""]);
+  // const [currentTrack, setCurrentTrack] = useState(null);
   const [addTrackError, setAddTrackError] = useState(null);
+
+  const dispatch = useDispatch();
+  const currentTrack = useSelector(trackPlaySelector);
 
   useEffect(() => {
     async function fetchTracks() {
       try {
         await getTracks().then((Tracks) => {
-          setTracks(Tracks);
+          dispatch(setAllTracks(Tracks));
+          // setTracks(Tracks);
         });
         setAddTrackError(false);
       } catch (error) {
@@ -29,7 +36,8 @@ export const Main = ({ setUser }) => {
   }, []);
 
   const handleTrackClick = (track) => {
-    setCurrentTrack(track);
+    dispatch(setTrack(track));
+    // setCurrentTrack(track);   
   };
 
   const handleLogout = () => {
@@ -45,7 +53,8 @@ export const Main = ({ setUser }) => {
             <MainNav handleLogout={handleLogout} />
             <MainTracklist
               isLoaded={isLoaded}
-              tracks={tracks}
+              // tracks={tracks}
+              currentTrack={currentTrack}
               handleTrackClick={handleTrackClick}
               addTrackError={addTrackError}
             />

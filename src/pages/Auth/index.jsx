@@ -20,7 +20,7 @@ export default function AuthPage({ isLoginMode, setUser }) {
         const userLogin = await getUserLogin({ email, password });
         setUser(userLogin.email);
         window.localStorage.setItem("user", userLogin.email);
-        window.location.href = "/";
+        Navigate("/");
       } catch (error) {
         const errorDate = JSON.parse(error.message);
         if (errorDate.password) {
