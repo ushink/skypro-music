@@ -9,7 +9,7 @@ import {
   nextTrack,
   pauseTrack,
   playTrack,
-} from "../../Store/action/creators/track.js";
+} from "../../Store/slices/trackSlice.js";
 import { isPlayingTrack } from "../../Store/selectors/track.js";
 
 export default function BarPlayer({ currentTrack, isLoaded }) {
