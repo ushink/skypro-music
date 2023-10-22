@@ -5,7 +5,7 @@ import {
   playTrack,
   prevTrack,
   toggleSuffled,
-} from "../../Store/slices/trackSlice.js";
+} from "../../Store/action/creators/track.js";
 
 export default function PlayerControlBtn({
   toggleRepeat,

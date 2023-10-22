@@ -3,8 +3,8 @@ import MainNav from "../../components/NavMenu/NavMenu.jsx";
 import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
 import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
-// import { setAllTracks, setTrack } from "../../Store/action/creators/track";
-import { setAllTracks, setTrack } from "../../Store/slices/trackSlice.js";
+import { setAllTracks, setTrack } from "../../Store/action/creators/track";
+// import { setAllTracks, setTrack } from "../../Store/slices/trackSlice.js";
 import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,9 +36,9 @@ export const Main = ({ setUser }) => {
     fetchTracks();
   }, []);
 
-  const handleTrackClick = (track) => {
-    dispatch(setTrack(track));
-    // setCurrentTrack(track);   
+  const handleTrackClick = (track, index) => {
+    dispatch(setTrack(track, index));
+    // setCurrentTrack(track);
   };
 
   const handleLogout = () => {

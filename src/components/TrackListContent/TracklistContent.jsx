@@ -15,8 +15,11 @@ export default function PlaylistContent({
   const tracks = useSelector(allTracksSelector);
   const isPlaying = useSelector(isPlayingTrack);
 
-  const TrackItems = tracks.map((track) => (
-    <S.PlaylistItem onClick={() => handleTrackClick(track)} key={track.id}>
+  const TrackItems = tracks.map((track, index) => (
+    <S.PlaylistItem
+      onClick={() => handleTrackClick(track, index)}
+      key={track.id}
+    >
       {isLoaded ? (
         <SkeletonTrackItems />
       ) : (

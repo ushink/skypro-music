@@ -6,7 +6,7 @@ export const trackSlice = createSlice({
     playing: false,
     playlist: [],
     track: null,
-    trackIndex: null,
+    // trackIndex: null,
     shufflePlaylist: [],
     shuffle: false,
   },
@@ -16,8 +16,8 @@ export const trackSlice = createSlice({
     },
 
     setTrack(state, action) {
-      const { index } = action.payload;
-      state.track = action.payload;
+      const { track, index } = action.payload;
+      state.track = track;
       state.trackIndex = index;
       state.playing = true;
     },
