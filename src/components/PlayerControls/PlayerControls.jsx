@@ -1,11 +1,17 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as S from "./PlayerControls.styles.js";
 import {
   nextTrack,
   playTrack,
   prevTrack,
   toggleSuffled,
-} from "../../Store/action/creators/track.js";
+} from "../../Store/slices/trackSlice.js";
+import {
+  allTracksSelector,
+  isShuffleSelector,
+  shufflePlaylistSelector,
+  trackPlaySelector,
+} from "../../Store/selectors/track.js";
 
 export default function PlayerControlBtn({
   toggleRepeat,
@@ -14,6 +20,10 @@ export default function PlayerControlBtn({
   isPlaying,
 }) {
   const dispatch = useDispatch();
+  const track = useSelector(trackPlaySelector);
+  const playlist = useSelector(allTracksSelector);
+  const shuffle = useSelector(isShuffleSelector);
+  const shufflePlaylist = useSelector(shufflePlaylistSelector);
 
   const clickPrev = () => {
     dispatch(prevTrack());
