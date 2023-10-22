@@ -1,4 +1,3 @@
-import BarPlayer from "../../components/AudioPlayer/AudioPlayer";
 import MainNav from "../../components/NavMenu/NavMenu";
 import MainSidebar from "../../components/Sidebar/Sidebar";
 import Filter from "../../components/TrackFilter/TrackFilter";
@@ -29,7 +28,6 @@ export const MyPlaylist = ({ isLoaded }) => {
             </S.MainCenterblock>
             <MainSidebar />
           </S.Main>
-          <BarPlayer />
           <S.Footer></S.Footer>
         </S.Container>
       </S.Wrapper>

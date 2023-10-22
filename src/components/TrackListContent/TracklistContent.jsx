@@ -4,16 +4,17 @@ import * as S from "./TracklistContent.styles.js";
 import {
   allTracksSelector,
   isPlayingTrack,
+  trackPlaySelector,
 } from "../../Store/selectors/track.js";
 
 export default function PlaylistContent({
   handleTrackClick,
   // tracks,
   isLoaded,
-  currentTrack,
 }) {
   const tracks = useSelector(allTracksSelector);
   const isPlaying = useSelector(isPlayingTrack);
+  const currentTrack = useSelector(trackPlaySelector);
 
   const TrackItems = tracks.map((track, index) => (
     <S.PlaylistItem

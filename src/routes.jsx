@@ -6,11 +6,17 @@ import { Category } from "./pages/categories";
 import AuthPage from "./pages/Auth";
 import { ProtectedRoute } from "./components/protected-route";
 
-export const AppRoutes = ({ user, setUser}) => {
+export const AppRoutes = ({ user, setUser }) => {
   return (
     <Routes>
-      <Route path="/login" element={<AuthPage isLoginMode={true} setUser={setUser}/>} />
-      <Route path="/register" element={<AuthPage isLoginMode={false} setUser={setUser} />} />
+      <Route
+        path="/login"
+        element={<AuthPage isLoginMode={true} setUser={setUser} />}
+      />
+      <Route
+        path="/register"
+        element={<AuthPage isLoginMode={false} setUser={setUser} />}
+      />
 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
         <Route path="/" element={<Main setUser={setUser} />} />

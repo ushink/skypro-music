@@ -9,7 +9,6 @@ export default function MainTracklist({
   isLoaded,
   handleTrackClick,
   addTrackError,
-  currentTrack,
 }) {
   return (
     <S.MainCenterblock>
@@ -25,7 +24,6 @@ export default function MainTracklist({
             isLoaded={isLoaded}
             tracks={tracks}
             handleTrackClick={handleTrackClick}
-            currentTrack={currentTrack}
           />
         )}
       </S.CenterblockContent>
