@@ -4,9 +4,10 @@ import MainSidebar from "../../components/Sidebar/Sidebar";
 import Filter from "../../components/TrackFilter/TrackFilter";
 import CenterblockSearch from "../../components/TrackList/centerblockSearch";
 import ContentTitle from "../../components/TrackList/ContentTitle";
+import PlaylistContent from "../../components/TrackListContent/TracklistContent";
 import * as S from "./styles";
 
-export const MyPlaylist = () => {
+export const MyPlaylist = ({ isLoaded }) => {
   return (
     <>
       <S.Wrapper>
@@ -17,7 +18,14 @@ export const MyPlaylist = () => {
               <CenterblockSearch />
               <S.CenterblockH2>Мой плейлист</S.CenterblockH2>
               <Filter />
-              <ContentTitle />
+              <S.CenterblockContent>
+                <ContentTitle />
+                {!isLoaded ? (
+                  `В этом плейлисте нет треков`
+                ) : (
+                  <PlaylistContent />
+                )}
+              </S.CenterblockContent>
             </S.MainCenterblock>
             <MainSidebar />
           </S.Main>
