@@ -18,7 +18,7 @@ export const trackSlice = createSlice({
     setTrack(state, action) {
       const { index } = action.payload;
       state.track = action.payload;
-      state.indexTrack = index;
+      state.trackIndex = index;
       state.playing = true;
     },
 
@@ -30,17 +30,14 @@ export const trackSlice = createSlice({
       state.playing = false;
     },
 
-    nextTrack(state, action) {
-      const { index } = action.payload;
-      state.track = action.payload;
-      state.indexTrack = index;
-
+    nextTrack(state) {
       const nextIndex = state.shuffle
         ? state.shufflePlaylist.indexOf(state.track) + 1
         : state.playlist.indexOf(state.track) + 1;
 
       if (nextIndex >= 0 && nextIndex < state.playlist.length) {
         return {
+          ...state,
           track: state.shuffle
             ? state.shufflePlaylist[nextIndex]
             : state.playlist[nextIndex],
@@ -49,23 +46,21 @@ export const trackSlice = createSlice({
         };
       } else {
         return {
+          ...state,
           track: state.playlist[0],
           trackIndex: 0,
         };
       }
     },
 
-    prevTrack(state, action) {
-      const { index } = action.payload;
-      state.track = action.payload;
-      state.indexTrack = index;
-
+    prevTrack(state) {
       const prevIndex = state.shuffle
         ? state.shufflePlaylist.indexOf(state.track) - 1
         : state.playlist.indexOf(state.track) - 1;
 
       if (prevIndex >= 0 && prevIndex < state.playlist.length) {
         return {
+          ...state,
           track: state.shuffle
             ? state.shufflePlaylist[prevIndex]
             : state.playlist[prevIndex],
@@ -74,6 +69,7 @@ export const trackSlice = createSlice({
         };
       } else {
         return {
+          ...state,
           track: state.playlist[0],
           trackIndex: 0,
         };
@@ -86,12 +82,14 @@ export const trackSlice = createSlice({
           () => Math.random() - 0.5
         );
         return {
+          ...state,
           shufflePlaylist,
           shuffle: !state.shuffle,
         };
       } else {
         const trackIndex = state.playlist.indexOf(state.track);
         return {
+          ...state,
           shuffle: false,
           shufflePlaylist: [],
           trackIndex: trackIndex,
