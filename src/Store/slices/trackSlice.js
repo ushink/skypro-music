@@ -6,7 +6,6 @@ export const trackSlice = createSlice({
     playing: false,
     playlist: [],
     track: null,
-    // trackIndex: null,
     shufflePlaylist: [],
     shuffle: false,
   },
@@ -31,9 +30,20 @@ export const trackSlice = createSlice({
     },
 
     nextTrack(state) {
+      let arrayIdPlaylist = [];
+      let arrayIdShufflePlaylist = [];
+
+      for (let i = 0; i < state.playlist.length; i++) {
+        arrayIdPlaylist.push(state.playlist[i].id);
+      }
+
+      for (let i = 0; i < state.shufflePlaylist.length; i++) {
+        arrayIdShufflePlaylist.push(state.shufflePlaylist[i].id);
+      }
+
       const nextIndex = state.shuffle
-        ? state.shufflePlaylist.indexOf(state.track) + 1
-        : state.playlist.indexOf(state.track) + 1;
+        ? arrayIdShufflePlaylist.indexOf(state.track.id) + 1
+        : arrayIdPlaylist.indexOf(state.track.id) + 1;
 
       if (nextIndex >= 0 && nextIndex < state.playlist.length) {
         return {
@@ -41,22 +51,32 @@ export const trackSlice = createSlice({
           track: state.shuffle
             ? state.shufflePlaylist[nextIndex]
             : state.playlist[nextIndex],
-
           trackIndex: nextIndex,
         };
       } else {
         return {
           ...state,
-          track: state.playlist[0],
+          track: state.shuffle ? state.shufflePlaylist[0] : state.playlist[0],
           trackIndex: 0,
         };
       }
     },
 
     prevTrack(state) {
+      let arrayIdPlaylist = [];
+      let arrayIdShufflePlaylist = [];
+
+      for (let i = 0; i < state.playlist.length; i++) {
+        arrayIdPlaylist.push(state.playlist[i].id);
+      }
+
+      for (let i = 0; i < state.shufflePlaylist.length; i++) {
+        arrayIdShufflePlaylist.push(state.shufflePlaylist[i].id);
+      }
+
       const prevIndex = state.shuffle
-        ? state.shufflePlaylist.indexOf(state.track) - 1
-        : state.playlist.indexOf(state.track) - 1;
+        ? arrayIdShufflePlaylist.indexOf(state.track.id) - 1
+        : arrayIdPlaylist.indexOf(state.track.id) - 1;
 
       if (prevIndex >= 0 && prevIndex < state.playlist.length) {
         return {
@@ -70,7 +90,7 @@ export const trackSlice = createSlice({
       } else {
         return {
           ...state,
-          track: state.playlist[0],
+          track: state.shuffle ? state.shufflePlaylist[0] : state.playlist[0],
           trackIndex: 0,
         };
       }
