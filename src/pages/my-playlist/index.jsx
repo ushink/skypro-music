@@ -3,10 +3,13 @@ import MainSidebar from "../../components/Sidebar/Sidebar";
 import Filter from "../../components/TrackFilter/TrackFilter";
 import CenterblockSearch from "../../components/TrackList/centerblockSearch";
 import ContentTitle from "../../components/TrackList/ContentTitle";
-import PlaylistContent from "../../components/TrackListContent/TracklistContent";
+// import PlaylistContent from "../../components/TrackListContent/TracklistContent";
 import * as S from "./styles";
+import { useGetFavTrackQuery } from "../../services/trackQuery";
 
 export const MyPlaylist = ({ isLoaded }) => {
+  const { data = [] } = useGetFavTrackQuery();
+
   return (
     <>
       <S.Wrapper>
@@ -22,7 +25,11 @@ export const MyPlaylist = ({ isLoaded }) => {
                 {!isLoaded ? (
                   `В этом плейлисте нет треков`
                 ) : (
-                  <PlaylistContent />
+                  <ul>
+                    {data.map((item) => (
+                      <li key={item.id}>{item.name}</li>
+                    ))}
+                  </ul>
                 )}
               </S.CenterblockContent>
             </S.MainCenterblock>
