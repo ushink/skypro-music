@@ -52,8 +52,6 @@ export const Main = ({ setUser, currentTrack }) => {
             <MainNav handleLogout={handleLogout} />
             <MainTracklist
               isLoaded={isLoaded}
-              // tracks={tracks}
-              // currentTrack={currentTrack}
               handleTrackClick={handleTrackClick}
               addTrackError={addTrackError}
             />

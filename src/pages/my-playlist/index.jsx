@@ -3,12 +3,12 @@ import MainSidebar from "../../components/Sidebar/Sidebar";
 import Filter from "../../components/TrackFilter/TrackFilter";
 import CenterblockSearch from "../../components/TrackList/centerblockSearch";
 import ContentTitle from "../../components/TrackList/ContentTitle";
-// import PlaylistContent from "../../components/TrackListContent/TracklistContent";
 import * as S from "./styles";
 import { useGetFavTrackQuery } from "../../services/trackQuery";
+import PlaylistItem from "../../components/PlaylistItem/PlaylistItem";
 
 export const MyPlaylist = ({ isLoaded }) => {
-  const { data = [] } = useGetFavTrackQuery();
+  const { favTracks = [] } = useGetFavTrackQuery();
 
   return (
     <>
@@ -22,15 +22,21 @@ export const MyPlaylist = ({ isLoaded }) => {
               <Filter />
               <S.CenterblockContent>
                 <ContentTitle />
-                {!isLoaded ? (
-                  `В этом плейлисте нет треков`
-                ) : (
-                  <ul>
-                    {data.map((item) => (
-                      <li key={item.id}>{item.name}</li>
-                    ))}
-                  </ul>
-                )}
+                <S.ContentPlaylist>
+                {favTracks.length === 0 && "В этом плейлисте нет треков"}
+
+                  {favTracks.map((track) => (
+                    <PlaylistItem
+                      isLoaded={isLoaded}
+                      id={track.id}
+                      name={track.name}
+                      remix={track.remix}
+                      author={track.author}
+                      album={track.album}
+                      seconds={track.duration_in_seconds}
+                    />
+                  ))}
+                </S.ContentPlaylist>
               </S.CenterblockContent>
             </S.MainCenterblock>
             <MainSidebar />
@@ -41,3 +47,4 @@ export const MyPlaylist = ({ isLoaded }) => {
     </>
   );
 };
+// export default MyPlaylist;

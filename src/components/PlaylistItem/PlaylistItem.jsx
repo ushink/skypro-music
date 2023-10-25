@@ -1,10 +1,13 @@
+import { useSelector } from "react-redux";
 import SkeletonTrackItems from "../skeleton/SkeletonPlaylist.jsx";
 import * as S from "./PlaylistItem.js";
+import {
+  isPlayingTrack,
+  trackPlaySelector,
+} from "../../Store/selectors/track.js";
 
 export default function PlaylistItem({
   isLoaded,
-  isPlaying,
-  currentTrack,
   onClick,
   id,
   name,
@@ -13,6 +16,8 @@ export default function PlaylistItem({
   album,
   seconds,
 }) {
+  const isPlaying = useSelector(isPlayingTrack);
+  const currentTrack = useSelector(trackPlaySelector);
   return (
     <S.PlaylistItem onClick={onClick} key={id}>
       {isLoaded ? (

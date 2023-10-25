@@ -4,11 +4,7 @@ import CenterblockSearch from "./centerblockSearch.jsx";
 import * as S from "./TrackList.styles.js";
 import ContentTitle from "./ContentTitle.jsx";
 import { useSelector } from "react-redux";
-import {
-  allTracksSelector,
-  isPlayingTrack,
-  trackPlaySelector,
-} from "../../Store/selectors/track.js";
+import { allTracksSelector } from "../../Store/selectors/track.js";
 
 export default function MainTracklist({
   // tracks,
@@ -17,8 +13,6 @@ export default function MainTracklist({
   addTrackError,
 }) {
   const tracks = useSelector(allTracksSelector);
-  const isPlaying = useSelector(isPlayingTrack);
-  const currentTrack = useSelector(trackPlaySelector);
 
   return (
     <S.MainCenterblock>
@@ -34,8 +28,6 @@ export default function MainTracklist({
             {tracks.map((track, index) => (
               <PlaylistItem
                 isLoaded={isLoaded}
-                isPlaying={isPlaying}
-                currentTrack={currentTrack}
                 onClick={() => handleTrackClick(track, index)}
                 id={track.id}
                 name={track.name}

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import thunk from "redux-thunk";
-import trackSlice from "./slices/trackSlice.js";
-import { tracksApi } from "../services/trackQuery.js";
+import trackSlice from "./slices/trackSlice";
+import { tracksApi } from "../services/trackQuery";
 
 export const store = configureStore({
   reducer: {
