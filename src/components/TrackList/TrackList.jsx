@@ -1,15 +1,25 @@
-import PlaylistContent from "../TrackListContent/TracklistContent.jsx";
+import PlaylistItem from "../PlaylistItem/PlaylistItem.jsx";
 import Filter from "../TrackFilter/TrackFilter.jsx";
 import CenterblockSearch from "./centerblockSearch.jsx";
 import * as S from "./TrackList.styles.js";
 import ContentTitle from "./ContentTitle.jsx";
+import { useSelector } from "react-redux";
+import {
+  allTracksSelector,
+  isPlayingTrack,
+  trackPlaySelector,
+} from "../../Store/selectors/track.js";
 
 export default function MainTracklist({
-  tracks,
+  // tracks,
   isLoaded,
   handleTrackClick,
   addTrackError,
 }) {
+  const tracks = useSelector(allTracksSelector);
+  const isPlaying = useSelector(isPlayingTrack);
+  const currentTrack = useSelector(trackPlaySelector);
+
   return (
     <S.MainCenterblock>
       <CenterblockSearch />
@@ -20,11 +30,22 @@ export default function MainTracklist({
         {addTrackError ? (
           `Не удалось загрузить плейлист, попробуйте позже. ${addTrackError}`
         ) : (
-          <PlaylistContent
-            isLoaded={isLoaded}
-            tracks={tracks}
-            handleTrackClick={handleTrackClick}
-          />
+          <S.ContentPlaylist>
+            {tracks.map((track, index) => (
+              <PlaylistItem
+                isLoaded={isLoaded}
+                isPlaying={isPlaying}
+                currentTrack={currentTrack}
+                onClick={() => handleTrackClick(track, index)}
+                id={track.id}
+                name={track.name}
+                remix={track.remix}
+                author={track.author}
+                album={track.album}
+                seconds={track.duration_in_seconds}
+              />
+            ))}
+          </S.ContentPlaylist>
         )}
       </S.CenterblockContent>
     </S.MainCenterblock>
