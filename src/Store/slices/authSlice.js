@@ -1,18 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
+const AUTH_KEY = "auth";
+
+function getAuthFromLocalStorage() {
+  try {
+    return JSON.parse(localStorage.getItem(AUTH_KEY));
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+const initialState = {
+  refreshToken: null,
+  accessToken: null,
+};
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    refreshToken: null,
-    accessToken: null,
-  },
+
+  initialState: getAuthFromLocalStorage() ?? initialState,
   reducers: {
     AuthReducer(state, action) {
-      return {
-        ...state,
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
-      };
+      const payload = action.payload ?? initialState;
+
+      state.refreshToken = payload.refreshToken;
+      state.accessToken = payload.accessToken;
+
+      localStorage.setItem(AUTH_KEY, JSON.stringify(state));
     },
   },
 });
