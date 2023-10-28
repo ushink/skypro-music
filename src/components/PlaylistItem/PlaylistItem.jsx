@@ -9,6 +9,7 @@ import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
 } from "../../services/trackQuery.js";
+import { useState } from "react";
 
 export default function PlaylistItem({
   track,
@@ -28,26 +29,44 @@ export default function PlaylistItem({
   const [like, { error: likeError }] = useLikeTrackMutation();
   const [dislike, { error: dislikeError }] = useDislikeTrackMutation();
 
-  const handleLikeClick = () => {
-    if (isFavorite) {
-      dislike({
-        id: track.id,
+  const [isLiked, setIsLiked] = useState(isFavorite);
+
+  // поставить лайк
+  const handleLike = async () => {
+    await like({
+      id: track.id,
+    })
+      .unwrap()
+      .catch((error) => {
+        console.error(error);
+        console.log("Ошибка лайка");
       });
-      console.log("dislike");
-    } else {
-      like({
-        id: track.id,
-      });
-      console.log("like");
-    }
+    setIsLiked(true);
+    console.log("like");
   };
 
-  const error = likeError ?? dislikeError ?? null;
+  // убрать лайк
+  const handleDislike = async () => {
+    await dislike({
+      id: track.id,
+    })
+      .unwrap()
+      .catch((error) => {
+        console.error(error);
+        console.log("Ошибка лайка");
+      });
+    setIsLiked(false);
+    console.log("dislike");
+  };
 
-  if (error) {
-    console.error(error);
-    console.log("Ошибка лайка");
-  }
+  // ф-ция лайков
+  const handleLikeClick = () => {
+    if (isLiked) {
+      handleDislike(id);
+    } else {
+      handleLike(id);
+    }
+  };
 
   return (
     <S.PlaylistItem onClick={onClick} key={id}>
@@ -88,7 +107,7 @@ export default function PlaylistItem({
                 handleLikeClick();
               }}
             >
-              {isFavorite ? (
+              {!isLiked ? (
                 <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
               ) : (
                 <use xlinkHref="img/icon/sprite.svg#icon-like-activ"></use>

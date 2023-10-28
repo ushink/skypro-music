@@ -8,8 +8,13 @@ export const trackSlice = createSlice({
     track: null,
     shufflePlaylist: [],
     shuffle: false,
+    favoritePlaylist: [],
   },
   reducers: {
+    setFavoritePlaylist: (state, action) => {
+      state.favoritePlaylist = action.payload;
+    },
+
     setAllTracks(state, action) {
       state.playlist = action.payload;
     },
@@ -120,6 +125,7 @@ export const trackSlice = createSlice({
 });
 
 export const {
+  setFavoritePlaylist,
   setAllTracks,
   setTrack,
   playTrack,
