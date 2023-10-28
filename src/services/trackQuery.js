@@ -64,4 +64,8 @@ export const tracksApi = createApi({
   }),
 });
 
-export const { useGetFavTrackQuery } = tracksApi;
+export const {
+  useGetFavTrackQuery,
+  useLikeTrackMutation,
+  useDislikeTrackMutation,
+} = tracksApi;

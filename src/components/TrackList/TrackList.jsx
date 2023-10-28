@@ -27,6 +27,7 @@ export default function MainTracklist({
           <S.ContentPlaylist>
             {tracks.map((track, index) => (
               <PlaylistItem
+                track={track}
                 isLoaded={isLoaded}
                 onClick={() => handleTrackClick(track, index)}
                 id={track.id}

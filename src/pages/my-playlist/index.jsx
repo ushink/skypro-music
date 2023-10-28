@@ -34,14 +34,18 @@ export const MyPlaylist = ({ isLoaded, handleLogout }) => {
 
                   {data.map((track, index) => (
                     <PlaylistItem
+                      track={track}
                       isLoaded={isLoaded}
-                      onClick={() => dispatch(setTrack({ track, index }))}
+                      onClick={() => dispatch(setTrack({ track, index }))} // сделать slice для FavTracks
                       id={track.id}
                       name={track.name}
                       remix={track.remix}
                       author={track.author}
                       album={track.album}
                       seconds={track.duration_in_seconds}
+                      isFavorite={(track.stared_user ?? []).find(
+                        ({ id }) => id === auth.id
+                      )}
                     />
                   ))}
                 </S.ContentPlaylist>
