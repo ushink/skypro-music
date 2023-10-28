@@ -33,12 +33,12 @@ export default function PlaylistItem({
       dislike({
         id: track.id,
       });
-      console.log('dislike')
+      console.log("dislike");
     } else {
       like({
         id: track.id,
       });
-      console.log('like')
+      console.log("like");
     }
   };
 
