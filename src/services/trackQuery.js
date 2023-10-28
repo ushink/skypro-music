@@ -26,7 +26,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
   const forseLogout = () => {
     console.debug("Принудительная авторизация");
     api.dispatch(AuthReducer(null));
-    localStorage.navigate("/login");
+    // localStorage.navigate("/login");
   };
 
   const { auth } = api.getState();
@@ -41,8 +41,25 @@ export const tracksApi = createApi({
   reducerPath: "tracksApi",
   baseQuery: baseQueryAuth,
   endpoints: (build) => ({
+    // получить избранные треки
     getFavTrack: build.query({
       query: () => `catalog/track/favorite/all/`,
+    }),
+
+    // поставить лайк
+    likeTrack: build.mutation({
+      query: ({ id }) => ({
+        url: `catalog/track/${id}/favorite/`,
+        method: "POST",
+      }),
+    }),
+
+    // убрать лайк
+    dislikeTrack: build.mutation({
+      query: ({ id }) => ({
+        url: `catalog/track/${id}/favorite/`,
+        method: "DELETE",
+      }),
     }),
   }),
 });
