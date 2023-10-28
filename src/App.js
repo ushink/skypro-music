@@ -9,11 +9,16 @@ import BarPlayer from "./components/AudioPlayer/AudioPlayer.jsx";
 function App() {
   const [user, setUser] = useState(localStorage.getItem("user") || null);
   const currentTrack = useSelector(trackPlaySelector);
+  
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <AppGlobal />
-      <AppRoutes user={user} setUser={setUser} />
+      <AppRoutes user={user} setUser={setUser} handleLogout={handleLogout}/>
       {currentTrack ? <BarPlayer currentTrack={currentTrack} /> : null}
     </UserContext.Provider>
   );

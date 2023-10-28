@@ -9,7 +9,7 @@ import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
 import { useDispatch } from "react-redux";
 
-export const Main = ({ setUser, currentTrack }) => {
+export const Main = ({ handleLogout }) => {
   const [isLoaded, setIsLoaded] = useState(true);
   // const [tracks, setTracks] = useState(["", "", "", "", ""]);
   // const [currentTrack, setCurrentTrack] = useState(null);
@@ -37,11 +37,6 @@ export const Main = ({ setUser, currentTrack }) => {
   const handleTrackClick = (track, index) => {
     dispatch(setTrack({ track, index }));
     // setCurrentTrack(track);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
   };
 
   return (
