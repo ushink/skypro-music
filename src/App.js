@@ -7,7 +7,7 @@ import { trackPlaySelector } from "./Store/selectors/track.js";
 import BarPlayer from "./components/AudioPlayer/AudioPlayer.jsx";
 
 function App() {
-  const [user, setUser] = useState(window.localStorage.getItem("user") || null);
+  const [user, setUser] = useState(localStorage.getItem("user") || null);
   const currentTrack = useSelector(trackPlaySelector);
 
   return (
