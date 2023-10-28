@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getToken, getUserLogin, getUserSignup } from "../../api.js";
 import ModalForm from "./modalForm.jsx";
 import { useDispatch } from "react-redux";
-import { AuthReducer } from "../../Store/slices/authSlice.js";
+import { AuthReducer } from "../../Store/slices/authSlice";
 
 export default function AuthPage({ isLoginMode, setUser }) {
   const [error, setError] = useState(null);
@@ -22,14 +22,17 @@ export default function AuthPage({ isLoginMode, setUser }) {
         setIsButtonActiv(true);
 
         const token = await getToken({ email, password });
-        dispatch(
-          AuthReducer({
-            accessToken: token.access,
-            refreshToken: token.refresh,
-          })
-        );
+        const { access: accessToken, refresh: refreshToken } = token;
+        dispatch(AuthReducer({ accessToken, refreshToken }));
+        
+        // dispatch(
+        //   AuthReducer({
+        //     accessToken: token.access,
+        //     refreshToken: token.refresh,
+        //   })
+        // );
 
-        localStorage.setItem("token", JSON.stringify(token));
+        // localStorage.setItem("token", JSON.stringify(token));
         console.log(localStorage);
 
         const userLogin = await getUserLogin({ email, password });

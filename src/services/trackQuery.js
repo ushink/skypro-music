@@ -5,7 +5,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: "https://skypro-music-api.skyeng.tech/",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = getState().auth.accessToken;
 
       console.debug("Использую токен из стора", { token });
 
@@ -26,7 +26,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
   const forseLogout = () => {
     console.debug("Принудительная авторизация");
     api.dispatch(AuthReducer(null));
-    // localStorage.navigate("/login");
+    window.location.href = "/login";
   };
 
   const { auth } = api.getState();
