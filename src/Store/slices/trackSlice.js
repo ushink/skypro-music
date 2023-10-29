@@ -9,8 +9,23 @@ export const trackSlice = createSlice({
     shufflePlaylist: [],
     shuffle: false,
     favoritePlaylist: [],
+    currentPlaylist: [],
+    currentPage: null,
   },
   reducers: {
+    setCurrentPlaylist: (state) => {
+      if (state.currentPage === "Main") {
+        state.currentPlaylist = state.playlist;
+      }
+      if (state.currentPage === "Favorite") {
+        state.currentPlaylist = state.favoritePlaylist;
+      }
+    },
+
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+
     setFavoritePlaylist: (state, action) => {
       state.favoritePlaylist = action.payload;
     },
@@ -35,67 +50,49 @@ export const trackSlice = createSlice({
     },
 
     nextTrack(state) {
-      let arrayIdPlaylist = [];
-      let arrayIdShufflePlaylist = [];
-
-      for (let i = 0; i < state.playlist.length; i++) {
-        arrayIdPlaylist.push(state.playlist[i].id);
-      }
-
-      for (let i = 0; i < state.shufflePlaylist.length; i++) {
-        arrayIdShufflePlaylist.push(state.shufflePlaylist[i].id);
-      }
-
       const nextIndex = state.shuffle
-        ? arrayIdShufflePlaylist.indexOf(state.track.id) + 1
-        : arrayIdPlaylist.indexOf(state.track.id) + 1;
+        ? state.shufflePlaylist.findIndex((el) => el.id === state.track.id) + 1
+        : state.trackIndex + 1;
 
-      if (nextIndex >= 0 && nextIndex < state.playlist.length) {
+      if (nextIndex >= 0 && nextIndex < state.currentPlaylist.length) {
         return {
           ...state,
           track: state.shuffle
             ? state.shufflePlaylist[nextIndex]
-            : state.playlist[nextIndex],
+            : state.currentPlaylist[nextIndex],
           trackIndex: nextIndex,
         };
       } else {
         return {
           ...state,
-          track: state.shuffle ? state.shufflePlaylist[0] : state.playlist[0],
+          track: state.shuffle
+            ? state.shufflePlaylist[0]
+            : state.currentPlaylist[0],
           trackIndex: 0,
         };
       }
     },
 
     prevTrack(state) {
-      let arrayIdPlaylist = [];
-      let arrayIdShufflePlaylist = [];
-
-      for (let i = 0; i < state.playlist.length; i++) {
-        arrayIdPlaylist.push(state.playlist[i].id);
-      }
-
-      for (let i = 0; i < state.shufflePlaylist.length; i++) {
-        arrayIdShufflePlaylist.push(state.shufflePlaylist[i].id);
-      }
-
       const prevIndex = state.shuffle
-        ? arrayIdShufflePlaylist.indexOf(state.track.id) - 1
-        : arrayIdPlaylist.indexOf(state.track.id) - 1;
+        ? state.shufflePlaylist.findIndex((el) => el.id === state.track.id) - 1
+        : state.trackIndex - 1;
 
-      if (prevIndex >= 0 && prevIndex < state.playlist.length) {
+      if (prevIndex >= 0 && prevIndex < state.currentPlaylist.length) {
         return {
           ...state,
           track: state.shuffle
             ? state.shufflePlaylist[prevIndex]
-            : state.playlist[prevIndex],
+            : state.currentPlaylist[prevIndex],
 
           trackIndex: prevIndex,
         };
       } else {
         return {
           ...state,
-          track: state.shuffle ? state.shufflePlaylist[0] : state.playlist[0],
+          track: state.shuffle
+            ? state.shufflePlaylist[0]
+            : state.currentPlaylist[0],
           trackIndex: 0,
         };
       }
@@ -103,7 +100,7 @@ export const trackSlice = createSlice({
 
     toggleSuffled(state) {
       if (!state.shuffle) {
-        const shufflePlaylist = [...state.playlist].sort(
+        const shufflePlaylist = [...state.currentPlaylist].sort(
           () => Math.random() - 0.5
         );
         return {
@@ -112,7 +109,9 @@ export const trackSlice = createSlice({
           shuffle: !state.shuffle,
         };
       } else {
-        const trackIndex = state.playlist.indexOf(state.track);
+        const trackIndex = state.currentPlaylist.findIndex(
+          (el) => el.id === state.track.id
+        );
         return {
           ...state,
           shuffle: false,
@@ -125,6 +124,8 @@ export const trackSlice = createSlice({
 });
 
 export const {
+  setCurrentPlaylist,
+  setCurrentPage,
   setFavoritePlaylist,
   setAllTracks,
   setTrack,

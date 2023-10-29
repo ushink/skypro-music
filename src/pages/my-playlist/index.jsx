@@ -5,17 +5,44 @@ import CenterblockSearch from "../../components/TrackList/centerblockSearch";
 import ContentTitle from "../../components/TrackList/ContentTitle";
 import PlaylistItem from "../../components/PlaylistItem/PlaylistItem.jsx";
 import * as S from "./styles";
-import { useGetFavTrackQuery } from "../../services/trackQuery";
+import { useLazyGetFavTrackQuery } from "../../services/trackQuery";
 import { useDispatch, useSelector } from "react-redux";
-import { authSelector } from "../../Store/selectors/track";
-import { setTrack } from "../../Store/slices/trackSlice";
+import {
+  authSelector,
+  favoritePlaylistSelector,
+} from "../../Store/selectors/track";
+import {
+  setCurrentPage,
+  setCurrentPlaylist,
+  setFavoritePlaylist,
+  setTrack,
+} from "../../Store/slices/trackSlice";
+import { useEffect } from "react";
 
 export const MyPlaylist = ({ isLoaded, handleLogout }) => {
   const dispatch = useDispatch();
 
   const auth = useSelector(authSelector);
-  const { data = [] } = useGetFavTrackQuery({ auth });
-  console.log(data);
+  const [fetchFavTracks, { data }] = useLazyGetFavTrackQuery({ auth });
+  // console.log(data);
+
+  useEffect(() => {
+    fetchFavTracks()
+      .unwrap()
+      .then((data) => {
+        dispatch(setFavoritePlaylist(data));
+        dispatch(setCurrentPage("Favorite"));
+      })
+      .catch((error) => console.error(error));
+  }, [data]);
+
+  const favTracks = useSelector(favoritePlaylistSelector);
+  console.log(favTracks);
+
+  const handleTrackClick = (track, index) => {
+    dispatch(setTrack({ track, index }));
+    dispatch(setCurrentPlaylist());
+  };
 
   return (
     <>
@@ -30,13 +57,13 @@ export const MyPlaylist = ({ isLoaded, handleLogout }) => {
               <S.CenterblockContent>
                 <ContentTitle />
                 <S.ContentPlaylist>
-                  {data.length === 0 && "В этом плейлисте нет треков"}
+                  {favTracks.length === 0 && "В этом плейлисте нет треков"}
 
-                  {data.map((track, index) => (
+                  {favTracks.map((track, index) => (
                     <PlaylistItem
                       track={track}
                       isLoaded={isLoaded}
-                      onClick={() => dispatch(setTrack({ track, index }))} // сделать slice для FavTracks
+                      onClick={() => handleTrackClick(track, index)} // сделать slice для FavTracks
                       id={track.id}
                       name={track.name}
                       remix={track.remix}

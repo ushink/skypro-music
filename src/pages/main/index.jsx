@@ -4,7 +4,7 @@ import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
 // import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
 // import { setAllTracks, setTrack } from "../../Store/action/creators/track";
-import { setAllTracks, setTrack } from "../../Store/slices/trackSlice.js";
+import { setAllTracks, setCurrentPage, setCurrentPlaylist, setTrack } from "../../Store/slices/trackSlice.js";
 import * as S from "./styles.js";
 import { getTracks } from "../../api.js";
 import { useDispatch } from "react-redux";
@@ -22,6 +22,7 @@ export const Main = ({ handleLogout }) => {
       try {
         await getTracks().then((Tracks) => {
           dispatch(setAllTracks(Tracks));
+          dispatch(setCurrentPage('Main'))
           // setTracks(Tracks);
         });
         setAddTrackError(false);
@@ -36,7 +37,7 @@ export const Main = ({ handleLogout }) => {
 
   const handleTrackClick = (track, index) => {
     dispatch(setTrack({ track, index }));
-    // setCurrentTrack(track);
+    dispatch(setCurrentPlaylist())
   };
 
   return (
