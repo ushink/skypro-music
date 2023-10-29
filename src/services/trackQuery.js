@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { AuthReducer } from "../Store/slices/authSlice";
-import { setFavoritePlaylist } from "../Store/slices/trackSlice";
 
 const baseQueryAuth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
@@ -62,14 +61,6 @@ export const tracksApi = createApi({
         method: "POST",
       }),
       invalidatesTags: [{ type: "Post", id: "LIST" }],
-      // async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
-      //   try {
-      //     await queryFulfilled;
-      //     dispatch(setFavoritePlaylist({ id: args.id, auth: getState().auth }));
-      //   } catch (error) {
-      //     console.error(error);
-      //   }
-      // },
     }),
 
     // убрать лайк
@@ -79,14 +70,6 @@ export const tracksApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: [{ type: "Post", id: "LIST" }],
-      // async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
-      //   try {
-      //     await queryFulfilled;
-      //     dispatch(setFavoritePlaylist({ id: args.id, auth: getState().auth }));
-      //   } catch (error) {
-      //     console.error(error);
-      //   }
-      // },
     }),
   }),
 });
