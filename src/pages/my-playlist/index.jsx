@@ -73,6 +73,7 @@ export const MyPlaylist = ({ isLoaded, handleLogout }) => {
                       isFavorite={(track.stared_user ?? []).find(
                         ({ id }) => id === auth.id
                       )}
+                      Like={true}
                     />
                   ))}
                 </S.ContentPlaylist>
