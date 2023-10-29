@@ -21,13 +21,15 @@ export default function PlaylistItem({
   author,
   album,
   seconds,
-  isFavorite,
+  Like,
 }) {
   const isPlaying = useSelector(isPlayingTrack);
   const currentTrack = useSelector(trackPlaySelector);
 
   const [like, { error: likeError }] = useLikeTrackMutation();
   const [dislike, { error: dislikeError }] = useDislikeTrackMutation();
+
+  const [isLiked, setIsLiked] = useState(Like);
 
   // поставить лайк
   const handleLike = async () => {
@@ -39,6 +41,8 @@ export default function PlaylistItem({
         console.error(error);
         console.log("Ошибка лайка");
       });
+    setIsLiked(true);
+    Like = true;
     console.log("like");
   };
 
@@ -52,12 +56,14 @@ export default function PlaylistItem({
         console.error(error);
         console.log("Ошибка лайка");
       });
+    setIsLiked(false);
+    Like = false;
     console.log("dislike");
   };
 
   // ф-ция лайков
   const handleLikeClick = () => {
-    if (isFavorite) {
+    if (isLiked) {
       handleDislike(id);
     } else {
       handleLike(id);
@@ -103,7 +109,7 @@ export default function PlaylistItem({
                 handleLikeClick();
               }}
             >
-              {!isFavorite ? (
+              {!isLiked && !Like ? (
                 <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
               ) : (
                 <use xlinkHref="img/icon/sprite.svg#icon-like-activ"></use>

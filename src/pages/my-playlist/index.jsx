@@ -19,7 +19,7 @@ import {
 } from "../../Store/slices/trackSlice";
 import { useEffect } from "react";
 
-export const MyPlaylist = ({ isLoaded, handleLogout, heart = true }) => {
+export const MyPlaylist = ({ isLoaded, handleLogout }) => {
   const dispatch = useDispatch();
 
   const auth = useSelector(authSelector);
@@ -70,13 +70,10 @@ export const MyPlaylist = ({ isLoaded, handleLogout, heart = true }) => {
                       author={track.author}
                       album={track.album}
                       seconds={track.duration_in_seconds}
-                      isFavorite={
-                        heart
-                          ? true
-                          : !!(track.stared_user ?? []).find(
-                              ({ id }) => id === auth.id
-                            )
-                      }
+                      isFavorite={(track.stared_user ?? []).find(
+                        ({ id }) => id === auth.id
+                      )}
+                      Like={true}
                     />
                   ))}
                 </S.ContentPlaylist>

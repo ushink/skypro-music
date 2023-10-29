@@ -36,6 +36,7 @@ export default function MainTracklist({
                 author={track.author}
                 album={track.album}
                 seconds={track.duration_in_seconds}
+                isFavorite={track.isFavorite}
               />
             ))}
           </S.ContentPlaylist>
