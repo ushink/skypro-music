@@ -24,19 +24,12 @@ export default function AuthPage({ isLoginMode, setUser }) {
         const token = await getToken({ email, password });
         const { access: accessToken, refresh: refreshToken } = token;
         dispatch(AuthReducer({ accessToken, refreshToken }));
-        
-        // dispatch(
-        //   AuthReducer({
-        //     accessToken: token.access,
-        //     refreshToken: token.refresh,
-        //   })
-        // );
 
-        // localStorage.setItem("token", JSON.stringify(token));
         console.log(localStorage);
 
         const userLogin = await getUserLogin({ email, password });
-        localStorage.setItem("user", userLogin.email);
+        localStorage.setItem("user", JSON.stringify(userLogin));
+
         setUser(userLogin.email);
 
         Navigate("/");
@@ -70,9 +63,12 @@ export default function AuthPage({ isLoginMode, setUser }) {
           username: email,
         });
         setIsButtonActiv(true);
+
+        localStorage.setItem("user", JSON.stringify(userSignup));
         setUser(userSignup.email);
-        window.localStorage.setItem("user", userSignup.email);
+
         Navigate("/login");
+
         setEmail("");
         setPassword("");
         setRepeatPassword("");

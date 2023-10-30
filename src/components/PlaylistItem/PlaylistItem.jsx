@@ -9,7 +9,7 @@ import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
 } from "../../services/trackQuery.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function PlaylistItem({
   track,
@@ -28,46 +28,46 @@ export default function PlaylistItem({
 
   const [like, { error: likeError }] = useLikeTrackMutation();
   const [dislike, { error: dislikeError }] = useDislikeTrackMutation();
+  
+  const auth = JSON.parse(localStorage.getItem("user"));
 
   const [isLiked, setIsLiked] = useState(Like);
 
+  useEffect(() => {
+    if ((track.stared_user ?? []).find(({ id }) => id === auth.id)) {
+      setIsLiked(true);
+    }
+  }, [track]);
+
   // поставить лайк
-  const handleLike = async () => {
-    await like({
-      id: track.id,
-    })
+  const handleLike = async (id) => {
+    await like({ id })
       .unwrap()
       .catch((error) => {
         console.error(error);
         console.log("Ошибка лайка");
       });
+
     setIsLiked(true);
-    Like = true;
     console.log("like");
   };
 
   // убрать лайк
-  const handleDislike = async () => {
-    await dislike({
-      id: track.id,
-    })
+  const handleDislike = async (id) => {
+    await dislike({ id })
       .unwrap()
       .catch((error) => {
         console.error(error);
         console.log("Ошибка лайка");
       });
+
     setIsLiked(false);
-    Like = false;
     console.log("dislike");
   };
 
   // ф-ция лайков
-  const handleLikeClick = () => {
-    if (isLiked) {
-      handleDislike(id);
-    } else {
-      handleLike(id);
-    }
+  const handleLikeClick = (id) => {
+    isLiked ? handleDislike(id) : handleLike(id);
   };
 
   return (
@@ -106,10 +106,10 @@ export default function PlaylistItem({
               alt="heart"
               onClick={(event) => {
                 event.stopPropagation();
-                handleLikeClick();
+                handleLikeClick(id);
               }}
             >
-              {!isLiked && !Like ? (
+              {!isLiked ? (
                 <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
               ) : (
                 <use xlinkHref="img/icon/sprite.svg#icon-like-activ"></use>
