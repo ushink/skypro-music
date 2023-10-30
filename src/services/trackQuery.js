@@ -39,19 +39,31 @@ const baseQueryAuth = async (args, api, extraOptions) => {
 
 export const tracksApi = createApi({
   reducerPath: "tracksApi",
-  tagTypes: ["Tracks"],
+  tagTypes: ["Tracks", "FavTracks"],
   baseQuery: baseQueryAuth,
   endpoints: (build) => ({
+    // получить все треки
+    getTrack: build.query({
+      query: () => `catalog/track/all/`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Tracks", id })),
+              { type: "Tracks", id: "LIST" },
+            ]
+          : [{ type: "Tracks", id: "LIST" }],
+    }),
+
     // получить избранные треки
     getFavTrack: build.query({
       query: () => `catalog/track/favorite/all/`,
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Tracks", id })),
-              { type: "Post", id: "LIST" },
+              ...result.map(({ id }) => ({ type: "FavTracks", id })),
+              { type: "FavTracks", id: "LIST" },
             ]
-          : [{ type: "Post", id: "LIST" }],
+          : [{ type: "FavTracks", id: "LIST" }],
     }),
 
     // поставить лайк
@@ -60,7 +72,10 @@ export const tracksApi = createApi({
         url: `catalog/track/${id}/favorite/`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: "Post", id: "LIST" }],
+      invalidatesTags: [
+        { type: "FavTracks", id: "LIST" },
+        { type: "Tracks", id: "LIST" },
+      ],
     }),
 
     // убрать лайк
@@ -69,12 +84,16 @@ export const tracksApi = createApi({
         url: `catalog/track/${id}/favorite/`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Post", id: "LIST" }],
+      invalidatesTags: [
+        { type: "FavTracks", id: "LIST" },
+        { type: "Tracks", id: "LIST" },
+      ],
     }),
   }),
 });
 
 export const {
+  useGetTrackQuery,
   useGetFavTrackQuery,
   useLazyGetFavTrackQuery, // как Query только с ручным контролем
   useLikeTrackMutation,

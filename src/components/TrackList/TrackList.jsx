@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { allTracksSelector } from "../../Store/selectors/track.js";
 
 export default function MainTracklist({
-  // tracks,
   isLoaded,
   handleTrackClick,
   addTrackError,
@@ -36,7 +35,7 @@ export default function MainTracklist({
                 author={track.author}
                 album={track.album}
                 seconds={track.duration_in_seconds}
-                isFavorite={track.isFavorite}
+                Like={false}
               />
             ))}
           </S.ContentPlaylist>

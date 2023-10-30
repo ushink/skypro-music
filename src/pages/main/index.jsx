@@ -2,42 +2,37 @@ import { useState, useEffect } from "react";
 import MainNav from "../../components/NavMenu/NavMenu.jsx";
 import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
-// import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
-// import { setAllTracks, setTrack } from "../../Store/action/creators/track";
-import { setAllTracks, setCurrentPage, setCurrentPlaylist, setTrack } from "../../Store/slices/trackSlice.js";
+import {
+  setAllTracks,
+  setCurrentPage,
+  setCurrentPlaylist,
+  setTrack,
+} from "../../Store/slices/trackSlice.js";
 import * as S from "./styles.js";
-import { getTracks } from "../../api.js";
 import { useDispatch } from "react-redux";
+import { useGetTrackQuery } from "../../services/trackQuery.js";
 
 export const Main = ({ handleLogout }) => {
   const [isLoaded, setIsLoaded] = useState(true);
-  // const [tracks, setTracks] = useState(["", "", "", "", ""]);
-  // const [currentTrack, setCurrentTrack] = useState(null);
   const [addTrackError, setAddTrackError] = useState(null);
 
   const dispatch = useDispatch();
+  const { data = [] } = useGetTrackQuery();
 
   useEffect(() => {
-    async function fetchTracks() {
-      try {
-        await getTracks().then((Tracks) => {
-          dispatch(setAllTracks(Tracks));
-          dispatch(setCurrentPage('Main'))
-          // setTracks(Tracks);
-        });
-        setAddTrackError(false);
-      } catch (error) {
-        setAddTrackError(error.message);
-      } finally {
-        setIsLoaded(false);
-      }
+    try {
+      dispatch(setAllTracks(data));
+      dispatch(setCurrentPage("Main"));
+    } catch (error) {
+      setAddTrackError(error.message);
+    } finally {
+      setIsLoaded(false);
     }
-    fetchTracks();
-  }, []);
+  });
 
   const handleTrackClick = (track, index) => {
     dispatch(setTrack({ track, index }));
-    dispatch(setCurrentPlaylist())
+    dispatch(setCurrentPlaylist());
   };
 
   return (
