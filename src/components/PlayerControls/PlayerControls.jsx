@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as S from "./PlayerControls.styles.js";
 import {
   nextTrack,
@@ -6,12 +6,7 @@ import {
   prevTrack,
   toggleSuffled,
 } from "../../Store/slices/trackSlice.js";
-import {
-  allTracksSelector,
-  isShuffleSelector,
-  shufflePlaylistSelector,
-  trackPlaySelector,
-} from "../../Store/selectors/track.js";
+import { useState } from "react";
 
 export default function PlayerControlBtn({
   toggleRepeat,
@@ -20,10 +15,7 @@ export default function PlayerControlBtn({
   isPlaying,
 }) {
   const dispatch = useDispatch();
-  const track = useSelector(trackPlaySelector);
-  const playlist = useSelector(allTracksSelector);
-  const shuffle = useSelector(isShuffleSelector);
-  const shufflePlaylist = useSelector(shufflePlaylistSelector);
+  const [isShuffle, setIsShuffle] = useState(false);
 
   const clickPrev = () => {
     dispatch(prevTrack());
@@ -38,6 +30,7 @@ export default function PlayerControlBtn({
   const clickShuffle = () => {
     dispatch(toggleSuffled());
     dispatch(playTrack());
+    setIsShuffle(!isShuffle);
   };
 
   return (
@@ -66,8 +59,8 @@ export default function PlayerControlBtn({
           <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
-      <S.PlayerBtnShuffle className="_btn-icon">
-        <S.PlayerBtnShuffleSvg alt="shuffle" onClick={clickShuffle}>
+      <S.PlayerBtnShuffle className="_btn-icon" onClick={clickShuffle}>
+        <S.PlayerBtnShuffleSvg alt="shuffle" $shuffle={isShuffle}>
           <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
         </S.PlayerBtnShuffleSvg>
       </S.PlayerBtnShuffle>
