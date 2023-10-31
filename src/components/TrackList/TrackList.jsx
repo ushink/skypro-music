@@ -10,8 +10,10 @@ export default function MainTracklist({
   isLoaded,
   handleTrackClick,
   addTrackError,
+  Like = false,
 }) {
   const tracks = useSelector(allTracksSelector);
+  const auth = JSON.parse(localStorage.getItem("user"));
 
   return (
     <S.MainCenterblock>
@@ -26,7 +28,6 @@ export default function MainTracklist({
           <S.ContentPlaylist>
             {tracks.map((track, index) => (
               <PlaylistItem
-                track={track}
                 isLoaded={isLoaded}
                 onClick={() => handleTrackClick(track, index)}
                 id={track.id}
@@ -35,7 +36,13 @@ export default function MainTracklist({
                 author={track.author}
                 album={track.album}
                 seconds={track.duration_in_seconds}
-                Like={false}
+                isLiked={
+                  Like
+                    ? true
+                    : !!(track.stared_user ?? []).find(
+                        ({ id }) => id === auth.id
+                      )
+                }
               />
             ))}
           </S.ContentPlaylist>

@@ -9,10 +9,8 @@ import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
 } from "../../services/trackQuery.js";
-import { useEffect, useState } from "react";
 
 export default function PlaylistItem({
-  track,
   isLoaded,
   onClick,
   id,
@@ -21,23 +19,13 @@ export default function PlaylistItem({
   author,
   album,
   seconds,
-  Like,
+  isLiked,
 }) {
   const isPlaying = useSelector(isPlayingTrack);
   const currentTrack = useSelector(trackPlaySelector);
 
   const [like, { error: likeError }] = useLikeTrackMutation();
   const [dislike, { error: dislikeError }] = useDislikeTrackMutation();
-  
-  const auth = JSON.parse(localStorage.getItem("user"));
-
-  const [isLiked, setIsLiked] = useState(Like);
-
-  useEffect(() => {
-    if ((track.stared_user ?? []).find(({ id }) => id === auth.id)) {
-      setIsLiked(true);
-    }
-  }, [track]);
 
   // поставить лайк
   const handleLike = async (id) => {
@@ -48,7 +36,6 @@ export default function PlaylistItem({
         console.log("Ошибка лайка");
       });
 
-    setIsLiked(true);
     console.log("like");
   };
 
@@ -61,7 +48,6 @@ export default function PlaylistItem({
         console.log("Ошибка лайка");
       });
 
-    setIsLiked(false);
     console.log("dislike");
   };
 

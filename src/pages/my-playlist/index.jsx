@@ -7,10 +7,7 @@ import PlaylistItem from "../../components/PlaylistItem/PlaylistItem.jsx";
 import * as S from "./styles";
 import { useLazyGetFavTrackQuery } from "../../services/trackQuery";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  authSelector,
-  favoritePlaylistSelector,
-} from "../../Store/selectors/track";
+import { favoritePlaylistSelector } from "../../Store/selectors/track";
 import {
   setCurrentPage,
   setCurrentPlaylist,
@@ -19,11 +16,12 @@ import {
 } from "../../Store/slices/trackSlice";
 import { useEffect } from "react";
 
-export const MyPlaylist = ({ isLoaded, handleLogout }) => {
+export const MyPlaylist = ({ isLoaded, handleLogout, Like = true }) => {
   const dispatch = useDispatch();
 
-  const auth = useSelector(authSelector);
-  const [fetchFavTracks, { data }] = useLazyGetFavTrackQuery({ auth });
+  const auth = JSON.parse(localStorage.getItem("user"));
+
+  const [fetchFavTracks, { data }] = useLazyGetFavTrackQuery();
   // console.log(data);
 
   useEffect(() => {
@@ -61,19 +59,21 @@ export const MyPlaylist = ({ isLoaded, handleLogout }) => {
 
                   {favTracks.map((track, index) => (
                     <PlaylistItem
-                      track={track}
                       isLoaded={isLoaded}
-                      onClick={() => handleTrackClick(track, index)} // сделать slice для FavTracks
+                      onClick={() => handleTrackClick(track, index)}
                       id={track.id}
                       name={track.name}
                       remix={track.remix}
                       author={track.author}
                       album={track.album}
                       seconds={track.duration_in_seconds}
-                      isFavorite={(track.stared_user ?? []).find(
-                        ({ id }) => id === auth.id
-                      )}
-                      Like={true}
+                      isLiked={
+                        Like
+                          ? true
+                          : !!(track.stared_user ?? []).find(
+                              ({ id }) => id === auth.id
+                            )
+                      }
                     />
                   ))}
                 </S.ContentPlaylist>
