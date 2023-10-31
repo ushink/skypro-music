@@ -10,7 +10,6 @@ export default function MainTracklist({
   isLoaded,
   handleTrackClick,
   addTrackError,
-  Like = false,
 }) {
   const tracks = useSelector(allTracksSelector);
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -36,13 +35,9 @@ export default function MainTracklist({
                 author={track.author}
                 album={track.album}
                 seconds={track.duration_in_seconds}
-                isLiked={
-                  Like
-                    ? true
-                    : !!(track.stared_user ?? []).find(
-                        ({ id }) => id === auth.id
-                      )
-                }
+                isLiked={(track.stared_user ?? []).find(
+                  ({ id }) => id === auth.id
+                )}
               />
             ))}
           </S.ContentPlaylist>

@@ -16,10 +16,8 @@ import {
 } from "../../Store/slices/trackSlice";
 import { useEffect } from "react";
 
-export const MyPlaylist = ({ isLoaded, handleLogout, Like = true }) => {
+export const MyPlaylist = ({ isLoaded, handleLogout }) => {
   const dispatch = useDispatch();
-
-  const auth = JSON.parse(localStorage.getItem("user"));
 
   const [fetchFavTracks, { data }] = useLazyGetFavTrackQuery();
   // console.log(data);
@@ -67,13 +65,7 @@ export const MyPlaylist = ({ isLoaded, handleLogout, Like = true }) => {
                       author={track.author}
                       album={track.album}
                       seconds={track.duration_in_seconds}
-                      isLiked={
-                        Like
-                          ? true
-                          : !!(track.stared_user ?? []).find(
-                              ({ id }) => id === auth.id
-                            )
-                      }
+                      isLiked={true}
                     />
                   ))}
                 </S.ContentPlaylist>
