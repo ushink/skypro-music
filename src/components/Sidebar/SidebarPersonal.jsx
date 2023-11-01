@@ -10,7 +10,7 @@ export default function SidebarPersonal({ handleLogout }) {
       <S.SidebarPersonalName>{user.email}</S.SidebarPersonalName>
       <S.SidebarIcon onClick={handleLogout}>
         <svg alt="logout">
-          <use xlinkHref="img/icon/sprite.svg#logout"></use>
+          <use xlinkHref="../img/icon/sprite.svg#logout"></use>
         </svg>
       </S.SidebarIcon>
     </S.SidebarPersonal>
