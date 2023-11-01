@@ -4,17 +4,17 @@ import { Link } from "react-router-dom";
 export const Categories = [
   {
     id: 1,
-    playlistName: "day's playlist",
+    playlistName: "Плейлист дня",
     artwork: "img/playlist01.png",
   },
   {
     id: 2,
-    playlistName: "100 dance hits",
+    playlistName: "100 танцевальных хитов",
     artwork: "img/playlist02.png",
   },
   {
     id: 3,
-    playlistName: "indie charge",
+    playlistName: "Инди-заряд",
     artwork: "img/playlist03.png",
   },
 ];
