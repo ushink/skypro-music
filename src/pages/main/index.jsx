@@ -2,47 +2,37 @@ import { useState, useEffect } from "react";
 import MainNav from "../../components/NavMenu/NavMenu.jsx";
 import MainTracklist from "../../components/TrackList/TrackList.jsx";
 import MainSidebar from "../../components/Sidebar/Sidebar.jsx";
-import BarPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
-import { setAllTracks, setTrack } from "../../Store/action/creators/track";
+import {
+  setAllTracks,
+  setCurrentPage,
+  setCurrentPlaylist,
+  setTrack,
+} from "../../Store/slices/trackSlice.js";
 import * as S from "./styles.js";
-import { getTracks } from "../../api.js";
-import { useDispatch, useSelector } from "react-redux";
-import { trackPlaySelector } from "../../Store/selectors/track.js";
+import { useDispatch } from "react-redux";
+import { useGetTrackQuery } from "../../services/trackQuery.js";
 
-export const Main = ({ setUser }) => {
+export const Main = ({ handleLogout }) => {
   const [isLoaded, setIsLoaded] = useState(true);
-  // const [tracks, setTracks] = useState(["", "", "", "", ""]);
-  // const [currentTrack, setCurrentTrack] = useState(null);
   const [addTrackError, setAddTrackError] = useState(null);
 
   const dispatch = useDispatch();
-  const currentTrack = useSelector(trackPlaySelector);
+  const { data = [] } = useGetTrackQuery();
 
   useEffect(() => {
-    async function fetchTracks() {
-      try {
-        await getTracks().then((Tracks) => {
-          dispatch(setAllTracks(Tracks));
-          // setTracks(Tracks);
-        });
-        setAddTrackError(false);
-      } catch (error) {
-        setAddTrackError(error.message);
-      } finally {
-        setIsLoaded(false);
-      }
+    try {
+      dispatch(setAllTracks(data));
+      dispatch(setCurrentPage("Main"));
+    } catch (error) {
+      setAddTrackError(error.message);
+    } finally {
+      setIsLoaded(false);
     }
-    fetchTracks();
-  }, []);
+  });
 
-  const handleTrackClick = (track) => {
-    dispatch(setTrack(track));
-    // setCurrentTrack(track);   
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
+  const handleTrackClick = (track, index) => {
+    dispatch(setTrack({ track, index }));
+    dispatch(setCurrentPlaylist());
   };
 
   return (
@@ -53,16 +43,14 @@ export const Main = ({ setUser }) => {
             <MainNav handleLogout={handleLogout} />
             <MainTracklist
               isLoaded={isLoaded}
-              // tracks={tracks}
-              currentTrack={currentTrack}
               handleTrackClick={handleTrackClick}
               addTrackError={addTrackError}
             />
             <MainSidebar isLoaded={isLoaded} handleLogout={handleLogout} />
           </S.Main>
-          {currentTrack ? (
-            <BarPlayer isLoaded={isLoaded} currentTrack={currentTrack} />
-          ) : null}
+          {/* {currentTrack ? (
+            <BarPlayer isLoaded={isLoaded} />
+          ) : null} */}
           <S.Footer></S.Footer>
         </S.Container>
       </S.Wrapper>

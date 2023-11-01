@@ -9,7 +9,7 @@ import {
   nextTrack,
   pauseTrack,
   playTrack,
-} from "../../Store/action/creators/track.js";
+} from "../../Store/slices/trackSlice.js";
 import { isPlayingTrack } from "../../Store/selectors/track.js";
 
 export default function BarPlayer({ currentTrack, isLoaded }) {
@@ -52,8 +52,8 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
   };
 
   return (
-    <S.Bar>
-      {currentTrack ? (
+    <S.Container>
+      <S.Bar>
         <audio
           ref={audioRef}
           loop={isRepeat}
@@ -62,8 +62,6 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
         >
           <source src={currentTrack.track_file} type="audio/mp3" />
         </audio>
-      ) : null}
-      {currentTrack ? (
         <S.BarContent>
           <ProgressBar
             currentTrack={currentTrack}
@@ -73,7 +71,6 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
             duration={duration}
             setDuration={setDuration}
           />
-
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <PlayerControlBtn
@@ -126,7 +123,7 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
             </S.BarVolumeBlock>
           </S.BarPlayerBlock>
         </S.BarContent>
-      ) : null}
-    </S.Bar>
+      </S.Bar>
+    </S.Container>
   );
 }

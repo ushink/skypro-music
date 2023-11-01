@@ -1,5 +1,5 @@
 import * as Style from "./Skeletons.styles.js";
-import * as S from "../TrackListContent/TracklistContent.styles";
+import * as S from "../PlaylistItem/PlaylistItem.js";
 
 export default function SkeletonTrackItems() {
   return (

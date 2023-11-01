@@ -5,7 +5,8 @@ import {
   playTrack,
   prevTrack,
   toggleSuffled,
-} from "../../Store/action/creators/track.js";
+} from "../../Store/slices/trackSlice.js";
+import { useState } from "react";
 
 export default function PlayerControlBtn({
   toggleRepeat,
@@ -14,6 +15,7 @@ export default function PlayerControlBtn({
   isPlaying,
 }) {
   const dispatch = useDispatch();
+  const [isShuffle, setIsShuffle] = useState(false);
 
   const clickPrev = () => {
     dispatch(prevTrack());
@@ -28,6 +30,7 @@ export default function PlayerControlBtn({
   const clickShuffle = () => {
     dispatch(toggleSuffled());
     dispatch(playTrack());
+    setIsShuffle(!isShuffle);
   };
 
   return (
@@ -56,8 +59,8 @@ export default function PlayerControlBtn({
           <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
         </S.PlayerBtnRepeatSvg>
       </S.PlayerBtnRepeat>
-      <S.PlayerBtnShuffle className="_btn-icon">
-        <S.PlayerBtnShuffleSvg alt="shuffle" onClick={clickShuffle}>
+      <S.PlayerBtnShuffle className="_btn-icon" onClick={clickShuffle}>
+        <S.PlayerBtnShuffleSvg alt="shuffle" $shuffle={isShuffle}>
           <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
         </S.PlayerBtnShuffleSvg>
       </S.PlayerBtnShuffle>

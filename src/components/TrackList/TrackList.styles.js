@@ -116,6 +116,17 @@ export const ContentTitle = styled.div`
   margin-bottom: 24px;
 `;
 
+export const ContentPlaylist = styled.ul`
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-y: auto;
+`;
+
 export const PlaylistTitleCol = styled.div`
   font-style: normal;
   font-weight: 400;
