@@ -5,6 +5,7 @@ import * as S from "./TrackList.styles.js";
 import ContentTitle from "./ContentTitle.jsx";
 import { useSelector } from "react-redux";
 import { allTracksSelector } from "../../Store/selectors/track.js";
+import { useMemo, useState } from "react";
 
 export default function MainTracklist({
   isLoaded,
@@ -14,9 +15,24 @@ export default function MainTracklist({
   const tracks = useSelector(allTracksSelector);
   const auth = JSON.parse(localStorage.getItem("user"));
 
+  // строка поиска
+  const [search, setSearch] = useState("");
+
+  // useMemo как useEffect только с const
+  const searchTracks = useMemo(() => {
+    let playlist = [...tracks];
+
+    if (search !== "") {
+      playlist = playlist.filter((track) =>
+        track.name.toLowerCase().includes(search)
+      );
+    }
+    return playlist;
+  }, [tracks, search]);
+
   return (
     <S.MainCenterblock>
-      <CenterblockSearch />
+      <CenterblockSearch onChange={(value) => setSearch(value)} />
       <S.CenterblockH2>Треки</S.CenterblockH2>
       <Filter />
       <S.CenterblockContent>
@@ -25,7 +41,7 @@ export default function MainTracklist({
           `Не удалось загрузить плейлист, попробуйте позже. ${addTrackError}`
         ) : (
           <S.ContentPlaylist>
-            {tracks.map((track, index) => (
+            {searchTracks.map((track, index) => (
               <PlaylistItem
                 isLoaded={isLoaded}
                 onClick={() => handleTrackClick(track, index)}
