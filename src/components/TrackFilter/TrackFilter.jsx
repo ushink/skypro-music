@@ -2,7 +2,7 @@ import { useState } from "react";
 import ShowAuthors from "../FilterMenu/Authors.jsx";
 import ShowYears from "../FilterMenu/Years.jsx";
 import ShowGenres from "../FilterMenu/Genres.jsx";
-import * as S from "./TrackFilter.styles.js"
+import * as S from "./TrackFilter.styles.js";
 
 export default function Filter() {
   const [revealAuthor, setRevealAuthor] = useState(false);
@@ -28,68 +28,43 @@ export default function Filter() {
   };
 
   return (
-    <S.CenterblockFilter>
-      <S.FilterTitle>Искать по:</S.FilterTitle>
+    <S.BlockFilter>
+      <S.CenterblockFilter>
+        <S.FilterTitle>Искать по:</S.FilterTitle>
 
-      {revealAuthor ? (
         <S.FilterBox>
           <S.FilterButton
-            className="_btn-text_focus"
+            className={revealAuthor ? "_btn-text_focus" : "_btn-text"}
             onClick={toggleRevealAuthor}
           >
             исполнителю
           </S.FilterButton>
-          <ShowAuthors />
+          {revealAuthor ? <ShowAuthors /> : null}
         </S.FilterBox>
-      ) : (
-        <S.FilterBox>
-          <S.FilterButton className="_btn-text" onClick={toggleRevealAuthor}>
-            исполнителю
-          </S.FilterButton>
-        </S.FilterBox>
-      )}
 
-      {revealYear ? (
         <S.FilterBox>
           <S.FilterButton
-            className="_btn-text_focus"
-            onClick={toggleRevealYear}
-          >
-            году выпуска
-          </S.FilterButton>
-          <ShowYears />
-        </S.FilterBox>
-      ) : (
-        <S.FilterBox>
-          <S.FilterButton
-            className="_btn-text"
-            onClick={toggleRevealYear}
-          >
-            году выпуска
-          </S.FilterButton>
-        </S.FilterBox>
-      )}
-
-      {revealGenre ? (
-        <S.FilterBox>
-          <S.FilterButton
-            className="_btn-text_focus"
+            className={revealGenre ? "_btn-text_focus" : "_btn-text"}
             onClick={toggleRevealGenre}
           >
             жанру
           </S.FilterButton>
-          <ShowGenres />
+          {revealGenre ? <ShowGenres /> : null}
         </S.FilterBox>
-      ) : (
+      </S.CenterblockFilter>
+
+      <S.CenterblockFilter>
+        <S.FilterTitle>Сортировка:</S.FilterTitle>
         <S.FilterBox>
           <S.FilterButton
-            className="_btn-text"
-            onClick={toggleRevealGenre}
+            className={revealYear ? "_btn-text_focus" : "_btn-text"}
+            onClick={toggleRevealYear}
           >
-            жанру
+            По умолчанию
           </S.FilterButton>
+          {revealYear ? <ShowYears /> : null}
         </S.FilterBox>
-      )}
-    </S.CenterblockFilter>
+      </S.CenterblockFilter>
+    </S.BlockFilter>
   );
 }

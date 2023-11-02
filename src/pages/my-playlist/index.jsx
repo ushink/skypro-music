@@ -1,6 +1,5 @@
 import MainNav from "../../components/NavMenu/NavMenu";
 import MainSidebar from "../../components/Sidebar/Sidebar";
-import Filter from "../../components/TrackFilter/TrackFilter";
 import CenterblockSearch from "../../components/TrackList/centerblockSearch";
 import ContentTitle from "../../components/TrackList/ContentTitle";
 import PlaylistItem from "../../components/PlaylistItem/PlaylistItem.jsx";
@@ -49,7 +48,6 @@ export const MyPlaylist = ({ isLoaded, handleLogout }) => {
             <S.MainCenterblock>
               <CenterblockSearch />
               <S.CenterblockH2>Мои треки</S.CenterblockH2>
-              <Filter />
               <S.CenterblockContent>
                 <ContentTitle />
                 <S.ContentPlaylist>

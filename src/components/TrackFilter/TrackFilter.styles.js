@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const BlockFilter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const CenterblockFilter = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -38,9 +44,8 @@ export const FilterButton = styled.div`
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
-  
+
   // &:not(:last-child) {
   //   margin-right: 10px;
   // }
-
 `;

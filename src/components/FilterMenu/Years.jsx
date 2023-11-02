@@ -1,19 +1,7 @@
 import * as S from "./FilterMenu.styles.js";
 
-const Years = [
-  "1997",
-  "1986",
-  "2001",
-  "1999",
-  "2003",
-  "2015",
-  "1991",
-  "2007",
-  "1986",
-  "2001",
-  "1999",
-  "2003",
-];
+const Years = ["По умолчанию", "Сначала старые", "Сначала новые"];
+
 const list = Years.map((Year) => (
   <li>
     <S.FilterListItem href="#">{Year}</S.FilterListItem>

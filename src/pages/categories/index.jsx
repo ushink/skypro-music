@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Categories } from "../../components/SidebarListContent/SidebarListContent";
 import MainNav from "../../components/NavMenu/NavMenu";
-import Filter from "../../components/TrackFilter/TrackFilter";
 import CenterblockSearch from "../../components/TrackList/centerblockSearch";
 import ContentTitle from "../../components/TrackList/ContentTitle";
 import SidebarPersonal from "../../components/Sidebar/SidebarPersonal";
@@ -56,7 +55,6 @@ export const Category = ({ isLoaded, handleLogout }) => {
             <S.MainCenterblock>
               <CenterblockSearch />
               <S.CenterblockH2>{category.playlistName}</S.CenterblockH2>
-              <Filter />
               <S.CenterblockContent>
                 <ContentTitle />
                 <S.ContentPlaylist>
