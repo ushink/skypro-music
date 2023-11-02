@@ -89,6 +89,24 @@ export const tracksApi = createApi({
         { type: "Tracks", id: "LIST" },
       ],
     }),
+
+    // категория по id
+    getCategoriesId: build.query({
+      query: (params) => ({
+        url: `catalog/selection/${params.id}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => ({
+        playlist: response.items,
+      }),
+      providesTags: (result) =>
+        result.playlist
+          ? [
+              ...result.playlist.map(({ id }) => ({ type: "Tracks", id })),
+              { type: "Tracks", id: "LIST" },
+            ]
+          : [{ type: "Tracks", id: "LIST" }],
+    }),
   }),
 });
 
@@ -98,4 +116,5 @@ export const {
   useLazyGetFavTrackQuery, // как Query только с ручным контролем
   useLikeTrackMutation,
   useDislikeTrackMutation,
+  useGetCategoriesIdQuery,
 } = tracksApi;

@@ -7,7 +7,16 @@ import ContentTitle from "../../components/TrackList/ContentTitle";
 import SidebarPersonal from "../../components/Sidebar/SidebarPersonal";
 import PlaylistItem from "../../components/PlaylistItem/PlaylistItem.jsx";
 import * as S from "./styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetCategoriesIdQuery } from "../../services/trackQuery";
+import {
+  setCategoryPlaylist,
+  setCurrentPage,
+  setCurrentPlaylist,
+  setTrack,
+} from "../../Store/slices/trackSlice";
+import { useEffect } from "react";
+import { categoryPlaylistSelector } from "../../Store/selectors/track";
 
 export const Category = ({ isLoaded, handleLogout }) => {
   const params = useParams();
@@ -16,6 +25,25 @@ export const Category = ({ isLoaded, handleLogout }) => {
   const category = Categories.find(
     (category) => category.id === Number(params.id)
   );
+
+  const { data = [] } = useGetCategoriesIdQuery(params);
+
+  useEffect(() => {
+    try {
+      dispatch(setCategoryPlaylist(data.playlist));
+      dispatch(setCurrentPage("Category"));
+    } catch (error) {
+      console.error(error);
+    }
+  }, [data]);
+
+  const tracks = useSelector(categoryPlaylistSelector);
+  console.log("traks", tracks);
+
+  const handleTrackClick = (track, index) => {
+    dispatch(setTrack({ track, index }));
+    dispatch(setCurrentPlaylist());
+  };
 
   return (
     <>
@@ -30,9 +58,9 @@ export const Category = ({ isLoaded, handleLogout }) => {
               <S.CenterblockContent>
                 <ContentTitle />
                 <S.ContentPlaylist>
-                  {/* {favTracks.length === 0 && "В этом плейлисте нет треков"}
+                  {/* {tracks.length === 0 && "В этом плейлисте нет треков"}
 
-                  {favTracks.map((track, index) => (
+                  {tracks.map((track, index) => (
                     <PlaylistItem
                       isLoaded={isLoaded}
                       onClick={() => handleTrackClick(track, index)}
