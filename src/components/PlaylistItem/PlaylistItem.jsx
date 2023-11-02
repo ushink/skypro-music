@@ -96,9 +96,9 @@ export default function PlaylistItem({
               }}
             >
               {!isLiked ? (
-                <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
               ) : (
-                <use xlinkHref="img/icon/sprite.svg#icon-like-activ"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-like-activ"></use>
               )}
             </S.TrackTimeSvg>
             <S.TrackTimeText>

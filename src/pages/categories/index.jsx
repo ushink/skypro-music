@@ -22,6 +22,8 @@ export const Category = ({ isLoaded, handleLogout }) => {
   const params = useParams();
   const dispatch = useDispatch();
 
+  const auth = JSON.parse(localStorage.getItem("user"));
+
   const category = Categories.find(
     (category) => category.id === Number(params.id)
   );
@@ -58,9 +60,9 @@ export const Category = ({ isLoaded, handleLogout }) => {
               <S.CenterblockContent>
                 <ContentTitle />
                 <S.ContentPlaylist>
-                  {/* {tracks.length === 0 && "В этом плейлисте нет треков"}
+                  {tracks?.length === 0 && "В этом плейлисте нет треков"}
 
-                  {tracks.map((track, index) => (
+                  {tracks?.map((track, index) => (
                     <PlaylistItem
                       isLoaded={isLoaded}
                       onClick={() => handleTrackClick(track, index)}
@@ -70,9 +72,11 @@ export const Category = ({ isLoaded, handleLogout }) => {
                       author={track.author}
                       album={track.album}
                       seconds={track.duration_in_seconds}
-                      isLiked={true}
+                      isLiked={(track.stared_user ?? []).find(
+                        ({ id }) => id === auth.id
+                      )}
                     />
-                  ))} */}
+                  ))}
                 </S.ContentPlaylist>
               </S.CenterblockContent>
             </S.MainCenterblock>
