@@ -49,3 +49,42 @@ export const FilterButton = styled.div`
   //   margin-right: 10px;
   // }
 `;
+
+export const FilterMenu = styled.div`
+  position: absolute;
+  top: 50px;
+  width: 248px;
+  height: 200px;
+  box-sizing: border-box;
+  background-color: #313131;
+  border-radius: 12px;
+  padding: 34px;
+`;
+
+export const FilterList = styled.ul`
+  width: 180px;
+  height: 237px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 28px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+
+`;
+
+export const FilterListItem = styled.a`
+  color: #ffffff;
+
+  &:hover {
+    text-decoration: underline;
+    color: #9a48f1;
+  }
+
+  &:focus {
+    text-decoration: none;
+    color: #9a48f1;
+  }
+
+`;

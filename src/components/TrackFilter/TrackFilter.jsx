@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ShowAuthors from "../FilterMenu/Authors.jsx";
-import ShowYears from "../FilterMenu/Years.jsx";
 import ShowGenres from "../FilterMenu/Genres.jsx";
 import * as S from "./TrackFilter.styles.js";
+import TrackSort from "./TrackSort.jsx";
 
 export default function Filter() {
   const [revealAuthor, setRevealAuthor] = useState(false);
@@ -53,18 +53,7 @@ export default function Filter() {
         </S.FilterBox>
       </S.CenterblockFilter>
 
-      <S.CenterblockFilter>
-        <S.FilterTitle>Сортировка:</S.FilterTitle>
-        <S.FilterBox>
-          <S.FilterButton
-            className={revealYear ? "_btn-text_focus" : "_btn-text"}
-            onClick={toggleRevealYear}
-          >
-            По умолчанию
-          </S.FilterButton>
-          {revealYear ? <ShowYears /> : null}
-        </S.FilterBox>
-      </S.CenterblockFilter>
+      <TrackSort toggleRevealYear={toggleRevealYear} revealYear={revealYear} />
     </S.BlockFilter>
   );
 }
