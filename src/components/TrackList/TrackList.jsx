@@ -46,7 +46,7 @@ export default function MainTracklist({
     <S.MainCenterblock>
       <CenterblockSearch onChange={(value) => setSearch(value)} />
       <S.CenterblockH2>Треки</S.CenterblockH2>
-      <Filter Years={Years} setYears={setYears} />
+      <Filter tracks={tracks} Years={Years} setYears={setYears} />
       <S.CenterblockContent>
         <ContentTitle />
         {addTrackError ? (

@@ -53,7 +53,7 @@ export const FilterButton = styled.div`
 export const FilterMenu = styled.div`
   position: absolute;
   top: 50px;
-  width: 248px;
+  width: 280px;
   height: 200px;
   box-sizing: border-box;
   background-color: #313131;
@@ -62,7 +62,7 @@ export const FilterMenu = styled.div`
 `;
 
 export const FilterList = styled.ul`
-  width: 180px;
+  width: 250px;
   height: 237px;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,6 @@ export const FilterList = styled.ul`
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
-
 `;
 
 export const FilterListItem = styled.a`
@@ -86,5 +85,4 @@ export const FilterListItem = styled.a`
     text-decoration: none;
     color: #9a48f1;
   }
-
 `;

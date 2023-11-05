@@ -1,21 +1,14 @@
-import * as S from "./FilterMenu.styles.js";
+import * as S from "./Authors.styles.js";
 
-const Authors = [
-  "Nero",
-  "Tom Boxer",
-  "Calvin Harris, Disciples",
-  " minthaze",
-  "Nero",
-  "Tom Boxer",
-  "Calvin Harris, Disciples",
-];
-const list = Authors.map((Author) => (
-  <li>
-    <S.FilterListItem href="#">{Author}</S.FilterListItem>
-  </li>
-));
+export default function ShowAuthors({ tracks }) {
+  const Authors = [...new Set(tracks?.map((track) => track.author))].sort();
 
-export default function ShowAuthors() {
+  const list = Authors?.map((author) => (
+    <li>
+      <S.FilterListItem href="#">{author}</S.FilterListItem>
+    </li>
+  ));
+
   return (
     <S.FilterMenu>
       <S.FilterList>{list}</S.FilterList>

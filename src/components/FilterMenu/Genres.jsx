@@ -1,25 +1,14 @@
-import * as S from "./FilterMenu.styles.js";
+import * as S from "../TrackFilter/TrackFilter.styles";
 
-const Genres = [
-  "Pop",
-  "Rock",
-  "Classic",
-  "Pop",
-  "Rock",
-  "Classic",
-  "Pop",
-  "Rock",
-  "Classic",
-];
-const list = Genres.map((Genre) => (
-  <li>
-    <S.FilterListItem href="#">
-      {Genre}
-    </S.FilterListItem>
-  </li>
-));
+export default function ShowGenres({ tracks }) {
+  const Genres = [...new Set(tracks?.map((track) => track.genre))].sort();
 
-export default function ShowGenres() {
+  const list = Genres?.map((genre) => (
+    <li>
+      <S.FilterListItem href="#">{genre}</S.FilterListItem>
+    </li>
+  ));
+
   return (
     <S.FilterMenu>
       <S.FilterList>{list}</S.FilterList>
