@@ -1,11 +1,15 @@
 import * as S from "./TrackFilter.styles.js";
 import { useState } from "react";
 
-export default function TrackSort({ toggleRevealYear, revealYear }) {
+export default function TrackSort({
+  toggleRevealYear,
+  revealYear,
+  Years,
+  setYears,
+}) {
   const [defaultYears, setDefaultYears] = useState(true);
   const [newYears, setNewYears] = useState(false);
   const [oldYears, setOldYears] = useState(false);
-  const [Years, setYears] = useState("По умолчанию");
 
   const toggleDefaultYears = () => {
     setDefaultYears(!setDefaultYears);

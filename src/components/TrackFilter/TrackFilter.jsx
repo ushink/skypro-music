@@ -4,7 +4,7 @@ import ShowGenres from "../FilterMenu/Genres.jsx";
 import * as S from "./TrackFilter.styles.js";
 import TrackSort from "./TrackSort.jsx";
 
-export default function Filter() {
+export default function Filter({ Years, setYears }) {
   const [revealAuthor, setRevealAuthor] = useState(false);
   const [revealYear, setRevealYear] = useState(false);
   const [revealGenre, setRevealGenre] = useState(false);
@@ -53,7 +53,12 @@ export default function Filter() {
         </S.FilterBox>
       </S.CenterblockFilter>
 
-      <TrackSort toggleRevealYear={toggleRevealYear} revealYear={revealYear} />
+      <TrackSort
+        toggleRevealYear={toggleRevealYear}
+        revealYear={revealYear}
+        Years={Years}
+        setYears={setYears}
+      />
     </S.BlockFilter>
   );
 }

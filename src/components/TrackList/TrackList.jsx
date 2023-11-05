@@ -17,6 +17,8 @@ export default function MainTracklist({
 
   // строка поиска
   const [search, setSearch] = useState("");
+  // сортировка
+  const [Years, setYears] = useState("По умолчанию");
 
   // useMemo как useEffect только с const
   const searchTracks = useMemo(() => {
@@ -27,14 +29,24 @@ export default function MainTracklist({
         track.name.toLowerCase().includes(search)
       );
     }
+    if (Years === "Сначала новые") {
+      playlist = playlist.sort(
+        (a, b) => new Date(b.release_date) - new Date(a.release_date)
+      );
+    }
+    if (Years === "Сначала старые") {
+      playlist = playlist.sort(
+        (a, b) => new Date(a.release_date) - new Date(b.release_date)
+      );
+    }
     return playlist;
-  }, [tracks, search]);
+  }, [tracks, search, Years]);
 
   return (
     <S.MainCenterblock>
       <CenterblockSearch onChange={(value) => setSearch(value)} />
       <S.CenterblockH2>Треки</S.CenterblockH2>
-      <Filter />
+      <Filter Years={Years} setYears={setYears} />
       <S.CenterblockContent>
         <ContentTitle />
         {addTrackError ? (
