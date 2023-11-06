@@ -4,7 +4,13 @@ import ShowGenres from "../FilterMenu/Genres.jsx";
 import * as S from "./TrackFilter.styles.js";
 import TrackSort from "./TrackSort.jsx";
 
-export default function Filter({ tracks, Years, setYears }) {
+export default function Filter({
+  tracks,
+  Years,
+  setYears,
+  handleAuthorClick,
+  handleGenreClick,
+}) {
   const [revealAuthor, setRevealAuthor] = useState(false);
   const [revealYear, setRevealYear] = useState(false);
   const [revealGenre, setRevealGenre] = useState(false);
@@ -39,7 +45,12 @@ export default function Filter({ tracks, Years, setYears }) {
           >
             исполнителю
           </S.FilterButton>
-          {revealAuthor ? <ShowAuthors tracks={tracks} /> : null}
+          {revealAuthor ? (
+            <ShowAuthors
+              tracks={tracks}
+              handleAuthorClick={handleAuthorClick}
+            />
+          ) : null}
         </S.FilterBox>
 
         <S.FilterBox>
@@ -49,7 +60,9 @@ export default function Filter({ tracks, Years, setYears }) {
           >
             жанру
           </S.FilterButton>
-          {revealGenre ? <ShowGenres tracks={tracks} /> : null}
+          {revealGenre ? (
+            <ShowGenres tracks={tracks} handleGenreClick={handleGenreClick} />
+          ) : null}
         </S.FilterBox>
       </S.CenterblockFilter>
 

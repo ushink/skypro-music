@@ -19,6 +19,27 @@ export default function MainTracklist({
   const [search, setSearch] = useState("");
   // сортировка
   const [Years, setYears] = useState("По умолчанию");
+  // фильтры
+  const [authorActiv, setAuthorActiv] = useState([]);
+  const [genreActiv, setGenreActiv] = useState([]);
+
+  // ф-ция выбора авторов
+  const handleAuthorClick = (value) => {
+    if (authorActiv.includes(value)) {
+      setAuthorActiv(authorActiv.filter((item) => item !== value));
+    } else {
+      setAuthorActiv([...authorActiv, value]);
+    }
+  };
+  
+  // ф-ция выбора жанров
+  const handleGenreClick = (value) => {
+    if (genreActiv.includes(value)) {
+      setGenreActiv(genreActiv.filter((item) => item !== value));
+    } else {
+      setGenreActiv([...genreActiv, value]);
+    }
+  };
 
   // useMemo как useEffect только с const
   const searchTracks = useMemo(() => {
@@ -39,14 +60,26 @@ export default function MainTracklist({
         (a, b) => new Date(a.release_date) - new Date(b.release_date)
       );
     }
+    if (authorActiv.length > 0) {
+      playlist = playlist.filter((track) => authorActiv.includes(track.author));
+    }
+    if (genreActiv.length > 0) {
+      playlist = playlist.filter((track) => genreActiv.includes(track.genre));
+    }
     return playlist;
-  }, [tracks, search, Years]);
+  }, [tracks, search, Years, authorActiv, genreActiv]);
 
   return (
     <S.MainCenterblock>
       <CenterblockSearch onChange={(value) => setSearch(value)} />
       <S.CenterblockH2>Треки</S.CenterblockH2>
-      <Filter tracks={tracks} Years={Years} setYears={setYears} />
+      <Filter
+        tracks={tracks}
+        Years={Years}
+        setYears={setYears}
+        handleAuthorClick={handleAuthorClick}
+        handleGenreClick={handleGenreClick}
+      />
       <S.CenterblockContent>
         <ContentTitle />
         {addTrackError ? (
