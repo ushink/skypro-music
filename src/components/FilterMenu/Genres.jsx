@@ -1,4 +1,4 @@
-import * as S from "../TrackFilter/TrackFilter.styles";
+import * as S from "../Filter/TrackFilter.styles";
 
 export default function ShowGenres({ tracks, handleGenreClick }) {
   const Genres = [...new Set(tracks?.map((track) => track.genre))].sort();

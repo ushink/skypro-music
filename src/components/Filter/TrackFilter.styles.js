@@ -61,6 +61,11 @@ export const FilterMenu = styled.div`
   padding: 34px;
 `;
 
+export const FilterMenuAuthor = styled(FilterMenu)`
+  width: 248px;
+  height: 305px;
+`;
+
 export const FilterList = styled.ul`
   width: 250px;
   height: 237px;
@@ -73,16 +78,52 @@ export const FilterList = styled.ul`
   line-height: 24px;
 `;
 
+export const FilterListAuthor = styled(FilterList)`
+  width: 180px;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #4b4949;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: 35px;
+  }
+`;
+
 export const FilterListItem = styled.a`
   color: #ffffff;
+  transition: color 0.3s ease;
 
+  &:focus,
   &:hover {
+    color: #9a48f1;
     text-decoration: underline;
-    color: #9a48f1;
+    transition: color 0.3s ease;
   }
+`;
 
-  &:focus {
-    text-decoration: none;
-    color: #9a48f1;
-  }
+export const NumberCircle = styled.div`
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px;
+  color: white;
+  background-color: #ad61ff;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -8px;
+  top: -8px;
 `;

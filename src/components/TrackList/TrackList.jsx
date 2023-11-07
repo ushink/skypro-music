@@ -1,5 +1,5 @@
 import PlaylistItem from "../PlaylistItem/PlaylistItem.jsx";
-import Filter from "../TrackFilter/TrackFilter.jsx";
+import Filter from "../Filter/Filter.jsx";
 import CenterblockSearch from "./centerblockSearch.jsx";
 import * as S from "./TrackList.styles.js";
 import ContentTitle from "./ContentTitle.jsx";
@@ -31,7 +31,7 @@ export default function MainTracklist({
       setAuthorActiv([...authorActiv, value]);
     }
   };
-  
+
   // ф-ция выбора жанров
   const handleGenreClick = (value) => {
     if (genreActiv.includes(value)) {
@@ -79,6 +79,8 @@ export default function MainTracklist({
         setYears={setYears}
         handleAuthorClick={handleAuthorClick}
         handleGenreClick={handleGenreClick}
+        authorActiv={authorActiv}
+        genreActiv={genreActiv}
       />
       <S.CenterblockContent>
         <ContentTitle />

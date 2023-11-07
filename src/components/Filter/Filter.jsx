@@ -10,6 +10,8 @@ export default function Filter({
   setYears,
   handleAuthorClick,
   handleGenreClick,
+  authorActiv,
+  genreActiv,
 }) {
   const [revealAuthor, setRevealAuthor] = useState(false);
   const [revealYear, setRevealYear] = useState(false);
@@ -45,6 +47,11 @@ export default function Filter({
           >
             исполнителю
           </S.FilterButton>
+
+          {authorActiv.length > 0 ? (
+            <S.NumberCircle>{authorActiv.length}</S.NumberCircle>
+          ) : null}
+
           {revealAuthor ? (
             <ShowAuthors
               tracks={tracks}
@@ -60,6 +67,11 @@ export default function Filter({
           >
             жанру
           </S.FilterButton>
+
+          {genreActiv.length > 0 ? (
+            <S.NumberCircle>{genreActiv.length}</S.NumberCircle>
+          ) : null}
+
           {revealGenre ? (
             <ShowGenres tracks={tracks} handleGenreClick={handleGenreClick} />
           ) : null}

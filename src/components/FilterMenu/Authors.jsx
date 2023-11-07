@@ -1,4 +1,4 @@
-import * as S from "./Authors.styles.js";
+import * as S from "../Filter/TrackFilter.styles";
 
 export default function ShowAuthors({ tracks, handleAuthorClick }) {
   const Authors = [...new Set(tracks?.map((track) => track.author))].sort();
@@ -10,10 +10,9 @@ export default function ShowAuthors({ tracks, handleAuthorClick }) {
       </S.FilterListItem>
     </li>
   ));
-
   return (
-    <S.FilterMenu>
-      <S.FilterList>{list}</S.FilterList>
-    </S.FilterMenu>
+    <S.FilterMenuAuthor>
+      <S.FilterListAuthor>{list}</S.FilterListAuthor>
+    </S.FilterMenuAuthor>
   );
 }
