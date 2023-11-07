@@ -12,21 +12,21 @@ export default function TrackSort({
   const [oldYears, setOldYears] = useState(false);
 
   const toggleDefaultYears = () => {
-    setDefaultYears(!setDefaultYears);
+    setDefaultYears(!defaultYears);
     setNewYears(false);
     setOldYears(false);
     setYears("По умолчанию");
   };
 
   const toggleNewYears = () => {
-    setNewYears(!setNewYears);
+    setNewYears(!newYears);
     setDefaultYears(false);
     setOldYears(false);
     setYears("Сначала новые");
   };
 
   const toggleOldYears = () => {
-    setOldYears(!setOldYears);
+    setOldYears(!oldYears);
     setNewYears(false);
     setDefaultYears(false);
     setYears("Сначала старые");
@@ -46,13 +46,25 @@ export default function TrackSort({
           <S.FilterMenu>
             <S.FilterList>
               <S.FilterListItem href="#" onClick={toggleDefaultYears}>
-                По умолчанию
+                {defaultYears ? (
+                  <S.ActivItem>{Years}</S.ActivItem>
+                ) : (
+                  "По умолчанию"
+                )}
               </S.FilterListItem>
               <S.FilterListItem href="#" onClick={toggleNewYears}>
-                Сначала новые
+                {newYears ? (
+                  <S.ActivItem>{Years}</S.ActivItem>
+                ) : (
+                  "Сначала новые"
+                )}
               </S.FilterListItem>
               <S.FilterListItem href="#" onClick={toggleOldYears}>
-                Сначала старые
+                {oldYears ? (
+                  <S.ActivItem>{Years}</S.ActivItem>
+                ) : (
+                  "Cначала старые"
+                )}
               </S.FilterListItem>
             </S.FilterList>
           </S.FilterMenu>

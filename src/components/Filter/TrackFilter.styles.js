@@ -102,12 +102,15 @@ export const FilterListItem = styled.a`
   color: #ffffff;
   transition: color 0.3s ease;
 
-  &:focus,
   &:hover {
     color: #9a48f1;
     text-decoration: underline;
     transition: color 0.3s ease;
   }
+`;
+
+export const ActivItem = styled.strong`
+  color: #9a48f1;
 `;
 
 export const NumberCircle = styled.div`

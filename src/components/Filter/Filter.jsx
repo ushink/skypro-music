@@ -56,6 +56,7 @@ export default function Filter({
             <ShowAuthors
               tracks={tracks}
               handleAuthorClick={handleAuthorClick}
+              authorActiv={authorActiv}
             />
           ) : null}
         </S.FilterBox>
@@ -73,7 +74,11 @@ export default function Filter({
           ) : null}
 
           {revealGenre ? (
-            <ShowGenres tracks={tracks} handleGenreClick={handleGenreClick} />
+            <ShowGenres
+              tracks={tracks}
+              handleGenreClick={handleGenreClick}
+              genreActiv={genreActiv}
+            />
           ) : null}
         </S.FilterBox>
       </S.CenterblockFilter>
