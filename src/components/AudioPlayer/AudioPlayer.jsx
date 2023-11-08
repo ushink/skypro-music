@@ -1,6 +1,7 @@
 import PlayerControlBtn from "../PlayerControls/PlayerControls.jsx";
 import TrackPlayNow from "../TrackPlay/TrackPlay.jsx";
 import SkeletonTrackPlayNow from "../skeleton/SkeletonAudioPlayer.jsx";
+import TrackPlayLikeDis from "./TrackPlayLikeDis.jsx";
 import * as S from "./AudioPlayer.styles.js";
 import { useRef, useState } from "react";
 import { ProgressBar } from "./ProgressBar.jsx";
@@ -86,18 +87,7 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
                   <TrackPlayNow currentTrack={currentTrack} />
                 )}
 
-                <S.TrackPlayLikeDis>
-                  <S.TrackPlayLike className="_btn-icon">
-                    <S.TrackPlayLikeSvg alt="like">
-                      <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
-                    </S.TrackPlayLikeSvg>
-                  </S.TrackPlayLike>
-                  <S.TrackPlayDislike className="_btn-icon">
-                    <S.TrackPlayDislikeSvg alt="dislike">
-                      <use xlinkHref="../img/icon/sprite.svg#icon-dislike"></use>
-                    </S.TrackPlayDislikeSvg>
-                  </S.TrackPlayDislike>
-                </S.TrackPlayLikeDis>
+                <TrackPlayLikeDis />
               </S.PlayerTrackPlay>
             </S.BarPlayer>
             <S.BarVolumeBlock>
