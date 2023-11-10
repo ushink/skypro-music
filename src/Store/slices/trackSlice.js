@@ -71,14 +71,6 @@ export const trackSlice = createSlice({
             : state.currentPlaylist[nextIndex],
           trackIndex: nextIndex,
         };
-      } else {
-        return {
-          ...state,
-          track: state.shuffle
-            ? state.shufflePlaylist[0]
-            : state.currentPlaylist[0],
-          trackIndex: 0,
-        };
       }
     },
 

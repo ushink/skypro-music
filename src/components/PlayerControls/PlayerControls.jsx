@@ -29,7 +29,6 @@ export default function PlayerControlBtn({
 
   const clickShuffle = () => {
     dispatch(toggleSuffled());
-    dispatch(playTrack());
     setIsShuffle(!isShuffle);
   };
 

@@ -8,14 +8,12 @@ import { useSelector } from "react-redux";
 import { trackPlaySelector } from "../../Store/selectors/track.js";
 
 export default function TrackPlayLikeDis() {
-  const [isLiked, setIsLiked] = useState(null);
   const currentTrack = useSelector(trackPlaySelector);
 
   const [like] = useLikeTrackMutation();
   const [dislike] = useDislikeTrackMutation();
 
   const handleLike = async (id) => {
-    setIsLiked(true);
     await like({ id })
       .unwrap()
       .catch((error) => {
@@ -25,7 +23,6 @@ export default function TrackPlayLikeDis() {
   };
 
   const handleDislike = async (id) => {
-    setIsLiked(false);
     await dislike({ id })
       .unwrap()
       .catch((error) => {
@@ -44,11 +41,7 @@ export default function TrackPlayLikeDis() {
             handleLike(currentTrack?.id);
           }}
         >
-          {!isLiked ? (
-            <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
-          ) : (
-            <use xlinkHref="../img/icon/sprite.svg#icon-like-activ"></use>
-          )}
+          <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
         </S.TrackPlayLikeSvg>
       </S.TrackPlayLike>
       <S.TrackPlayDislike className="_btn-icon">
