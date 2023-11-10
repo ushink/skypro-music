@@ -15,7 +15,9 @@ export default function TrackPlayNow({ currentTrack }) {
       </S.TrackPlayAuthor>
       <S.TrackPlayAlbum>
         <S.TrackPlayAlbumLink href="http://">
-          {currentTrack.album}
+          {Object.keys(currentTrack.album).length < 13
+            ? currentTrack.album
+            : currentTrack.author}
         </S.TrackPlayAlbumLink>
       </S.TrackPlayAlbum>
     </S.TrackPlayContain>
