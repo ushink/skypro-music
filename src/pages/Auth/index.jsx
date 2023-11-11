@@ -22,8 +22,8 @@ export default function AuthPage({ isLoginMode, setUser }) {
         setIsButtonActiv(true);
 
         const token = await getToken({ email, password });
-        const { access: accessToken, refresh: refreshToken } = token;
-        dispatch(AuthReducer({ accessToken, refreshToken }));
+        const { access: access, refresh: refresh } = token;
+        dispatch(AuthReducer({ access, refresh }));
 
         console.log(localStorage);
 

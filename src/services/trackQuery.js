@@ -5,7 +5,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: "https://skypro-music-api.skyeng.tech/",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.accessToken;
+      const token = getState().auth.access;
 
       console.debug("Использую токен из стора", { token });
 
@@ -42,7 +42,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
       url: "/user/token/refresh/",
       method: "POST",
       body: {
-        refresh: auth.refreshToken,
+        refresh: auth.refresh,
       },
     },
     api,
