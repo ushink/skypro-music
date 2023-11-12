@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
@@ -13,7 +13,10 @@ export default function TrackPlayLikeDis() {
   const [like] = useLikeTrackMutation();
   const [dislike] = useDislikeTrackMutation();
 
+  const [isLiked, setIsLiked] = useState(null);
+
   const handleLike = async (id) => {
+    setIsLiked(true);
     await like({ id })
       .unwrap()
       .catch((error) => {
@@ -23,12 +26,17 @@ export default function TrackPlayLikeDis() {
   };
 
   const handleDislike = async (id) => {
+    setIsLiked(false);
     await dislike({ id })
       .unwrap()
       .catch((error) => {
         console.error(error);
         console.log("Ошибка лайка");
       });
+  };
+
+  const handleLikeClick = (id) => {
+    isLiked ? handleDislike(id) : handleLike(id);
   };
 
   return (
@@ -38,10 +46,14 @@ export default function TrackPlayLikeDis() {
           alt="like"
           onClick={(event) => {
             event.stopPropagation();
-            handleLike(currentTrack?.id);
+            handleLikeClick(currentTrack?.id);
           }}
         >
-          <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
+          {isLiked ? (
+            <use xlinkHref="../img/icon/sprite.svg#icon-like-activ"></use>
+          ) : (
+            <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
+          )}
         </S.TrackPlayLikeSvg>
       </S.TrackPlayLike>
       <S.TrackPlayDislike className="_btn-icon">

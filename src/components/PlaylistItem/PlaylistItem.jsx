@@ -75,17 +75,17 @@ export default function PlaylistItem({
               )}
             </S.TrackTitleImage>
             <S.TrackTitleText>
-              <S.TrackTitleLink href="http://">
+              <S.TrackTitleLink>
                 {name}{" "}
                 {remix ? <S.TrackTitleSpan>{remix}</S.TrackTitleSpan> : ""}
               </S.TrackTitleLink>
             </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>
-            <S.TrackAuthorLink href="http://">{author}</S.TrackAuthorLink>
+            <S.TrackAuthorLink>{author}</S.TrackAuthorLink>
           </S.TrackAuthor>
           <S.TrackAlbum>
-            <S.TrackAlbumLink href="http://">{album}</S.TrackAlbumLink>
+            <S.TrackAlbumLink>{album}</S.TrackAlbumLink>
           </S.TrackAlbum>
           <S.TrackTime>
             <S.TrackTimeSvg
