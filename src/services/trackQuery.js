@@ -5,7 +5,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: "https://skypro-music-api.skyeng.tech/",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.accessToken;
+      const token = getState().auth.access;
 
       console.debug("Использую токен из стора", { token });
 
@@ -15,7 +15,7 @@ const baseQueryAuth = async (args, api, extraOptions) => {
       return headers;
     },
   });
-
+  // Делаем запрос
   const result = await baseQuery(args, api, extraOptions);
   console.debug("Результат запроса", { result });
 
@@ -28,13 +28,44 @@ const baseQueryAuth = async (args, api, extraOptions) => {
     api.dispatch(AuthReducer(null));
     window.location.href = "/login";
   };
-
+  // Функция getState возвращает состояние redux стейта целиком, ее нам предоставляет rtk query, она прилетает параметром запроса в функцию
   const { auth } = api.getState();
   console.debug("Данные пользователя в сторе", { auth });
 
   if (!auth.refresh) {
     return forseLogout();
   }
+
+  // Делаем запрос за новым access токеном в API обновления токена
+  const refreshResult = await baseQuery(
+    {
+      url: "/user/token/refresh/",
+      method: "POST",
+      body: {
+        refresh: auth.refresh,
+      },
+    },
+    api,
+    extraOptions
+  );
+
+  console.debug("Результат запроса на обновление токена", { refreshResult });
+
+  if (!refreshResult.data.access) {
+    return forseLogout();
+  }
+
+  api.dispatch(AuthReducer({ ...auth, access: refreshResult.data.access }));
+
+  const retryResult = await baseQuery(args, api, extraOptions);
+
+  if (retryResult?.error?.status === 401) {
+    return forseLogout();
+  }
+
+  console.debug("Повторный запрос завершился успешно");
+
+  return retryResult;
 };
 
 export const tracksApi = createApi({
@@ -89,6 +120,24 @@ export const tracksApi = createApi({
         { type: "Tracks", id: "LIST" },
       ],
     }),
+
+    // категория по id
+    getCategoriesId: build.query({
+      query: (params) => ({
+        url: `catalog/selection/${params.id}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => ({
+        playlist: response.items,
+      }),
+      providesTags: (result) =>
+        result.playlist
+          ? [
+              ...result.playlist.map(({ id }) => ({ type: "Tracks", id })),
+              { type: "Tracks", id: "LIST" },
+            ]
+          : [{ type: "Tracks", id: "LIST" }],
+    }),
   }),
 });
 
@@ -98,4 +147,5 @@ export const {
   useLazyGetFavTrackQuery, // как Query только с ручным контролем
   useLikeTrackMutation,
   useDislikeTrackMutation,
+  useGetCategoriesIdQuery,
 } = tracksApi;

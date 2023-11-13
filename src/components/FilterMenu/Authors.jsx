@@ -1,24 +1,30 @@
-import * as S from "./FilterMenu.styles.js";
+import * as S from "../Filter/TrackFilter.styles";
 
-const Authors = [
-  "Nero",
-  "Tom Boxer",
-  "Calvin Harris, Disciples",
-  " minthaze",
-  "Nero",
-  "Tom Boxer",
-  "Calvin Harris, Disciples",
-];
-const list = Authors.map((Author) => (
-  <li>
-    <S.FilterListItem href="#">{Author}</S.FilterListItem>
-  </li>
-));
+export default function ShowAuthors({
+  tracks,
+  handleAuthorClick,
+  authorActiv,
+}) {
+  const Authors = [...new Set(tracks?.map((track) => track.author))].sort();
 
-export default function ShowAuthors() {
+  const list = Authors?.map((author) => (
+    <li>
+      <S.FilterListItem
+        href="#"
+        key={author.id}
+        onClick={() => handleAuthorClick(author)}
+      >
+        {authorActiv.includes(author) ? (
+          <S.ActivItem>{author}</S.ActivItem>
+        ) : (
+          author
+        )}
+      </S.FilterListItem>
+    </li>
+  ));
   return (
-    <S.FilterMenu>
-      <S.FilterList>{list}</S.FilterList>
-    </S.FilterMenu>
+    <S.FilterMenuAuthor>
+      <S.FilterListAuthor>{list}</S.FilterListAuthor>
+    </S.FilterMenuAuthor>
   );
 }

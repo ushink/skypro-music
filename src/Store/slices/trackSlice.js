@@ -3,12 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export const trackSlice = createSlice({
   name: "tracks",
   initialState: {
-    playing: false,
-    playlist: [],
     track: null,
-    shufflePlaylist: [],
+    playing: false,
     shuffle: false,
+    playlist: [],
     favoritePlaylist: [],
+    categoryPlaylist: [],
+    shufflePlaylist: [],
     currentPlaylist: [],
     currentPage: null,
   },
@@ -20,10 +21,18 @@ export const trackSlice = createSlice({
       if (state.currentPage === "Favorite") {
         state.currentPlaylist = state.favoritePlaylist;
       }
+
+      if (state.currentPage === "Category") {
+        state.currentPlaylist = state.categoryPlaylist;
+      }
     },
 
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
+    },
+
+    setCategoryPlaylist: (state, action) => {
+      state.categoryPlaylist = action.payload;
     },
 
     setFavoritePlaylist: (state, action) => {
@@ -61,14 +70,6 @@ export const trackSlice = createSlice({
             ? state.shufflePlaylist[nextIndex]
             : state.currentPlaylist[nextIndex],
           trackIndex: nextIndex,
-        };
-      } else {
-        return {
-          ...state,
-          track: state.shuffle
-            ? state.shufflePlaylist[0]
-            : state.currentPlaylist[0],
-          trackIndex: 0,
         };
       }
     },
@@ -126,6 +127,7 @@ export const trackSlice = createSlice({
 export const {
   setCurrentPlaylist,
   setCurrentPage,
+  setCategoryPlaylist,
   setFavoritePlaylist,
   setAllTracks,
   setTrack,

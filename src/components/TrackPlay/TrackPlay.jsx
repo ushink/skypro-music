@@ -5,7 +5,7 @@ export default function TrackPlayNow({ currentTrack }) {
     <S.TrackPlayContain>
       <S.TrackPlayImage>
         <S.TrackPlaySvg alt="music">
-          <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+          <use xlinkHref="../img/icon/sprite.svg#icon-note"></use>
         </S.TrackPlaySvg>
       </S.TrackPlayImage>
       <S.TrackPlayAuthor>
@@ -15,7 +15,9 @@ export default function TrackPlayNow({ currentTrack }) {
       </S.TrackPlayAuthor>
       <S.TrackPlayAlbum>
         <S.TrackPlayAlbumLink href="http://">
-          {currentTrack.album}
+          {Object.keys(currentTrack.album).length < 13
+            ? currentTrack.album
+            : currentTrack.author}
         </S.TrackPlayAlbumLink>
       </S.TrackPlayAlbum>
     </S.TrackPlayContain>

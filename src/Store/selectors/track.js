@@ -1,5 +1,7 @@
 export const currentPlaylistSelector = (state) =>
   state.audioplayer.currentPlaylist;
+export const categoryPlaylistSelector = (state) =>
+  state.audioplayer.categoryPlaylist;
 export const favoritePlaylistSelector = (state) =>
   state.audioplayer.favoritePlaylist;
 export const allTracksSelector = (store) => store.audioplayer.playlist;

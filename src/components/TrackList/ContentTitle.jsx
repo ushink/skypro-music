@@ -15,7 +15,7 @@ export default function ContentTitle() {
       <S.PlaylistTitleCol>
         <S.Col04>
           <S.PlaylistTitleSvg alt="time">
-            <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
+            <use xlinkHref="../img/icon/sprite.svg#icon-watch"></use>
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.PlaylistTitleCol>

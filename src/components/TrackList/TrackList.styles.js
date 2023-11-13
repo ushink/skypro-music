@@ -90,6 +90,7 @@ export const SearchText = styled.input`
 `;
 
 export const CenterblockContent = styled.div`
+  height: 600px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -124,7 +125,21 @@ export const ContentPlaylist = styled.ul`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #4b4949;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: 35px;
+  }
 `;
 
 export const PlaylistTitleCol = styled.div`

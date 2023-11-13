@@ -70,22 +70,22 @@ export default function PlaylistItem({
                 <S.StaticPoint />
               ) : (
                 <S.TrackTitleSvg alt="music">
-                  <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                  <use xlinkHref="../img/icon/sprite.svg#icon-note"></use>
                 </S.TrackTitleSvg>
               )}
             </S.TrackTitleImage>
             <S.TrackTitleText>
-              <S.TrackTitleLink href="http://">
+              <S.TrackTitleLink>
                 {name}{" "}
                 {remix ? <S.TrackTitleSpan>{remix}</S.TrackTitleSpan> : ""}
               </S.TrackTitleLink>
             </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>
-            <S.TrackAuthorLink href="http://">{author}</S.TrackAuthorLink>
+            <S.TrackAuthorLink>{author}</S.TrackAuthorLink>
           </S.TrackAuthor>
           <S.TrackAlbum>
-            <S.TrackAlbumLink href="http://">{album}</S.TrackAlbumLink>
+            <S.TrackAlbumLink>{album}</S.TrackAlbumLink>
           </S.TrackAlbum>
           <S.TrackTime>
             <S.TrackTimeSvg
@@ -96,9 +96,9 @@ export default function PlaylistItem({
               }}
             >
               {!isLiked ? (
-                <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-like"></use>
               ) : (
-                <use xlinkHref="img/icon/sprite.svg#icon-like-activ"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-like-activ"></use>
               )}
             </S.TrackTimeSvg>
             <S.TrackTimeText>

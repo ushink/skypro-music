@@ -23,6 +23,7 @@ export const PlayerBtn = styled.div`
 
 export const PlayerBtnPrev = styled(PlayerBtn)`
   margin-right: 23px;
+  cursor: pointer;
 `;
 
 export const PlayerBtnPrevSvg = styled.svg`
@@ -43,6 +44,7 @@ export const PlayerBtnPlaySvg = styled.svg`
 export const PlayerBtnNext = styled(PlayerBtn)`
   margin-right: 28px;
   fill: #a53939;
+  cursor: pointer;
 `;
 
 export const PlayerBtnNextSvg = styled.svg`

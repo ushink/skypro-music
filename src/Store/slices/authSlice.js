@@ -11,8 +11,8 @@ function getAuthFromLocalStorage() {
 }
 
 const initialState = {
-  refreshToken: null,
-  accessToken: null,
+  refresh: null,
+  access: null,
 };
 
 export const authSlice = createSlice({
@@ -23,8 +23,8 @@ export const authSlice = createSlice({
     AuthReducer(state, action) {
       const payload = action.payload ?? initialState;
 
-      state.refreshToken = payload.refreshToken;
-      state.accessToken = payload.accessToken;
+      state.refresh = payload.refresh;
+      state.access = payload.access;
 
       localStorage.setItem(AUTH_KEY, JSON.stringify(state));
     },
