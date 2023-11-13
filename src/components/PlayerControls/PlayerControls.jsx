@@ -13,6 +13,7 @@ export default function PlayerControlBtn({
   isRepeat,
   togglePlay,
   isPlaying,
+  setIsLiked,
 }) {
   const dispatch = useDispatch();
   const [isShuffle, setIsShuffle] = useState(false);
@@ -20,11 +21,13 @@ export default function PlayerControlBtn({
   const clickPrev = () => {
     dispatch(prevTrack());
     dispatch(playTrack());
+    setIsLiked(false);
   };
 
   const clickNext = () => {
     dispatch(nextTrack());
     dispatch(playTrack());
+    setIsLiked(false);
   };
 
   const clickShuffle = () => {

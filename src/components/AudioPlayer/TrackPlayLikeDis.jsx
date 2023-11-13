@@ -7,13 +7,11 @@ import * as S from "./AudioPlayer.styles.js";
 import { useSelector } from "react-redux";
 import { trackPlaySelector } from "../../Store/selectors/track.js";
 
-export default function TrackPlayLikeDis() {
+export default function TrackPlayLikeDis({ isLiked, setIsLiked }) {
   const currentTrack = useSelector(trackPlaySelector);
 
   const [like] = useLikeTrackMutation();
   const [dislike] = useDislikeTrackMutation();
-
-  const [isLiked, setIsLiked] = useState(null);
 
   const handleLike = async (id) => {
     setIsLiked(true);

@@ -18,6 +18,7 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
   const [isVolume, setIsVolume] = useState(0.2);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(null);
+  const [isLiked, setIsLiked] = useState(null);
 
   const audioRef = useRef(null);
   const dispatch = useDispatch();
@@ -79,6 +80,7 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
                 isPlaying={isPlaying}
                 toggleRepeat={toggleRepeat}
                 isRepeat={isRepeat}
+                setIsLiked={setIsLiked}
               />
               <S.PlayerTrackPlay>
                 {isLoaded ? (
@@ -87,7 +89,7 @@ export default function BarPlayer({ currentTrack, isLoaded }) {
                   <TrackPlayNow currentTrack={currentTrack} />
                 )}
 
-                <TrackPlayLikeDis />
+                <TrackPlayLikeDis isLiked={isLiked} setIsLiked={setIsLiked} />
               </S.PlayerTrackPlay>
             </S.BarPlayer>
             <S.BarVolumeBlock>
